@@ -40,6 +40,10 @@ public class MediaScalableObject {
     //Initialization
     public init(scalableView: UIView){
         self.scalableView = scalableView
+        scalableView.isUserInteractionEnabled = true
+
+        
+
     }
 
     func attachConstraintsToSuperview() {
@@ -47,6 +51,7 @@ public class MediaScalableObject {
             print("attach a view first")
             return
         }
+        
         self.scalableView.translatesAutoresizingMaskIntoConstraints = false
         topConstraint = self.scalableView.pinToTopOfSuperviewWithConstraint()
         trailingConstraint = self.scalableView.pinToRightOfSuperviewWithConstraint()
@@ -79,14 +84,19 @@ protocol CanvasDelegate: class {
 
 public class CanvasView: UIView {
 
-    @IBOutlet weak var imageView: UIImageView!
-
     var currentlyEditingMedia: MediaScalableObject?
     var scalableMediaArray: [MediaScalableObject] = []
     var panGesture: UIPanGestureRecognizer!
     var pinchGesture: UIPinchGestureRecognizer!
     var addImageButton: UIButton!
     weak var canvasDelegate: CanvasDelegate?
+
+    var horizontalCenterConstant: CGFloat?
+    var verticalCenterConstant: CGFloat?
+
+    var verticalCentered: Bool = false
+    var horizontalCentered: Bool = false
+
 
     fileprivate var isEditing: Bool = false
 
@@ -106,10 +116,57 @@ public class CanvasView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
 
+
     }
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+
+    public func setupCenterViews(color: UIColor, lengthPercent: CGFloat, indicatorWidth: CGFloat) {
+        let topMidView = UIView(frame: .zero)
+        topMidView.backgroundColor = color
+        let bottomMidView = UIView(frame: .zero)
+        bottomMidView.backgroundColor = color
+        let leftMidView = UIView(frame: .zero)
+        leftMidView.backgroundColor = color
+        let rightMidView = UIView(frame: .zero)
+        rightMidView.backgroundColor = color
+
+        self.addSubview(topMidView)
+        self.addSubview(bottomMidView)
+        self.addSubview(leftMidView)
+        self.addSubview(rightMidView)
+
+        topMidView.translatesAutoresizingMaskIntoConstraints = false
+        bottomMidView.translatesAutoresizingMaskIntoConstraints = false
+        leftMidView.translatesAutoresizingMaskIntoConstraints = false
+        rightMidView.translatesAutoresizingMaskIntoConstraints = false
+
+        topMidView.pinToTopOfSuperview()
+        topMidView.addConstraintToCenterHorizontallyInSuperview()
+        topMidView.forceWidthConstraint(width: indicatorWidth)
+        topMidView.forceHeightConstraint(height: self.frame.height * lengthPercent)
+
+        bottomMidView.pinToBottomOfSuperview()
+        bottomMidView.addConstraintToCenterHorizontallyInSuperview()
+        bottomMidView.forceWidthConstraint(width: indicatorWidth)
+        bottomMidView.forceHeightConstraint(height: self.frame.height * lengthPercent)
+
+        leftMidView.pinToLeftOfSuperview()
+        leftMidView.addConstraintToCenterVerticallyInSuperview()
+        leftMidView.forceWidthConstraint(width: self.frame.width * lengthPercent)
+        leftMidView.forceHeightConstraint(height: indicatorWidth)
+
+        rightMidView.pinToRightOfSuperview()
+        rightMidView.addConstraintToCenterVerticallyInSuperview()
+        rightMidView.forceWidthConstraint(width: self.frame.width * lengthPercent)
+        rightMidView.forceHeightConstraint(height: indicatorWidth)
+
     }
 
     func setupTouchGestures(){
@@ -280,16 +337,82 @@ public class CanvasView: UIView {
 
             editingMedia.updatePreviousConstraintValue()
 
-        }else if (sender.state == .changed){
+        }else if (sender.state == .changed) {
+
             let translation = sender.translation(in: self)
 
-            editingMedia.trailingConstraint!.constant = editingMedia.previousTrailingConstraintValue  + translation.x
-            editingMedia.leadingConstraint!.constant = editingMedia.previousLeadingConstraintValue + translation.x
+            //get leading constant and top constant to calculate delta values
+            let leadingConstant = editingMedia.previousLeadingConstraintValue + translation.x
+            let topConstant = editingMedia.previousTopConstraingValue + translation.y
 
-            editingMedia.topConstraint?.constant = editingMedia.previousTopConstraingValue + translation.y
-            editingMedia.bottomConstraint?.constant = editingMedia.previousBottomConstraintValue + translation.y
+            //difference between center constant and current constant
+            let verticalDelta = topConstant -  (verticalCenterConstant ?? 0)
+            let horizontalDelta = leadingConstant - (horizontalCenterConstant ?? 0)
+
+            let velocity = sender.velocity(in: self)
+
+            // if scalable view's leading constant inside middle area range and velocity great than 10, center the view horizontally
+            if (velocity.x > 150 || velocity.x < -150) && abs(horizontalDelta) < 10 {
+
+                // keep the view centred untile detail value goes out middle area range
+                if !horizontalCentered {
+
+                    editingMedia.leadingConstraint!.constant  = horizontalCenterConstant ?? 0
+                    editingMedia.trailingConstraint!.constant = -(horizontalCenterConstant ?? 0)
+                    horizontalCentered = true
+                }
+
+            } else if abs(horizontalDelta) > 10 {
+                horizontalCentered = false
+            }
+
+            // if scalable view's center inside middle area and velocity great than 10, center the view vertically
+            if (velocity.y > 150 || velocity.y < -150) && abs(verticalDelta) < 10 {
+
+                //keep the view centred untile detail value goes out middle area range
+                if !verticalCentered {
+
+                    editingMedia.topConstraint?.constant = verticalCenterConstant ?? 0
+                    editingMedia.bottomConstraint?.constant = -(verticalCenterConstant ?? 0)
+                    verticalCentered = true
+                }
+            } else if abs(verticalDelta) > 10 {
+                verticalCentered = false
+            }
+
+            //if the view is centered, we don't need to update it's constraint untile it goes out of the middle range
+            if !horizontalCentered {
+                editingMedia.trailingConstraint!.constant = editingMedia.previousTrailingConstraintValue  + translation.x
+                editingMedia.leadingConstraint!.constant = editingMedia.previousLeadingConstraintValue + translation.x
+            }
+
+            if !verticalCentered {
+                editingMedia.topConstraint?.constant = editingMedia.previousTopConstraingValue + translation.y
+                editingMedia.bottomConstraint?.constant = editingMedia.previousBottomConstraintValue + translation.y
+            }
+
+            //old code
+//            editingMedia.trailingConstraint!.constant = editingMedia.previousTrailingConstraintValue  + translation.x
+//            editingMedia.leadingConstraint!.constant = editingMedia.previousLeadingConstraintValue + translation.x
+//            editingMedia.topConstraint?.constant = editingMedia.previousTopConstraingValue + translation.y
+//            editingMedia.bottomConstraint?.constant = editingMedia.previousBottomConstraintValue + translation.y
+
         } else if (sender.state == .began) {
             pinchGesture.isEnabled = false
+
+            // automatic cetner currentEditing media's view when it reached middle area (10 - middle point - 10)
+            if let media = currentlyEditingMedia {
+                print("previousLeadingConstraintValue===============", editingMedia.previousLeadingConstraintValue)
+                print("previousTrailingConstraintValue=============", editingMedia.previousTrailingConstraintValue)
+
+                // get leading and trailing constants which makes scalable view center horizontally
+                // trailing value is negative
+                horizontalCenterConstant = (media.previousLeadingConstraintValue - media.previousTrailingConstraintValue) / 2
+
+                // get top and bottom constants which makes scalable view center vertically
+                // bottom value is negative
+                verticalCenterConstant = (media.previousTopConstraingValue - media.previousBottomConstraintValue) / 2
+            }
         }
     }
 
@@ -302,12 +425,11 @@ public class CanvasView: UIView {
             //Update position after moved
             endTouch(editingMedia)
             panGesture.isEnabled = true
-
             editingMedia.updatePreviousConstraintValue()
+
 
         }else if (sender.state == .changed){
 
-            print(sender.scale)
             let changeScale = 1 - sender.scale
 
             let heightOfImage = self.frame.size.height

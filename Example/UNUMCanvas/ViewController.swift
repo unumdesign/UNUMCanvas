@@ -24,11 +24,14 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
 
 
-        let view1 = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let view1 = UIView(frame: .zero)
         view1.backgroundColor = UIColor.red
 
-        let view2 = UIView(frame: CGRect(x: 30, y: 30, width: 20, height: 20))
+        let view2 = UILabel(frame: .zero)
         view2.backgroundColor = UIColor.green
+        view2.text = "UNUMCanvas"
+
+
 
         let media1 = MediaScalableObject(scalableView: view1 )
 
@@ -36,6 +39,7 @@ class ViewController: UIViewController {
 
         canvasView.addMediaObject(mediaObject: media1)
         canvasView.addMediaObject(mediaObject: media2)
+        canvasView.setupCenterViews(color: .black, lengthPercent: 0.2, indicatorWidth: 2)
     }
 
     override func didReceiveMemoryWarning() {
