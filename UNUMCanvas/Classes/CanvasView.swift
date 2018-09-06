@@ -42,7 +42,6 @@ public class MediaScalableObject {
         self.scalableView = scalableView
         scalableView.isUserInteractionEnabled = true
 
-        
 
     }
 
@@ -115,12 +114,12 @@ public class CanvasView: UIView {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
-
-
+        setupTouchGestures()
     }
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setupTouchGestures()
     }
 
     public override func layoutSubviews() {
