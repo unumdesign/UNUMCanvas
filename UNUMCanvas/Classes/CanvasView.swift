@@ -30,7 +30,7 @@ public class MediaScalableObject {
     var bottomPoint: CGPoint?
 
     //For changing view border style
-    var isEditing: Bool = false {
+    public var isEditing: Bool = false {
         didSet{
             scalableView.layer.borderWidth = isEditing ? 1 : 0
             scalableView.layer.borderColor = UIColor.black.cgColor
@@ -83,8 +83,10 @@ protocol CanvasDelegate: class {
 
 public class CanvasView: UIView {
 
-    var currentlyEditingMedia: MediaScalableObject?
-    var scalableMediaArray: [MediaScalableObject] = []
+    public var currentlyEditingMedia: MediaScalableObject?
+    public var scalableMediaArray: [MediaScalableObject] = []
+    public var isEditing: Bool = false
+
     var panGesture: UIPanGestureRecognizer!
     var pinchGesture: UIPinchGestureRecognizer!
     var addImageButton: UIButton!
@@ -96,8 +98,6 @@ public class CanvasView: UIView {
     var verticalCentered: Bool = false
     var horizontalCentered: Bool = false
 
-
-    fileprivate var isEditing: Bool = false
 
 //    weak var delegate: StoryEditingDelegat?
 //    weak var delegateFromEditor: StoryEditingDelegat?
