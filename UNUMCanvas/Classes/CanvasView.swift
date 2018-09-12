@@ -29,13 +29,7 @@ public class MediaScalableObject {
     var topPoint: CGPoint?
     var bottomPoint: CGPoint?
 
-    //For changing view border style
-    public var isEditing: Bool = false {
-        didSet{
-            scalableView.layer.borderWidth = isEditing ? 1 : 0
-            scalableView.layer.borderColor = UIColor.black.cgColor
-        }
-    }
+    public var isEditing: Bool = false
 
     //Initialization
     public init(scalableView: UIView){
@@ -236,18 +230,15 @@ public class CanvasView: UIView {
             canvasDelegate?.importMedia()
         } else if scalableMediaArray.count == 1 {
 
-
-
             isEditing = !isEditing
 
             //Remove currently editing if is not editing
             if (isEditing){
                 currentlyEditingMedia = scalableMediaArray.first
-                currentlyEditingMedia?.isEditing = isEditing
             }else{
                 currentlyEditingMedia = nil
             }
-
+            currentlyEditingMedia?.isEditing = isEditing
 
             panGesture.isEnabled = isEditing
             pinchGesture.isEnabled = isEditing
@@ -451,14 +442,14 @@ public class CanvasView: UIView {
         }
     }
 
-    func editingModel() {
+    //Stop editing media inside this canvas
+    public func removeEditing() {
         if isEditing {
-            //            closeButton.isHidden = false
-            self.layer.borderColor = UIColor.black.cgColor
-            self.layer.borderWidth = 8
-        } else {
-            //            closeButton.isHidden = true
+//                        closeButton.isHidden = false
             self.layer.borderWidth = 0
+            self.currentlyEditingMedia?.isEditing = false
+            self.currentlyEditingMedia = nil
+            self.isEditing = false
         }
     }
 }
