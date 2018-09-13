@@ -467,19 +467,19 @@ public class CanvasView: UIView {
 
         topMidView = UIView(frame: .zero)
         topMidView?.backgroundColor = color
-        topMidView?.alpha = 1
+        topMidView?.alpha = 0
 
         bottomMidView = UIView(frame: .zero)
         bottomMidView?.backgroundColor = color
-        bottomMidView?.alpha = 1
+        bottomMidView?.alpha = 0
 
         leftMidView = UIView(frame: .zero)
         leftMidView?.backgroundColor = color
-        leftMidView?.alpha = 1
+        leftMidView?.alpha = 0
 
         rightMidView = UIView(frame: .zero)
         rightMidView?.backgroundColor = color
-        rightMidView?.alpha = 1
+        rightMidView?.alpha = 0
 
         self.addSubview(topMidView!)
         self.addSubview(bottomMidView!)
