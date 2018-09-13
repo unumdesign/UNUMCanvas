@@ -25,15 +25,42 @@ public class MediaScalableObject {
     var previousLeadingConstraintValue:CGFloat = 0.0
     var previousBottomConstraintValue:CGFloat = 0.0
 
+    //edges' gestures
+    var topGesture: UIPanGestureRecognizer!
+    var bottomGesture: UIPanGestureRecognizer!
+    var leftGesture: UIPanGestureRecognizer!
+    var rightGesture: UIPanGestureRecognizer!
+    var topLeftGesture: UIPanGestureRecognizer!
+    var topRightGesture: UIPanGestureRecognizer!
+    var bottomLeftGesture: UIPanGestureRecognizer!
+    var bottomRightGesture: UIPanGestureRecognizer!
+
+    //Direction lockers, if false, cannot squeeze scalable view in that direction
+    var isHorizontalMoveable = false
+    var isVerticalMoveable = false
+    var isZoomable = false
+    var isMoveable = false
+
     //Points of reference for superview
     var topPoint: CGPoint?
     var bottomPoint: CGPoint?
 
-    //For changing view border style
     public var isEditing: Bool = false {
-        didSet{
-            scalableView.layer.borderWidth = isEditing ? 1 : 0
-            scalableView.layer.borderColor = UIColor.black.cgColor
+        didSet {
+
+            //show or hide scalable view's border when is editing value changes
+            self.scalableView.layer.borderColor = UIColor.black.cgColor
+            self.scalableView.layer.borderWidth = isEditing ? 1 : 0
+
+            //enable or disable edge gestures when is editing value changes
+            topGesture.isEnabled = isEditing
+            bottomGesture.isEnabled = isEditing
+            leftGesture.isEnabled = isEditing
+            rightGesture.isEnabled = isEditing
+            topLeftGesture.isEnabled = isEditing
+            topRightGesture.isEnabled = isEditing
+            bottomLeftGesture.isEnabled = isEditing
+            bottomRightGesture.isEnabled = isEditing
         }
     }
 
@@ -41,10 +68,10 @@ public class MediaScalableObject {
     public init(scalableView: UIView){
         self.scalableView = scalableView
         scalableView.isUserInteractionEnabled = true
-
-
+        self.setupEdgesGestures()
     }
 
+    //setup initial constraint
     func attachConstraintsToSuperview() {
         if scalableView.superview == nil {
             print("attach a view first")
@@ -60,13 +87,306 @@ public class MediaScalableObject {
 
     func updatePreviousConstraintValue(){
 
-        //TODO: Check for for unwrapping
-
         self.previousTrailingConstraintValue = self.trailingConstraint?.constant ?? 0.0
         self.previousLeadingConstraintValue = self.leadingConstraint?.constant ?? 0.0
 
         self.previousTopConstraingValue = self.topConstraint?.constant ?? 0.0
         self.previousBottomConstraintValue = self.bottomConstraint?.constant ?? 0.0
+    }
+
+    /*---------------------------------------
+     views and gestures for edge touches
+    ---------------------------------------*/
+    func setupEdgesGestures() {
+
+        //initail corner gestures
+        self.topLeftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopLeftEdge(_:)))
+        self.bottomLeftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomLeftEdge(_:)))
+        self.topRightGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopRightEdge(_:)))
+        self.bottomRightGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomRightEdge(_:)))
+
+
+        //initail edge gestures
+        self.topGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopEdge(_:)))
+        self.bottomGesture = UIPanGestureRecognizer(target: self, action: #selector(moveBottomEdge(_:)))
+        self.leftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveLeftEdge(_:)))
+        self.rightGesture = UIPanGestureRecognizer(target: self, action: #selector(moveRightEdge(_:)))
+
+        //setup views one view's edges to hold gestures
+        let topGestureView = UIView(frame: .zero)
+        topGestureView.tag = 88
+        self.scalableView.addSubview(topGestureView)
+        topGestureView.translatesAutoresizingMaskIntoConstraints = false
+        _ = topGestureView.pinToTopOfSuperviewWithConstraint(constant: 0)
+        _ = topGestureView.pinToLeftOfSuperviewWithConstraint(constant: 10)
+        _ = topGestureView.pinToRightOfSuperviewWithConstraint(constant: -10)
+        _ = topGestureView.forceHeightConstraint(height: 20)
+        topGestureView.backgroundColor = .cyan
+
+        let leftGestureView = UIView(frame: .zero)
+        leftGestureView.tag = 88
+        self.scalableView.addSubview(leftGestureView)
+        _ = leftGestureView.translatesAutoresizingMaskIntoConstraints = false
+        _ = leftGestureView.pinToTopOfSuperviewWithConstraint(constant: 10)
+        _ = leftGestureView.pinToLeftOfSuperviewWithConstraint(constant: 0)
+        _ = leftGestureView.pinToBottomOfSuperviewWithConstraint(constant: -10)
+        _ = leftGestureView.forceWidthConstraint(width: 20)
+        leftGestureView.backgroundColor = .cyan
+
+        let rightGestureView = UIView(frame: .zero)
+        rightGestureView.tag = 88
+        self.scalableView.addSubview(rightGestureView)
+        _ = rightGestureView.translatesAutoresizingMaskIntoConstraints = false
+        _ = rightGestureView.pinToTopOfSuperviewWithConstraint(constant: 10)
+        _ = rightGestureView.pinToRightOfSuperviewWithConstraint(constant: 0)
+        _ = rightGestureView.pinToBottomOfSuperviewWithConstraint(constant: -10)
+        _ = rightGestureView.forceWidthConstraint(width: 20)
+        rightGestureView.backgroundColor = .cyan
+
+        let bottomGestureView = UIView(frame: .zero)
+        bottomGestureView.tag = 88
+        scalableView.addSubview(bottomGestureView)
+        bottomGestureView.translatesAutoresizingMaskIntoConstraints = false
+        _ = bottomGestureView.pinToBottomOfSuperviewWithConstraint(constant: 0)
+        _ = bottomGestureView.pinToLeftOfSuperviewWithConstraint(constant: 10)
+        _ = bottomGestureView.pinToRightOfSuperviewWithConstraint(constant: -10)
+        _ = bottomGestureView.forceHeightConstraint(height: 20)
+        bottomGestureView.backgroundColor = .cyan
+
+        let topLeftCornerGestureView = UIView(frame: .zero)
+        topLeftCornerGestureView.tag = 88
+        self.scalableView.addSubview(topLeftCornerGestureView)
+        _ = topLeftCornerGestureView.translatesAutoresizingMaskIntoConstraints = false
+        _ = topLeftCornerGestureView.pinToTopOfSuperviewWithConstraint(constant: 0)
+        _ = topLeftCornerGestureView.pinToLeftOfSuperviewWithConstraint(constant: 0)
+        _ = topLeftCornerGestureView.forceWidthConstraint(width: 20)
+        _ = topLeftCornerGestureView.forceHeightConstraint(height: 20)
+        topLeftCornerGestureView.backgroundColor = .black
+
+        let toprightCornerGestureView = UIView(frame: .zero)
+        toprightCornerGestureView.tag = 88
+        self.scalableView.addSubview(toprightCornerGestureView)
+        _ = toprightCornerGestureView.translatesAutoresizingMaskIntoConstraints = false
+        _ = toprightCornerGestureView.pinToTopOfSuperviewWithConstraint(constant: 0)
+        _ = toprightCornerGestureView.pinToRightOfSuperviewWithConstraint(constant: 0)
+        _ = toprightCornerGestureView.forceWidthConstraint(width: 20)
+        _ = toprightCornerGestureView.forceHeightConstraint(height: 20)
+        toprightCornerGestureView.backgroundColor = .black
+
+        let bottomLeftCornerGestureView = UIView(frame: .zero)
+        bottomLeftCornerGestureView.tag = 88
+        self.scalableView.addSubview(bottomLeftCornerGestureView)
+        _ = bottomLeftCornerGestureView.translatesAutoresizingMaskIntoConstraints = false
+        _ = bottomLeftCornerGestureView.pinToBottomOfSuperviewWithConstraint(constant: 0)
+        _ = bottomLeftCornerGestureView.pinToLeftOfSuperviewWithConstraint(constant: 0)
+        _ = bottomLeftCornerGestureView.forceWidthConstraint(width: 20)
+        _ = bottomLeftCornerGestureView.forceHeightConstraint(height: 20)
+        bottomLeftCornerGestureView.backgroundColor = .black
+
+        let bottomRightCornerGestureView = UIView(frame: .zero)
+        bottomRightCornerGestureView.tag = 88
+        self.scalableView.addSubview(bottomRightCornerGestureView)
+        _ = bottomRightCornerGestureView.translatesAutoresizingMaskIntoConstraints = false
+        _ = bottomRightCornerGestureView.pinToBottomOfSuperviewWithConstraint(constant: 0)
+        _ = bottomRightCornerGestureView.pinToRightOfSuperviewWithConstraint(constant: 0)
+        _ = bottomRightCornerGestureView.forceWidthConstraint(width: 20)
+        _ = bottomRightCornerGestureView.forceHeightConstraint(height: 20)
+        bottomRightCornerGestureView.backgroundColor = .black
+
+        topLeftCornerGestureView.addGestureRecognizer(topLeftGesture)
+        toprightCornerGestureView.addGestureRecognizer(topRightGesture)
+        bottomLeftCornerGestureView.addGestureRecognizer(bottomLeftGesture)
+        bottomRightCornerGestureView.addGestureRecognizer(bottomRightGesture)
+
+        topGestureView.addGestureRecognizer(topGesture)
+        bottomGestureView.addGestureRecognizer(bottomGesture)
+        leftGestureView.addGestureRecognizer(leftGesture)
+        rightGestureView.addGestureRecognizer(rightGesture)
+
+    }
+
+    /*-----------------------------------
+    Pan gesture functions for squeeze scalable view
+    ------------------------------------*/
+
+    @objc fileprivate func moveTopLeftEdge(_ sender: UIPanGestureRecognizer) {
+
+        //check if this direction is locked
+        guard isHorizontalMoveable && isVerticalMoveable else {
+            return
+        }
+        print("moving top left edge")
+
+        let translation = sender.translation(in: scalableView)
+
+        if sender.state == .began {
+
+        } else if sender.state == .changed {
+            //moving top left corner
+            self.topConstraint?.constant = self.previousTopConstraingValue + translation.y
+            self.leadingConstraint?.constant = self.previousLeadingConstraintValue + translation.x
+        } else if sender.state == .ended {
+
+            //update previous constraint value
+            updatePreviousConstraintValue()
+        }
+    }
+
+    @objc fileprivate func moveBottomLeftEdge(_ sender: UIPanGestureRecognizer) {
+
+        //check if this direction is locked
+        guard isHorizontalMoveable && isVerticalMoveable else {
+            return
+        }
+
+        let translation = sender.translation(in: scalableView)
+
+        if sender.state == .began {
+
+        } else if sender.state == .changed {
+
+             //moving bottom left corner
+            self.bottomConstraint?.constant = self.previousBottomConstraintValue + translation.y
+        } else if sender.state == .ended {
+
+            //update previous constraint value
+            updatePreviousConstraintValue()
+        }
+
+    }
+
+    @objc fileprivate func moveTopRightEdge(_ sender: UIPanGestureRecognizer) {
+
+        //check if this direction is locked
+        guard isHorizontalMoveable && isVerticalMoveable else {
+            return
+        }
+
+        let translation = sender.translation(in: scalableView)
+
+        if sender.state == .began {
+
+        } else if sender.state == .changed {
+
+             //moving top right corner
+            self.topConstraint?.constant = self.previousTopConstraingValue + translation.y
+            self.trailingConstraint?.constant = self.previousTrailingConstraintValue + translation.x
+        } else if sender.state == .ended {
+
+            //update previous constraint value
+            updatePreviousConstraintValue()
+        }
+    }
+
+    @objc fileprivate func moveBottomRightEdge(_ sender: UIPanGestureRecognizer) {
+
+        //check if this direction is locked
+        guard isHorizontalMoveable && isVerticalMoveable else {
+            return
+        }
+
+        let translation = sender.translation(in: scalableView)
+
+        if sender.state == .began {
+
+        } else if sender.state == .changed {
+
+             //moving botton right corner
+            self.bottomConstraint?.constant = self.previousBottomConstraintValue + translation.y
+            self.trailingConstraint?.constant = self.previousTrailingConstraintValue + translation.x
+        } else if sender.state == .ended {
+
+            //update previous constraint value
+            updatePreviousConstraintValue()
+        }
+    }
+
+    @objc fileprivate func moveTopEdge(_ sender: UIPanGestureRecognizer) {
+
+        //check if this direction is locked
+        guard isVerticalMoveable else {
+            return
+        }
+
+        let translation = sender.translation(in: scalableView)
+
+        if sender.state == .began {
+
+        } else if sender.state == .changed {
+
+             //moving top edge
+            self.topConstraint?.constant = self.previousTopConstraingValue + translation.y
+        } else if sender.state == .ended {
+            //update previous constraint value
+            updatePreviousConstraintValue()
+        }
+    }
+
+    @objc fileprivate func moveBottomEdge(_ sender: UIPanGestureRecognizer) {
+
+        //check if this direction is locked
+        guard isVerticalMoveable else {
+            return
+        }
+
+        let translation = sender.translation(in: scalableView)
+
+        if sender.state == .began {
+
+        } else if sender.state == .changed {
+
+            //moving bottom edge
+            self.bottomConstraint?.constant = self.previousBottomConstraintValue + translation.y
+        } else if sender.state == .ended {
+
+            //update previous constraint value
+            updatePreviousConstraintValue()
+        }
+    }
+
+    @objc fileprivate func moveLeftEdge(_ sender: UIPanGestureRecognizer) {
+
+        //check if this direction is locked
+        guard isHorizontalMoveable else {
+            return
+        }
+
+        let translation = sender.translation(in: scalableView)
+
+        if sender.state == .began {
+
+        } else if sender.state == .changed {
+
+            //moving left edge
+            self.leadingConstraint?.constant = self.previousLeadingConstraintValue + translation.x
+        } else if sender.state == .ended {
+
+            //update previous constraint value
+            updatePreviousConstraintValue()
+        }
+    }
+
+    @objc fileprivate func moveRightEdge(_ sender: UIPanGestureRecognizer) {
+
+        //check if this direction is locked
+        guard isHorizontalMoveable else {
+            return
+        }
+
+        print("moving right edge")
+        let translation = sender.translation(in: scalableView)
+
+        if sender.state == .began {
+
+        } else if sender.state == .changed {
+
+            //moving right edge
+            self.trailingConstraint?.constant = self.previousTrailingConstraintValue + translation.x
+        } else if sender.state == .ended {
+
+            //update previous constraint value
+            updatePreviousConstraintValue()
+        }
     }
 }
 
@@ -98,6 +418,11 @@ public class CanvasView: UIView {
     var verticalCentered: Bool = false
     var horizontalCentered: Bool = false
 
+    //mid line views
+    var topMidView: UIView?
+    var bottomMidView: UIView?
+    var leftMidView: UIView?
+    var rightMidView: UIView?
 
 //    weak var delegate: StoryEditingDelegat?
 //    weak var delegateFromEditor: StoryEditingDelegat?
@@ -110,11 +435,13 @@ public class CanvasView: UIView {
     public override func awakeFromNib() {
         super.awakeFromNib()
         setupTouchGestures()
+        setupCenterViews(color: .black, lengthPercent: 0.5, indicatorWidth: 1)
     }
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupTouchGestures()
+        setupCenterViews(color: .black, lengthPercent: 0.5, indicatorWidth: 1)
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -126,46 +453,112 @@ public class CanvasView: UIView {
         super.layoutSubviews()
     }
 
-    public func setupCenterViews(color: UIColor, lengthPercent: CGFloat, indicatorWidth: CGFloat) {
-        let topMidView = UIView(frame: .zero)
-        topMidView.backgroundColor = color
-        let bottomMidView = UIView(frame: .zero)
-        bottomMidView.backgroundColor = color
-        let leftMidView = UIView(frame: .zero)
-        leftMidView.backgroundColor = color
-        let rightMidView = UIView(frame: .zero)
-        rightMidView.backgroundColor = color
+    /*--------------------------------------
+     Setup lines that indicate view is centered when moving
+     only show those lines when view is centered, so inital alpha is 0
+    ----------------------------------------*/
 
-        self.addSubview(topMidView)
-        self.addSubview(bottomMidView)
-        self.addSubview(leftMidView)
-        self.addSubview(rightMidView)
+    func setupCenterViews(color: UIColor, lengthPercent: CGFloat, indicatorWidth: CGFloat) {
 
-        topMidView.translatesAutoresizingMaskIntoConstraints = false
-        bottomMidView.translatesAutoresizingMaskIntoConstraints = false
-        leftMidView.translatesAutoresizingMaskIntoConstraints = false
-        rightMidView.translatesAutoresizingMaskIntoConstraints = false
+        guard topMidView == nil else {
+            return
+        }
 
-        topMidView.pinToTopOfSuperview()
-        topMidView.addConstraintToCenterHorizontallyInSuperview()
-        topMidView.forceWidthConstraint(width: indicatorWidth)
-        topMidView.forceHeightConstraint(height: self.frame.height * lengthPercent)
+        topMidView = UIView(frame: .zero)
+        topMidView?.backgroundColor = color
+        topMidView?.alpha = 1
 
-        bottomMidView.pinToBottomOfSuperview()
-        bottomMidView.addConstraintToCenterHorizontallyInSuperview()
-        bottomMidView.forceWidthConstraint(width: indicatorWidth)
-        bottomMidView.forceHeightConstraint(height: self.frame.height * lengthPercent)
+        bottomMidView = UIView(frame: .zero)
+        bottomMidView?.backgroundColor = color
+        bottomMidView?.alpha = 1
 
-        leftMidView.pinToLeftOfSuperview()
-        leftMidView.addConstraintToCenterVerticallyInSuperview()
-        leftMidView.forceWidthConstraint(width: self.frame.width * lengthPercent)
-        leftMidView.forceHeightConstraint(height: indicatorWidth)
+        leftMidView = UIView(frame: .zero)
+        leftMidView?.backgroundColor = color
+        leftMidView?.alpha = 1
 
-        rightMidView.pinToRightOfSuperview()
-        rightMidView.addConstraintToCenterVerticallyInSuperview()
-        rightMidView.forceWidthConstraint(width: self.frame.width * lengthPercent)
-        rightMidView.forceHeightConstraint(height: indicatorWidth)
+        rightMidView = UIView(frame: .zero)
+        rightMidView?.backgroundColor = color
+        rightMidView?.alpha = 1
 
+        self.addSubview(topMidView!)
+        self.addSubview(bottomMidView!)
+        self.addSubview(leftMidView!)
+        self.addSubview(rightMidView!)
+
+        topMidView?.translatesAutoresizingMaskIntoConstraints = false
+        bottomMidView?.translatesAutoresizingMaskIntoConstraints = false
+        leftMidView?.translatesAutoresizingMaskIntoConstraints = false
+        rightMidView?.translatesAutoresizingMaskIntoConstraints = false
+
+        topMidView?.pinToTopOfSuperview()
+        topMidView?.addConstraintToCenterHorizontallyInSuperview()
+        topMidView?.forceWidthConstraint(width: indicatorWidth)
+        topMidView?.forceHeightConstraint(height: self.frame.height * lengthPercent)
+
+        bottomMidView?.pinToBottomOfSuperview()
+        bottomMidView?.addConstraintToCenterHorizontallyInSuperview()
+        bottomMidView?.forceWidthConstraint(width: indicatorWidth)
+        bottomMidView?.forceHeightConstraint(height: self.frame.height * lengthPercent)
+
+        leftMidView?.pinToLeftOfSuperview()
+        leftMidView?.addConstraintToCenterVerticallyInSuperview()
+        leftMidView?.forceWidthConstraint(width: self.frame.width * lengthPercent)
+        leftMidView?.forceHeightConstraint(height: indicatorWidth)
+
+        rightMidView?.pinToRightOfSuperview()
+        rightMidView?.addConstraintToCenterVerticallyInSuperview()
+        rightMidView?.forceWidthConstraint(width: self.frame.width * lengthPercent)
+        rightMidView?.forceHeightConstraint(height: indicatorWidth)
+
+    }
+
+    fileprivate func showOrHideMidView(_ show: Bool) {
+        topMidView?.alpha = show ? 1 : 0
+        bottomMidView?.alpha = show ? 1 : 0
+        leftMidView?.alpha = show ? 1 : 0
+        rightMidView?.alpha = show ? 1 : 0
+        if let topMidView = topMidView {
+            self.bringSubview(toFront: topMidView)
+
+        }
+
+        if let bottomMidView = bottomMidView {
+            self.bringSubview(toFront: bottomMidView)
+
+        }
+
+        if let leftMidView = leftMidView {
+            self.bringSubview(toFront: leftMidView)
+
+        }
+
+        if let rightMidView = rightMidView {
+            self.bringSubview(toFront: rightMidView)
+
+        }
+    }
+
+    //use this to change editing media's constraints
+    public func updateMediaScalableObjectContstraints(top: CGFloat? = nil, bottom: CGFloat? = nil, leading: CGFloat? = nil, trailing: CGFloat? = nil) {
+        if let top = top {
+            currentlyEditingMedia?.topConstraint?.constant = top
+            currentlyEditingMedia?.previousTopConstraingValue = top
+        }
+
+        if let bottom = bottom {
+            currentlyEditingMedia?.bottomConstraint?.constant = bottom
+            currentlyEditingMedia?.previousBottomConstraintValue = bottom
+        }
+
+        if let leading = leading {
+            currentlyEditingMedia?.leadingConstraint?.constant = leading
+            currentlyEditingMedia?.previousTrailingConstraintValue = leading
+        }
+
+        if let trailing = trailing {
+            currentlyEditingMedia?.trailingConstraint?.constant = trailing
+            currentlyEditingMedia?.previousTrailingConstraintValue = trailing
+        }
     }
 
     func setupTouchGestures(){
@@ -184,10 +577,22 @@ public class CanvasView: UIView {
         pinchGesture.isEnabled = isEditing
     }
 
-    public func addMediaObject(mediaObject: MediaScalableObject) {
+    public func addMediaObject(mediaObject: MediaScalableObject,
+                               isHorizontalPinchEnabled: Bool,
+                               isVerticalPichEnabled: Bool,
+                               isZoomEnabled: Bool,
+                               isMoveable: Bool) {
+
         self.addSubview(mediaObject.scalableView)
         mediaObject.attachConstraintsToSuperview()
         scalableMediaArray.append(mediaObject)
+
+        mediaObject.isEditing = false
+
+        mediaObject.isHorizontalMoveable = isHorizontalPinchEnabled
+        mediaObject.isVerticalMoveable = isVerticalPichEnabled
+        mediaObject.isMoveable = isMoveable
+        mediaObject.isZoomable = isZoomEnabled
     }
 
     func setupView() {
@@ -236,24 +641,22 @@ public class CanvasView: UIView {
             canvasDelegate?.importMedia()
         } else if scalableMediaArray.count == 1 {
 
-
-
             isEditing = !isEditing
 
             //Remove currently editing if is not editing
             if (isEditing){
                 currentlyEditingMedia = scalableMediaArray.first
-                currentlyEditingMedia?.isEditing = isEditing
             }else{
                 currentlyEditingMedia = nil
             }
-
+            currentlyEditingMedia?.isEditing = isEditing
 
             panGesture.isEnabled = isEditing
             pinchGesture.isEnabled = isEditing
             self.layer.borderWidth = isEditing ? 1 : 0
             self.layer.borderColor = UIColor.black.cgColor
         } else if scalableMediaArray.count > 1 {
+            removeEditing()
             //TODO: highlight selected image and border
             let index = scalableMediaArray.index { (mediaScalableObject) -> Bool in
 
@@ -270,11 +673,11 @@ public class CanvasView: UIView {
             if let scalableIndex = index {
                 isEditing = !isEditing
 
-                currentlyEditingMedia?.isEditing = isEditing
-
                 if (isEditing){
                     currentlyEditingMedia = scalableMediaArray[scalableIndex]
+                    currentlyEditingMedia?.isEditing = isEditing
                 }else{
+                    currentlyEditingMedia?.isEditing = isEditing
                     currentlyEditingMedia = nil
                 }
 
@@ -326,7 +729,11 @@ public class CanvasView: UIView {
 
     @IBAction func panGesture(_ sender: UIPanGestureRecognizer) {
 
-        guard let editingMedia = self.currentlyEditingMedia else { return }
+        guard currentlyEditingMedia?.isMoveable ?? false,
+            let editingMedia = self.currentlyEditingMedia else {
+                return
+
+        }
 
         if (sender.state == .ended){
 
@@ -358,11 +765,15 @@ public class CanvasView: UIView {
 
                     editingMedia.leadingConstraint!.constant  = horizontalCenterConstant ?? 0
                     editingMedia.trailingConstraint!.constant = -(horizontalCenterConstant ?? 0)
+                    showOrHideMidView(true)
                     horizontalCentered = true
                 }
 
             } else if abs(horizontalDelta) > 10 {
                 horizontalCentered = false
+
+                //when both vertical and horizontal are not centered, hide middle line views
+                showOrHideMidView(verticalCentered || horizontalCentered)
             }
 
             // if scalable view's center inside middle area and velocity great than 10, center the view vertically
@@ -373,10 +784,14 @@ public class CanvasView: UIView {
 
                     editingMedia.topConstraint?.constant = verticalCenterConstant ?? 0
                     editingMedia.bottomConstraint?.constant = -(verticalCenterConstant ?? 0)
+                    showOrHideMidView(true)
                     verticalCentered = true
                 }
             } else if abs(verticalDelta) > 10 {
+
                 verticalCentered = false
+                //when both vertical and horizontal are not centered, hide middle line views
+                showOrHideMidView(verticalCentered || horizontalCentered)
             }
 
             //if the view is centered, we don't need to update it's constraint untile it goes out of the middle range
@@ -417,7 +832,7 @@ public class CanvasView: UIView {
 
     @IBAction func pinchGesture(_ sender: UIPinchGestureRecognizer) {
 
-        guard let editingMedia = self.currentlyEditingMedia else { return }
+        guard let editingMedia = self.currentlyEditingMedia, (currentlyEditingMedia?.isZoomable ?? false) else { return }
 
         if (sender.state == .ended){
 
@@ -431,34 +846,35 @@ public class CanvasView: UIView {
 
             let changeScale = 1 - sender.scale
 
-            let heightOfImage = self.frame.size.height
+            //if vertical pinch is false, don't update top and bottom constraints
 
-            //            print("delta height change: \(heightOfImage) w scale \(changeScale)")
+                let heightOfImage = self.frame.size.height
+                let deltaHeightChange = heightOfImage * changeScale
 
-            let deltaHeightChange = heightOfImage * changeScale
-            //            print("delta height change: \(deltaHeightChange)")
+                editingMedia.topConstraint!.constant = editingMedia.previousTopConstraingValue + deltaHeightChange/2
+                editingMedia.bottomConstraint!.constant = editingMedia.previousBottomConstraintValue - deltaHeightChange/2
 
-            editingMedia.topConstraint!.constant = editingMedia.previousTopConstraingValue + deltaHeightChange/2
-            editingMedia.bottomConstraint!.constant = editingMedia.previousBottomConstraintValue - deltaHeightChange/2
+            //if horizontal pinch is false, don't update top and bottom constraints
+                let widthOfImage = self.frame.size.width
+                let deltaWidthChange = widthOfImage * changeScale
 
-            let widthOfImage = self.frame.size.width
-            let deltaWidthChange = widthOfImage * changeScale
+                editingMedia.leadingConstraint!.constant = editingMedia.previousLeadingConstraintValue + deltaWidthChange/2
+                editingMedia.trailingConstraint!.constant = editingMedia.previousTrailingConstraintValue - deltaWidthChange/2
 
-            editingMedia.leadingConstraint!.constant = editingMedia.previousLeadingConstraintValue + deltaWidthChange/2
-            editingMedia.trailingConstraint!.constant = editingMedia.previousTrailingConstraintValue - deltaWidthChange/2
         } else if (sender.state == .began) {
             panGesture.isEnabled = false
         }
     }
 
-    func editingModel() {
+    //Stop editing media inside this canvas
+    public func removeEditing() {
         if isEditing {
-            //            closeButton.isHidden = false
-            self.layer.borderColor = UIColor.black.cgColor
-            self.layer.borderWidth = 8
-        } else {
-            //            closeButton.isHidden = true
+//                        closeButton.isHidden = false
             self.layer.borderWidth = 0
+            self.currentlyEditingMedia?.updatePreviousConstraintValue()
+            self.currentlyEditingMedia?.isEditing = false
+            self.currentlyEditingMedia = nil
+            self.isEditing = false
         }
     }
 }
@@ -466,6 +882,16 @@ public class CanvasView: UIView {
 extension CanvasView: UIGestureRecognizerDelegate {
 
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if gestureRecognizer is UIPanGestureRecognizer {
+            //88 is the tag value for all edge views which hold pan gestures
+            if let view = touch.view, view.tag == 88 {
+                return false
+            }
+        }
         return true
     }
 }
