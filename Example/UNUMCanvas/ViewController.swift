@@ -32,9 +32,8 @@ class ViewController: UIViewController {
 
         let media2 = MediaScalableObject(scalableView: view2 )
 
-        canvasView.addMediaObject(mediaObject: media1, isHorizontalPinchEnabled: false, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true)
-        canvasView.addMediaObject(mediaObject: media2, isHorizontalPinchEnabled: true, isVerticalPichEnabled: false, isZoomEnabled: true, isMoveable: true)
-        canvasView.setupCenterViews(color: .black, lengthPercent: 0.2, indicatorWidth: 2)
+        canvasView.addMediaObject(mediaObject: media1, isHorizontalPinchEnabled: true, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true)
+        canvasView.addMediaObject(mediaObject: media2, isHorizontalPinchEnabled: true, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true)
     }
 
     override func didReceiveMemoryWarning() {
