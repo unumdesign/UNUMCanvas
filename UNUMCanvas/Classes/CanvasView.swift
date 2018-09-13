@@ -397,7 +397,7 @@ public class MediaScalableObject {
     func addImage(_ image: UIImage, viewTag: Int, cellIndex: Int)
 }
 
-protocol CanvasDelegate: class {
+public protocol CanvasDelegate: class {
     func importMedia()
     func tapAction(_ sender: UITapGestureRecognizer)
 }
