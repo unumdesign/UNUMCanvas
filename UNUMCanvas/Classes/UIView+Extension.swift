@@ -110,7 +110,7 @@ extension UIView {
         applyConstraintToSuperviewWithVisualFormat(format: "V:[view]|")
     }
 
-    func pinToBottomOfSuperviewWithConstraint() -> NSLayoutConstraint {
+    func pinToBottomOfSuperviewWithConstraint(constant: CGFloat = 0) -> NSLayoutConstraint {
 
         let bottom = NSLayoutConstraint(item: self,
                                         attribute: .bottom,
@@ -118,7 +118,7 @@ extension UIView {
                                         toItem: self.superview,
                                         attribute: .bottom,
                                         multiplier: 1.0,
-                                        constant: 0)
+                                        constant: constant)
         self.superview!.addConstraint(bottom)
         return bottom
     }
@@ -127,7 +127,7 @@ extension UIView {
         applyConstraintToSuperviewWithVisualFormat(format: "V:|[view]")
     }
 
-    func pinToTopOfSuperviewWithConstraint() -> NSLayoutConstraint {
+    func pinToTopOfSuperviewWithConstraint(constant: CGFloat = 0) -> NSLayoutConstraint {
 
         let top = NSLayoutConstraint(item: self,
                                      attribute: .top,
@@ -135,7 +135,7 @@ extension UIView {
                                      toItem: self.superview,
                                      attribute: .top,
                                      multiplier: 1.0,
-                                     constant: 0)
+                                     constant: constant)
         self.superview!.addConstraint(top)
         return top
 
@@ -145,14 +145,14 @@ extension UIView {
         applyConstraintToSuperviewWithVisualFormat(format: "H:|[view]")
     }
 
-    func pinToLeftOfSuperviewWithConstraint() -> NSLayoutConstraint {
+    func pinToLeftOfSuperviewWithConstraint(constant: CGFloat = 0) -> NSLayoutConstraint {
         let leading = NSLayoutConstraint(item: self,
                                          attribute: .leading,
                                          relatedBy: .equal,
                                          toItem: self.superview,
                                          attribute: .leading,
                                          multiplier: 1.0,
-                                         constant: 0)
+                                         constant: constant)
         self.superview!.addConstraint(leading)
         return leading
 
@@ -162,7 +162,7 @@ extension UIView {
         applyConstraintToSuperviewWithVisualFormat(format: "H:[view]|")
     }
 
-    func pinToRightOfSuperviewWithConstraint() -> NSLayoutConstraint {
+    func pinToRightOfSuperviewWithConstraint(constant: CGFloat = 0) -> NSLayoutConstraint {
 
         let trailing = NSLayoutConstraint(item: self,
                                           attribute: .trailing,
@@ -170,7 +170,7 @@ extension UIView {
                                           toItem: self.superview,
                                           attribute: .trailing,
                                           multiplier: 1.0,
-                                          constant: 0)
+                                          constant: constant)
         self.superview!.addConstraint(trailing)
         return trailing
 

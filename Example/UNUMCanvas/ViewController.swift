@@ -15,14 +15,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-
         // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
 
         let view1 = UIView(frame: .zero)
         view1.backgroundColor = UIColor.red
@@ -31,14 +28,12 @@ class ViewController: UIViewController {
         view2.backgroundColor = UIColor.green
         view2.text = "UNUMCanvas"
 
-
-
         let media1 = MediaScalableObject(scalableView: view1 )
 
         let media2 = MediaScalableObject(scalableView: view2 )
 
-        canvasView.addMediaObject(mediaObject: media1)
-        canvasView.addMediaObject(mediaObject: media2)
+        canvasView.addMediaObject(mediaObject: media1, isHorizontalPinchEnabled: false, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true)
+        canvasView.addMediaObject(mediaObject: media2, isHorizontalPinchEnabled: true, isVerticalPichEnabled: false, isZoomEnabled: true, isMoveable: true)
         canvasView.setupCenterViews(color: .black, lengthPercent: 0.2, indicatorWidth: 2)
     }
 
@@ -46,6 +41,4 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 }
-
