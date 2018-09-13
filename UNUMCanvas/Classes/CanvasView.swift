@@ -411,7 +411,7 @@ public class CanvasView: UIView {
     var panGesture: UIPanGestureRecognizer!
     var pinchGesture: UIPinchGestureRecognizer!
     var addImageButton: UIButton!
-    weak var canvasDelegate: CanvasDelegate?
+    public weak var canvasDelegate: CanvasDelegate?
 
     var horizontalCenterConstant: CGFloat?
     var verticalCenterConstant: CGFloat?
