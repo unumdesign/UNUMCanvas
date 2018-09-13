@@ -399,7 +399,7 @@ public class MediaScalableObject {
 
 protocol CanvasDelegate: class {
     func importMedia()
-    func tapAction()
+    func tapAction(_ sender: UITapGestureRecognizer)
 }
 
 public class CanvasView: UIView {
@@ -688,7 +688,7 @@ public class CanvasView: UIView {
                 self.layer.borderColor = UIColor.black.cgColor
             }
         }
-        canvasDelegate?.tapAction()
+        canvasDelegate?.tapAction(sender)
     }
 
 //    fileprivate func editingElement() {
