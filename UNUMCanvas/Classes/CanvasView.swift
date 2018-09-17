@@ -645,12 +645,15 @@ public class CanvasView: UIView {
             isEditing = !isEditing
 
             //Remove currently editing if is not editing
+
             if (isEditing){
                 currentlyEditingMedia = scalableMediaArray.first
+                currentlyEditingMedia?.isEditing = isEditing
+
             }else{
+                currentlyEditingMedia?.isEditing = isEditing
                 currentlyEditingMedia = nil
             }
-            currentlyEditingMedia?.isEditing = isEditing
 
             panGesture.isEnabled = isEditing
             pinchGesture.isEnabled = isEditing
