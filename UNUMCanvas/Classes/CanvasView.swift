@@ -96,7 +96,7 @@ public class MediaScalableObject {
 
     /*---------------------------------------
      views and gestures for edge touches
-    ---------------------------------------*/
+     ---------------------------------------*/
     func setupEdgesGestures() {
 
         //initail corner gestures
@@ -206,8 +206,8 @@ public class MediaScalableObject {
     }
 
     /*-----------------------------------
-    Pan gesture functions for squeeze scalable view
-    ------------------------------------*/
+     Pan gesture functions for squeeze scalable view
+     ------------------------------------*/
 
     @objc fileprivate func moveTopLeftEdge(_ sender: UIPanGestureRecognizer) {
 
@@ -245,7 +245,7 @@ public class MediaScalableObject {
 
         } else if sender.state == .changed {
 
-             //moving bottom left corner
+            //moving bottom left corner
             self.bottomConstraint?.constant = self.previousBottomConstraintValue + translation.y
         } else if sender.state == .ended {
 
@@ -268,7 +268,7 @@ public class MediaScalableObject {
 
         } else if sender.state == .changed {
 
-             //moving top right corner
+            //moving top right corner
             self.topConstraint?.constant = self.previousTopConstraingValue + translation.y
             self.trailingConstraint?.constant = self.previousTrailingConstraintValue + translation.x
         } else if sender.state == .ended {
@@ -291,7 +291,7 @@ public class MediaScalableObject {
 
         } else if sender.state == .changed {
 
-             //moving botton right corner
+            //moving botton right corner
             self.bottomConstraint?.constant = self.previousBottomConstraintValue + translation.y
             self.trailingConstraint?.constant = self.previousTrailingConstraintValue + translation.x
         } else if sender.state == .ended {
@@ -314,7 +314,7 @@ public class MediaScalableObject {
 
         } else if sender.state == .changed {
 
-             //moving top edge
+            //moving top edge
             self.topConstraint?.constant = self.previousTopConstraingValue + translation.y
         } else if sender.state == .ended {
             //update previous constraint value
@@ -425,14 +425,6 @@ public class CanvasView: UIView {
     var leftMidView: UIView?
     var rightMidView: UIView?
 
-//    weak var delegate: StoryEditingDelegat?
-//    weak var delegateFromEditor: StoryEditingDelegat?
-
-//    public init() {
-//        super.init()
-//        self.setupTouchGestures()
-//    }
-
     public override func awakeFromNib() {
         super.awakeFromNib()
         setupTouchGestures()
@@ -457,7 +449,7 @@ public class CanvasView: UIView {
     /*--------------------------------------
      Setup lines that indicate view is centered when moving
      only show those lines when view is centered, so inital alpha is 0
-    ----------------------------------------*/
+     ----------------------------------------*/
 
     func setupCenterViews(color: UIColor, lengthPercent: CGFloat, indicatorWidth: CGFloat) {
 
@@ -513,11 +505,13 @@ public class CanvasView: UIView {
 
     }
 
-    fileprivate func showOrHideMidView(_ show: Bool) {
+    fileprivate func showOrHideMidIndicatorView(_ show: Bool) {
+
         topMidView?.alpha = show ? 1 : 0
         bottomMidView?.alpha = show ? 1 : 0
         leftMidView?.alpha = show ? 1 : 0
         rightMidView?.alpha = show ? 1 : 0
+
         if let topMidView = topMidView {
             self.bringSubview(toFront: topMidView)
 
@@ -596,15 +590,6 @@ public class CanvasView: UIView {
         mediaObject.isZoomable = isZoomEnabled
     }
 
-    func setupView() {
-        if scalableMediaArray.isEmpty {
-            //TODO: setup add image button
-        } else {
-            // TODO: setup scalable view
-        }
-        setupInitialconstraint()
-    }
-
     fileprivate func setupInitialconstraint() {
 
         for media in scalableMediaArray {
@@ -624,17 +609,6 @@ public class CanvasView: UIView {
         }
 
     }
-
-//    @IBAction func selectImagesFromCameraRoll() {
-//
-//        let secondaryVC = SecondaryImportViewController(nibName: "SecondaryRootViewController", bundle: nil)
-//        secondaryVC.importDelegate = self
-//        secondaryVC.allowsInternalSources = false
-//        secondaryVC.maxNumberOfSelections = 1
-//        let secondaryNavigation = UINavigationController(rootViewController: secondaryVC)
-//
-//        delegateFromEditor?.presentVC?(secondaryNavigation)
-//    }
 
     @objc func tapAction(_ sender: UITapGestureRecognizer) {
         if scalableMediaArray.isEmpty {
@@ -660,8 +634,9 @@ public class CanvasView: UIView {
             self.layer.borderWidth = isEditing ? 1 : 0
             self.layer.borderColor = UIColor.black.cgColor
         } else if scalableMediaArray.count > 1 {
+
             removeEditing()
-            //TODO: highlight selected image and border
+
             let index = scalableMediaArray.index { (mediaScalableObject) -> Bool in
 
                 let view = sender.view
@@ -694,28 +669,6 @@ public class CanvasView: UIView {
         canvasDelegate?.tapAction(sender)
     }
 
-//    fileprivate func editingElement() {
-//        isEditing = !isEditing
-//        panGesture.isEnabled = isEditing
-//        pinchGesture.isEnabled = isEditing
-//        delegate?.enterEditingModel(isEditing, viewTag: self.superview!.tag)
-//        delegateFromEditor?.enterEditingModel(isEditing, viewTag: self.tag)
-//        self.layer.borderWidth = isEditing ? 1 : 0
-//        self.layer.borderColor = UIColor.black.cgColor
-//    }
-
-//    func addImage(imageURL: String) {
-//        self.currentlyEditingMedia = MediaScalableObject(imageURL: imageURL)
-//        self.addSubview(self.currentlyEditingMedia!.imageView)
-//        self.currentlyEditingMedia?.attachConstraintsToSuperview()
-//    }
-//
-//    func addImage(image: UIImage) {
-//        self.currentlyEditingMedia = MediaScalableObject(image: image)
-//        self.addSubview(self.currentlyEditingMedia!.imageView)
-//        self.currentlyEditingMedia?.attachConstraintsToSuperview()
-//    }
-
     func endTouch(_ editingMedia: MediaScalableObject) {
         if let top = editingMedia.topConstraint?.constant,
             let leading = editingMedia.leadingConstraint?.constant,
@@ -727,8 +680,8 @@ public class CanvasView: UIView {
 
             //TODO: Send full media scalable object instead of each
 
-//            delegate?.updatePosition(top: top, bottom: bottom, viewTag: superView.tag, cellIndex: itemIndex)
-//            delegateFromEditor?.updatePosition(top: top, bottom: bottom, viewTag: superView.tag, cellIndex: itemIndex)
+            //            delegate?.updatePosition(top: top, bottom: bottom, viewTag: superView.tag, cellIndex: itemIndex)
+            //            delegateFromEditor?.updatePosition(top: top, bottom: bottom, viewTag: superView.tag, cellIndex: itemIndex)
         }
     }
 
@@ -770,7 +723,7 @@ public class CanvasView: UIView {
 
                     editingMedia.leadingConstraint!.constant  = horizontalCenterConstant ?? 0
                     editingMedia.trailingConstraint!.constant = -(horizontalCenterConstant ?? 0)
-                    showOrHideMidView(true)
+                    showOrHideMidIndicatorView(true)
                     horizontalCentered = true
                 }
 
@@ -778,7 +731,7 @@ public class CanvasView: UIView {
                 horizontalCentered = false
 
                 //when both vertical and horizontal are not centered, hide middle line views
-                showOrHideMidView(verticalCentered || horizontalCentered)
+                showOrHideMidIndicatorView(verticalCentered || horizontalCentered)
             }
 
             // if scalable view's center inside middle area and velocity great than 10, center the view vertically
@@ -789,14 +742,14 @@ public class CanvasView: UIView {
 
                     editingMedia.topConstraint?.constant = verticalCenterConstant ?? 0
                     editingMedia.bottomConstraint?.constant = -(verticalCenterConstant ?? 0)
-                    showOrHideMidView(true)
+                    showOrHideMidIndicatorView(true)
                     verticalCentered = true
                 }
             } else if abs(verticalDelta) > 10 {
 
                 verticalCentered = false
                 //when both vertical and horizontal are not centered, hide middle line views
-                showOrHideMidView(verticalCentered || horizontalCentered)
+                showOrHideMidIndicatorView(verticalCentered || horizontalCentered)
             }
 
             //if the view is centered, we don't need to update it's constraint untile it goes out of the middle range
@@ -809,12 +762,6 @@ public class CanvasView: UIView {
                 editingMedia.topConstraint?.constant = editingMedia.previousTopConstraingValue + translation.y
                 editingMedia.bottomConstraint?.constant = editingMedia.previousBottomConstraintValue + translation.y
             }
-
-            //old code
-//            editingMedia.trailingConstraint!.constant = editingMedia.previousTrailingConstraintValue  + translation.x
-//            editingMedia.leadingConstraint!.constant = editingMedia.previousLeadingConstraintValue + translation.x
-//            editingMedia.topConstraint?.constant = editingMedia.previousTopConstraingValue + translation.y
-//            editingMedia.bottomConstraint?.constant = editingMedia.previousBottomConstraintValue + translation.y
 
         } else if (sender.state == .began) {
             pinchGesture.isEnabled = false
@@ -841,7 +788,7 @@ public class CanvasView: UIView {
 
         if (sender.state == .ended){
 
-            //Update position after moved
+            //Update position after move ended
             endTouch(editingMedia)
             panGesture.isEnabled = true
             editingMedia.updatePreviousConstraintValue()
@@ -853,28 +800,27 @@ public class CanvasView: UIView {
 
             //if vertical pinch is false, don't update top and bottom constraints
 
-                let heightOfImage = self.frame.size.height
-                let deltaHeightChange = heightOfImage * changeScale
+            let heightOfImage = self.frame.size.height
+            let deltaHeightChange = heightOfImage * changeScale
 
-                editingMedia.topConstraint!.constant = editingMedia.previousTopConstraingValue + deltaHeightChange/2
-                editingMedia.bottomConstraint!.constant = editingMedia.previousBottomConstraintValue - deltaHeightChange/2
+            editingMedia.topConstraint!.constant = editingMedia.previousTopConstraingValue + deltaHeightChange/2
+            editingMedia.bottomConstraint!.constant = editingMedia.previousBottomConstraintValue - deltaHeightChange/2
 
             //if horizontal pinch is false, don't update top and bottom constraints
-                let widthOfImage = self.frame.size.width
-                let deltaWidthChange = widthOfImage * changeScale
+            let widthOfImage = self.frame.size.width
+            let deltaWidthChange = widthOfImage * changeScale
 
-                editingMedia.leadingConstraint!.constant = editingMedia.previousLeadingConstraintValue + deltaWidthChange/2
-                editingMedia.trailingConstraint!.constant = editingMedia.previousTrailingConstraintValue - deltaWidthChange/2
+            editingMedia.leadingConstraint!.constant = editingMedia.previousLeadingConstraintValue + deltaWidthChange/2
+            editingMedia.trailingConstraint!.constant = editingMedia.previousTrailingConstraintValue - deltaWidthChange/2
 
         } else if (sender.state == .began) {
             panGesture.isEnabled = false
         }
     }
 
-    //Stop editing media inside this canvas
+    //Stop editing media inside this canvas, remove border and save updated constraints
     public func removeEditing() {
         if isEditing {
-//                        closeButton.isHidden = false
             self.layer.borderWidth = 0
             self.currentlyEditingMedia?.updatePreviousConstraintValue()
             self.currentlyEditingMedia?.isEditing = false
