@@ -65,10 +65,10 @@ public class MediaScalableObject {
     }
 
     //Initialization
-    public init(scalableView: UIView){
+    public init(scalableView: UIView, testModel: Bool = false){
         self.scalableView = scalableView
         scalableView.isUserInteractionEnabled = true
-        self.setupEdgesGestures()
+        self.setupEdgesGestures(testModel: testModel)
     }
 
     //setup initial constraint
@@ -97,7 +97,13 @@ public class MediaScalableObject {
     /*---------------------------------------
      views and gestures for edge touches
      ---------------------------------------*/
-    func setupEdgesGestures() {
+    func setupEdgesGestures(testModel: Bool) {
+
+        var viewColor = UIColor.clear
+
+        if testModel {
+            viewColor = .yellow
+        }
 
         //initail corner gestures
         self.topLeftGesture = UIPanGestureRecognizer(target: self, action: #selector(moveTopLeftEdge(_:)))
@@ -121,7 +127,7 @@ public class MediaScalableObject {
         _ = topGestureView.pinToLeftOfSuperviewWithConstraint(constant: 10)
         _ = topGestureView.pinToRightOfSuperviewWithConstraint(constant: -10)
         _ = topGestureView.forceHeightConstraint(height: 20)
-        topGestureView.backgroundColor = .cyan
+        topGestureView.backgroundColor = viewColor
 
         let leftGestureView = UIView(frame: .zero)
         leftGestureView.tag = 88
@@ -131,7 +137,7 @@ public class MediaScalableObject {
         _ = leftGestureView.pinToLeftOfSuperviewWithConstraint(constant: 0)
         _ = leftGestureView.pinToBottomOfSuperviewWithConstraint(constant: -10)
         _ = leftGestureView.forceWidthConstraint(width: 20)
-        leftGestureView.backgroundColor = .cyan
+        leftGestureView.backgroundColor = viewColor
 
         let rightGestureView = UIView(frame: .zero)
         rightGestureView.tag = 88
@@ -141,7 +147,7 @@ public class MediaScalableObject {
         _ = rightGestureView.pinToRightOfSuperviewWithConstraint(constant: 0)
         _ = rightGestureView.pinToBottomOfSuperviewWithConstraint(constant: -10)
         _ = rightGestureView.forceWidthConstraint(width: 20)
-        rightGestureView.backgroundColor = .cyan
+        rightGestureView.backgroundColor = viewColor
 
         let bottomGestureView = UIView(frame: .zero)
         bottomGestureView.tag = 88
@@ -151,7 +157,7 @@ public class MediaScalableObject {
         _ = bottomGestureView.pinToLeftOfSuperviewWithConstraint(constant: 10)
         _ = bottomGestureView.pinToRightOfSuperviewWithConstraint(constant: -10)
         _ = bottomGestureView.forceHeightConstraint(height: 20)
-        bottomGestureView.backgroundColor = .cyan
+        bottomGestureView.backgroundColor = viewColor
 
         let topLeftCornerGestureView = UIView(frame: .zero)
         topLeftCornerGestureView.tag = 88
@@ -161,7 +167,7 @@ public class MediaScalableObject {
         _ = topLeftCornerGestureView.pinToLeftOfSuperviewWithConstraint(constant: 0)
         _ = topLeftCornerGestureView.forceWidthConstraint(width: 20)
         _ = topLeftCornerGestureView.forceHeightConstraint(height: 20)
-        topLeftCornerGestureView.backgroundColor = .black
+        topLeftCornerGestureView.backgroundColor = viewColor
 
         let toprightCornerGestureView = UIView(frame: .zero)
         toprightCornerGestureView.tag = 88
@@ -171,7 +177,7 @@ public class MediaScalableObject {
         _ = toprightCornerGestureView.pinToRightOfSuperviewWithConstraint(constant: 0)
         _ = toprightCornerGestureView.forceWidthConstraint(width: 20)
         _ = toprightCornerGestureView.forceHeightConstraint(height: 20)
-        toprightCornerGestureView.backgroundColor = .black
+        toprightCornerGestureView.backgroundColor = viewColor
 
         let bottomLeftCornerGestureView = UIView(frame: .zero)
         bottomLeftCornerGestureView.tag = 88
@@ -181,7 +187,7 @@ public class MediaScalableObject {
         _ = bottomLeftCornerGestureView.pinToLeftOfSuperviewWithConstraint(constant: 0)
         _ = bottomLeftCornerGestureView.forceWidthConstraint(width: 20)
         _ = bottomLeftCornerGestureView.forceHeightConstraint(height: 20)
-        bottomLeftCornerGestureView.backgroundColor = .black
+        bottomLeftCornerGestureView.backgroundColor = viewColor
 
         let bottomRightCornerGestureView = UIView(frame: .zero)
         bottomRightCornerGestureView.tag = 88
@@ -191,7 +197,7 @@ public class MediaScalableObject {
         _ = bottomRightCornerGestureView.pinToRightOfSuperviewWithConstraint(constant: 0)
         _ = bottomRightCornerGestureView.forceWidthConstraint(width: 20)
         _ = bottomRightCornerGestureView.forceHeightConstraint(height: 20)
-        bottomRightCornerGestureView.backgroundColor = .black
+        bottomRightCornerGestureView.backgroundColor = viewColor
 
         topLeftCornerGestureView.addGestureRecognizer(topLeftGesture)
         toprightCornerGestureView.addGestureRecognizer(topRightGesture)
@@ -590,23 +596,18 @@ public class CanvasView: UIView {
         mediaObject.isZoomable = isZoomEnabled
     }
 
-    fileprivate func setupInitialconstraint() {
+    //use this to change media object constraints
+    public func setupMediaObjectConstraint(_ media: MediaScalableObject, top: CGFloat, bottom: CGFloat, leading: CGFloat, trailing: CGFloat) {
 
-        for media in scalableMediaArray {
-            guard let top = media.topPoint,
-                let bottom = media.bottomPoint
-                else { return }
+        media.topConstraint?.constant = top
+        media.leadingConstraint?.constant = leading
+        media.bottomConstraint?.constant = bottom
+        media.trailingConstraint?.constant = trailing
 
-            media.topConstraint?.constant = top.y
-            media.leadingConstraint?.constant = top.x
-            media.bottomConstraint?.constant = bottom.y
-            media.trailingConstraint?.constant = bottom.x
-
-            media.previousTopConstraingValue = media.topConstraint?.constant ?? 0
-            media.previousTrailingConstraintValue = media.trailingConstraint?.constant ?? 0
-            media.previousLeadingConstraintValue = media.leadingConstraint?.constant ?? 0
-            media.previousBottomConstraintValue = media.bottomConstraint?.constant ?? 0
-        }
+        media.previousTopConstraingValue = media.topConstraint?.constant ?? 0
+        media.previousTrailingConstraintValue = media.trailingConstraint?.constant ?? 0
+        media.previousLeadingConstraintValue = media.leadingConstraint?.constant ?? 0
+        media.previousBottomConstraintValue = media.bottomConstraint?.constant ?? 0
 
     }
 
