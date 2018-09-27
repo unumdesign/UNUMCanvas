@@ -590,23 +590,18 @@ public class CanvasView: UIView {
         mediaObject.isZoomable = isZoomEnabled
     }
 
-    fileprivate func setupInitialconstraint() {
+    //use this to change media object constraints
+    public func setupMediaObjectConstraint(_ media: MediaScalableObject, top: CGFloat, bottom: CGFloat, leading: CGFloat, trailing: CGFloat) {
 
-        for media in scalableMediaArray {
-            guard let top = media.topPoint,
-                let bottom = media.bottomPoint
-                else { return }
+        media.topConstraint?.constant = top
+        media.leadingConstraint?.constant = leading
+        media.bottomConstraint?.constant = bottom
+        media.trailingConstraint?.constant = trailing
 
-            media.topConstraint?.constant = top.y
-            media.leadingConstraint?.constant = top.x
-            media.bottomConstraint?.constant = bottom.y
-            media.trailingConstraint?.constant = bottom.x
-
-            media.previousTopConstraingValue = media.topConstraint?.constant ?? 0
-            media.previousTrailingConstraintValue = media.trailingConstraint?.constant ?? 0
-            media.previousLeadingConstraintValue = media.leadingConstraint?.constant ?? 0
-            media.previousBottomConstraintValue = media.bottomConstraint?.constant ?? 0
-        }
+        media.previousTopConstraingValue = media.topConstraint?.constant ?? 0
+        media.previousTrailingConstraintValue = media.trailingConstraint?.constant ?? 0
+        media.previousLeadingConstraintValue = media.leadingConstraint?.constant ?? 0
+        media.previousBottomConstraintValue = media.bottomConstraint?.constant ?? 0
 
     }
 

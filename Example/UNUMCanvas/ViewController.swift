@@ -34,6 +34,7 @@ class ViewController: UIViewController {
 
         canvasView.addMediaObject(mediaObject: media1, isHorizontalPinchEnabled: true, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true)
         canvasView.addMediaObject(mediaObject: media2, isHorizontalPinchEnabled: true, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true)
+        canvasView.setupMediaObjectConstraint(media2, top: 50, bottom: -50, leading: 50, trailing: -50)
     }
 
     override func didReceiveMemoryWarning() {
