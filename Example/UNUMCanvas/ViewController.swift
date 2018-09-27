@@ -28,9 +28,9 @@ class ViewController: UIViewController {
         view2.backgroundColor = UIColor.green
         view2.text = "UNUMCanvas"
 
-        let media1 = MediaScalableObject(scalableView: view1 )
+        let media1 = MediaScalableObject(scalableView: view1)
 
-        let media2 = MediaScalableObject(scalableView: view2 )
+        let media2 = MediaScalableObject(scalableView: view2, testModel: true)
 
         canvasView.addMediaObject(mediaObject: media1, isHorizontalPinchEnabled: true, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true)
         canvasView.addMediaObject(mediaObject: media2, isHorizontalPinchEnabled: true, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true)
