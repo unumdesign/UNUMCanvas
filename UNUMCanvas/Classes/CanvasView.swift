@@ -77,7 +77,7 @@ public class MediaScalableObject {
             print("attach a view first")
             return
         }
-        
+
         self.scalableView.translatesAutoresizingMaskIntoConstraints = false
         topConstraint = self.scalableView.pinToTopOfSuperviewWithConstraint()
         trailingConstraint = self.scalableView.pinToRightOfSuperviewWithConstraint()
@@ -636,35 +636,37 @@ public class CanvasView: UIView {
             self.layer.borderColor = UIColor.black.cgColor
         } else if scalableMediaArray.count > 1 {
 
-            removeEditing()
+            if isEditing {
+                removeEditing()
+            } else {
+                let index = scalableMediaArray.index { (mediaScalableObject) -> Bool in
 
-            let index = scalableMediaArray.index { (mediaScalableObject) -> Bool in
+                    let view = sender.view
+                    let location = sender.location(in: view)
+                    let subView = view?.hitTest(location, with: nil)
 
-                let view = sender.view
-                let location = sender.location(in: view)
-                let subView = view?.hitTest(location, with: nil)
-
-                if subView == mediaScalableObject.scalableView {
-                    return true
-                }
-                return false
-            }
-
-            if let scalableIndex = index {
-                isEditing = !isEditing
-
-                if (isEditing){
-                    currentlyEditingMedia = scalableMediaArray[scalableIndex]
-                    currentlyEditingMedia?.isEditing = isEditing
-                }else{
-                    currentlyEditingMedia?.isEditing = isEditing
-                    currentlyEditingMedia = nil
+                    if subView == mediaScalableObject.scalableView || subView?.superview == mediaScalableObject.scalableView {
+                        return true
+                    }
+                    return false
                 }
 
-                panGesture.isEnabled = isEditing
-                pinchGesture.isEnabled = isEditing
-                self.layer.borderWidth = isEditing ? 1 : 0
-                self.layer.borderColor = UIColor.black.cgColor
+                if let scalableIndex = index {
+                    isEditing = !isEditing
+
+                    if (isEditing){
+                        currentlyEditingMedia = scalableMediaArray[scalableIndex]
+                        currentlyEditingMedia?.isEditing = isEditing
+                    }else{
+                        currentlyEditingMedia?.isEditing = isEditing
+                        currentlyEditingMedia = nil
+                    }
+
+                    panGesture.isEnabled = isEditing
+                    pinchGesture.isEnabled = isEditing
+                    self.layer.borderWidth = isEditing ? 1 : 0
+                    self.layer.borderColor = UIColor.black.cgColor
+                }
             }
         }
         canvasDelegate?.tapAction(sender)
