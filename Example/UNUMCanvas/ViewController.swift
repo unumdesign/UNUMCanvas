@@ -32,7 +32,7 @@ class ViewController: UIViewController {
 
         let media2 = MediaScalableObject(scalableView: view2, testModel: true)
 
-        canvasView.addMediaObject(mediaObject: media1, isHorizontalPinchEnabled: true, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true)
+        canvasView.addMediaObject(mediaObject: media1, isHorizontalPinchEnabled: true, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true, isEditing: true  )
         canvasView.addMediaObject(mediaObject: media2, isHorizontalPinchEnabled: true, isVerticalPichEnabled: true, isZoomEnabled: true, isMoveable: true)
         canvasView.setupMediaObjectConstraint(media2, top: 50, bottom: -50, leading: 50, trailing: -50)
     }

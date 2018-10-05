@@ -578,17 +578,33 @@ public class CanvasView: UIView {
         pinchGesture.isEnabled = isEditing
     }
 
+    //add new media object into canvas view
     public func addMediaObject(mediaObject: MediaScalableObject,
                                isHorizontalPinchEnabled: Bool,
                                isVerticalPichEnabled: Bool,
                                isZoomEnabled: Bool,
-                               isMoveable: Bool) {
+                               isMoveable: Bool,
+                               isEditing: Bool = false) {
 
         self.addSubview(mediaObject.scalableView)
         mediaObject.attachConstraintsToSuperview()
         scalableMediaArray.append(mediaObject)
 
-        mediaObject.isEditing = false
+        mediaObject.isEditing = isEditing
+
+        if isEditing {
+            //clear all current editing object
+            removeEditing()
+
+            //set the new media object to edting model
+            currentlyEditingMedia = mediaObject
+            mediaObject.isEditing = isEditing
+
+            panGesture.isEnabled = isEditing
+            pinchGesture.isEnabled = isEditing
+            self.layer.borderWidth = isEditing ? 1 : 0
+            self.layer.borderColor = UIColor.black.cgColor
+        }
 
         mediaObject.isHorizontalMoveable = isHorizontalPinchEnabled
         mediaObject.isVerticalMoveable = isVerticalPichEnabled
