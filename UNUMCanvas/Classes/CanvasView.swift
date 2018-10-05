@@ -77,7 +77,7 @@ public class MediaScalableObject {
             print("attach a view first")
             return
         }
-        
+
         self.scalableView.translatesAutoresizingMaskIntoConstraints = false
         topConstraint = self.scalableView.pinToTopOfSuperviewWithConstraint()
         trailingConstraint = self.scalableView.pinToRightOfSuperviewWithConstraint()
@@ -123,7 +123,7 @@ public class MediaScalableObject {
         topGestureView.tag = 88
         self.scalableView.addSubview(topGestureView)
         topGestureView.translatesAutoresizingMaskIntoConstraints = false
-        _ = topGestureView.pinToTopOfSuperviewWithConstraint(constant: 0)
+        _ = topGestureView.pinToTopOfSuperviewWithConstraint(constant: -10)
         _ = topGestureView.pinToLeftOfSuperviewWithConstraint(constant: 10)
         _ = topGestureView.pinToRightOfSuperviewWithConstraint(constant: -10)
         _ = topGestureView.forceHeightConstraint(height: 20)
@@ -134,7 +134,7 @@ public class MediaScalableObject {
         self.scalableView.addSubview(leftGestureView)
         _ = leftGestureView.translatesAutoresizingMaskIntoConstraints = false
         _ = leftGestureView.pinToTopOfSuperviewWithConstraint(constant: 10)
-        _ = leftGestureView.pinToLeftOfSuperviewWithConstraint(constant: 0)
+        _ = leftGestureView.pinToLeftOfSuperviewWithConstraint(constant: -10)
         _ = leftGestureView.pinToBottomOfSuperviewWithConstraint(constant: -10)
         _ = leftGestureView.forceWidthConstraint(width: 20)
         leftGestureView.backgroundColor = viewColor
@@ -144,7 +144,7 @@ public class MediaScalableObject {
         self.scalableView.addSubview(rightGestureView)
         _ = rightGestureView.translatesAutoresizingMaskIntoConstraints = false
         _ = rightGestureView.pinToTopOfSuperviewWithConstraint(constant: 10)
-        _ = rightGestureView.pinToRightOfSuperviewWithConstraint(constant: 0)
+        _ = rightGestureView.pinToRightOfSuperviewWithConstraint(constant: 10)
         _ = rightGestureView.pinToBottomOfSuperviewWithConstraint(constant: -10)
         _ = rightGestureView.forceWidthConstraint(width: 20)
         rightGestureView.backgroundColor = viewColor
@@ -153,7 +153,7 @@ public class MediaScalableObject {
         bottomGestureView.tag = 88
         scalableView.addSubview(bottomGestureView)
         bottomGestureView.translatesAutoresizingMaskIntoConstraints = false
-        _ = bottomGestureView.pinToBottomOfSuperviewWithConstraint(constant: 0)
+        _ = bottomGestureView.pinToBottomOfSuperviewWithConstraint(constant: 10)
         _ = bottomGestureView.pinToLeftOfSuperviewWithConstraint(constant: 10)
         _ = bottomGestureView.pinToRightOfSuperviewWithConstraint(constant: -10)
         _ = bottomGestureView.forceHeightConstraint(height: 20)
@@ -163,8 +163,8 @@ public class MediaScalableObject {
         topLeftCornerGestureView.tag = 88
         self.scalableView.addSubview(topLeftCornerGestureView)
         _ = topLeftCornerGestureView.translatesAutoresizingMaskIntoConstraints = false
-        _ = topLeftCornerGestureView.pinToTopOfSuperviewWithConstraint(constant: 0)
-        _ = topLeftCornerGestureView.pinToLeftOfSuperviewWithConstraint(constant: 0)
+        _ = topLeftCornerGestureView.pinToTopOfSuperviewWithConstraint(constant: -10)
+        _ = topLeftCornerGestureView.pinToLeftOfSuperviewWithConstraint(constant: -10)
         _ = topLeftCornerGestureView.forceWidthConstraint(width: 20)
         _ = topLeftCornerGestureView.forceHeightConstraint(height: 20)
         topLeftCornerGestureView.backgroundColor = viewColor
@@ -173,8 +173,8 @@ public class MediaScalableObject {
         toprightCornerGestureView.tag = 88
         self.scalableView.addSubview(toprightCornerGestureView)
         _ = toprightCornerGestureView.translatesAutoresizingMaskIntoConstraints = false
-        _ = toprightCornerGestureView.pinToTopOfSuperviewWithConstraint(constant: 0)
-        _ = toprightCornerGestureView.pinToRightOfSuperviewWithConstraint(constant: 0)
+        _ = toprightCornerGestureView.pinToTopOfSuperviewWithConstraint(constant: -10)
+        _ = toprightCornerGestureView.pinToRightOfSuperviewWithConstraint(constant: 10)
         _ = toprightCornerGestureView.forceWidthConstraint(width: 20)
         _ = toprightCornerGestureView.forceHeightConstraint(height: 20)
         toprightCornerGestureView.backgroundColor = viewColor
@@ -183,8 +183,8 @@ public class MediaScalableObject {
         bottomLeftCornerGestureView.tag = 88
         self.scalableView.addSubview(bottomLeftCornerGestureView)
         _ = bottomLeftCornerGestureView.translatesAutoresizingMaskIntoConstraints = false
-        _ = bottomLeftCornerGestureView.pinToBottomOfSuperviewWithConstraint(constant: 0)
-        _ = bottomLeftCornerGestureView.pinToLeftOfSuperviewWithConstraint(constant: 0)
+        _ = bottomLeftCornerGestureView.pinToBottomOfSuperviewWithConstraint(constant: 10)
+        _ = bottomLeftCornerGestureView.pinToLeftOfSuperviewWithConstraint(constant: -10)
         _ = bottomLeftCornerGestureView.forceWidthConstraint(width: 20)
         _ = bottomLeftCornerGestureView.forceHeightConstraint(height: 20)
         bottomLeftCornerGestureView.backgroundColor = viewColor
@@ -193,8 +193,8 @@ public class MediaScalableObject {
         bottomRightCornerGestureView.tag = 88
         self.scalableView.addSubview(bottomRightCornerGestureView)
         _ = bottomRightCornerGestureView.translatesAutoresizingMaskIntoConstraints = false
-        _ = bottomRightCornerGestureView.pinToBottomOfSuperviewWithConstraint(constant: 0)
-        _ = bottomRightCornerGestureView.pinToRightOfSuperviewWithConstraint(constant: 0)
+        _ = bottomRightCornerGestureView.pinToBottomOfSuperviewWithConstraint(constant: 10)
+        _ = bottomRightCornerGestureView.pinToRightOfSuperviewWithConstraint(constant: 10)
         _ = bottomRightCornerGestureView.forceWidthConstraint(width: 20)
         _ = bottomRightCornerGestureView.forceHeightConstraint(height: 20)
         bottomRightCornerGestureView.backgroundColor = viewColor
@@ -253,6 +253,8 @@ public class MediaScalableObject {
 
             //moving bottom left corner
             self.bottomConstraint?.constant = self.previousBottomConstraintValue + translation.y
+            self.leadingConstraint?.constant = self.previousLeadingConstraintValue + translation.x
+
         } else if sender.state == .ended {
 
             //update previous constraint value
@@ -400,7 +402,6 @@ public class MediaScalableObject {
     func enterEditingModel(_ isEditing: Bool, viewTag: Int)
     @objc optional func presentVC(_ vc: UIViewController)
     func updatePosition(top: CGPoint, bottom: CGPoint, viewTag: Int, cellIndex: Int)
-    func addImage(_ image: UIImage, viewTag: Int, cellIndex: Int)
 }
 
 public protocol CanvasDelegate: class {
@@ -578,17 +579,33 @@ public class CanvasView: UIView {
         pinchGesture.isEnabled = isEditing
     }
 
+    //add new media object into canvas view
     public func addMediaObject(mediaObject: MediaScalableObject,
                                isHorizontalPinchEnabled: Bool,
                                isVerticalPichEnabled: Bool,
                                isZoomEnabled: Bool,
-                               isMoveable: Bool) {
+                               isMoveable: Bool,
+                               isEditing: Bool = false) {
 
         self.addSubview(mediaObject.scalableView)
         mediaObject.attachConstraintsToSuperview()
         scalableMediaArray.append(mediaObject)
 
-        mediaObject.isEditing = false
+        mediaObject.isEditing = isEditing
+
+        if isEditing {
+            //clear all current editing object
+            removeEditing()
+
+            //set the new media object to edting model
+            currentlyEditingMedia = mediaObject
+            mediaObject.isEditing = isEditing
+
+            panGesture.isEnabled = isEditing
+            pinchGesture.isEnabled = isEditing
+            self.layer.borderWidth = isEditing ? 1 : 0
+            self.layer.borderColor = UIColor.black.cgColor
+        }
 
         mediaObject.isHorizontalMoveable = isHorizontalPinchEnabled
         mediaObject.isVerticalMoveable = isVerticalPichEnabled
@@ -636,35 +653,37 @@ public class CanvasView: UIView {
             self.layer.borderColor = UIColor.black.cgColor
         } else if scalableMediaArray.count > 1 {
 
-            removeEditing()
+            if isEditing {
+                removeEditing()
+            } else {
+                let index = scalableMediaArray.index { (mediaScalableObject) -> Bool in
 
-            let index = scalableMediaArray.index { (mediaScalableObject) -> Bool in
+                    let view = sender.view
+                    let location = sender.location(in: view)
+                    let subView = view?.hitTest(location, with: nil)
 
-                let view = sender.view
-                let location = sender.location(in: view)
-                let subView = view?.hitTest(location, with: nil)
-
-                if subView == mediaScalableObject.scalableView {
-                    return true
-                }
-                return false
-            }
-
-            if let scalableIndex = index {
-                isEditing = !isEditing
-
-                if (isEditing){
-                    currentlyEditingMedia = scalableMediaArray[scalableIndex]
-                    currentlyEditingMedia?.isEditing = isEditing
-                }else{
-                    currentlyEditingMedia?.isEditing = isEditing
-                    currentlyEditingMedia = nil
+                    if subView == mediaScalableObject.scalableView || subView?.superview == mediaScalableObject.scalableView {
+                        return true
+                    }
+                    return false
                 }
 
-                panGesture.isEnabled = isEditing
-                pinchGesture.isEnabled = isEditing
-                self.layer.borderWidth = isEditing ? 1 : 0
-                self.layer.borderColor = UIColor.black.cgColor
+                if let scalableIndex = index {
+                    isEditing = !isEditing
+
+                    if (isEditing){
+                        currentlyEditingMedia = scalableMediaArray[scalableIndex]
+                        currentlyEditingMedia?.isEditing = isEditing
+                    }else{
+                        currentlyEditingMedia?.isEditing = isEditing
+                        currentlyEditingMedia = nil
+                    }
+
+                    panGesture.isEnabled = isEditing
+                    pinchGesture.isEnabled = isEditing
+                    self.layer.borderWidth = isEditing ? 1 : 0
+                    self.layer.borderColor = UIColor.black.cgColor
+                }
             }
         }
         canvasDelegate?.tapAction(sender)
@@ -847,40 +866,3 @@ extension CanvasView: UIGestureRecognizerDelegate {
         return true
     }
 }
-
-//extension StoryImageContainer: ImportDelegate {
-//    func didImportPhotos (photos : [Photo]) {
-//
-//        if let image = photos.first?.thumbnailImage, let superView = self.superview {
-//            currentlyEditingMedia?.imageView.image = image
-//
-//            //upload image to server
-//            var options = Uploader.UploadOptions()
-//            options.acl = .publicRead
-//            options.addPolicy = true
-//
-//            self.delegate?.addImage(image, viewTag: superView.tag, cellIndex: self.itemIndex)
-//            self.delegateFromEditor?.addImage(image, viewTag: superView.tag, cellIndex: self.itemIndex)
-//
-//            //            Uploader.uploadUIImage(image, metadata: photos.first?.metadata as AnyObject?, options: options, success: { (resource) in
-//            //                let file: Resource.File = resource.files[0]
-//            //
-//            //                photos.first?.imagePHAsset = nil
-//            //                photos.first?.image = nil
-//
-//            //                if let imageUrl = file.url?.absoluteString {
-//
-//            //                }
-//            //            }, error: { (err) in
-//            //                print(err)
-//            //            }) { (pregress) in
-//
-//            //            }
-//        }
-//        self.parentViewController()?.dismiss(animated: true, completion: nil)
-//    }
-//
-//    func didCancelImport() {
-//
-//    }
-//}
