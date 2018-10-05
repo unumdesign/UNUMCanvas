@@ -90,7 +90,7 @@ extension UIView {
         assert((self.superview != nil), "View does not have a superview")
 
         let constraint = NSLayoutConstraint.constraints(withVisualFormat: format,
-                                                        options: NSLayoutFormatOptions(rawValue:0),
+                                                        options: NSLayoutConstraint.FormatOptions(rawValue:0),
                                                         metrics: nil,
                                                         views: ["view" : self])
 
