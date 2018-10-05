@@ -520,22 +520,22 @@ public class CanvasView: UIView {
         rightMidView?.alpha = show ? 1 : 0
 
         if let topMidView = topMidView {
-            self.bringSubview(toFront: topMidView)
+            self.bringSubviewToFront(topMidView)
 
         }
 
         if let bottomMidView = bottomMidView {
-            self.bringSubview(toFront: bottomMidView)
+            self.bringSubviewToFront(bottomMidView)
 
         }
 
         if let leftMidView = leftMidView {
-            self.bringSubview(toFront: leftMidView)
+            self.bringSubviewToFront(leftMidView)
 
         }
 
         if let rightMidView = rightMidView {
-            self.bringSubview(toFront: rightMidView)
+            self.bringSubviewToFront(rightMidView)
 
         }
     }
@@ -690,19 +690,19 @@ public class CanvasView: UIView {
     }
 
     func endTouch(_ editingMedia: MediaScalableObject) {
-        if let top = editingMedia.topConstraint?.constant,
-            let leading = editingMedia.leadingConstraint?.constant,
-            let bottom = editingMedia.bottomConstraint?.constant,
-            let trailing = editingMedia.trailingConstraint?.constant,
-            let superView = self.superview {
-            let top = CGPoint(x: leading, y: top)
-            let bottom = CGPoint(x: trailing, y: bottom)
+//        if let top = editingMedia.topConstraint?.constant,
+//            let leading = editingMedia.leadingConstraint?.constant,
+//            let bottom = editingMedia.bottomConstraint?.constant,
+//            let trailing = editingMedia.trailingConstraint?.constant {
+//            let superView = self.superview
+//            let top = CGPoint(x: leading, y: top)
+//            let bottom = CGPoint(x: trailing, y: bottom)
 
             //TODO: Send full media scalable object instead of each
 
             //            delegate?.updatePosition(top: top, bottom: bottom, viewTag: superView.tag, cellIndex: itemIndex)
             //            delegateFromEditor?.updatePosition(top: top, bottom: bottom, viewTag: superView.tag, cellIndex: itemIndex)
-        }
+//        }
     }
 
     @IBAction func panGesture(_ sender: UIPanGestureRecognizer) {

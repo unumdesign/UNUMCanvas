@@ -41,16 +41,16 @@
 /* Begin PBXFileReference section */
 		06B1C8D84DA6B42EC483C5200AF5B06F /* UNUMCanvas.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = UNUMCanvas.modulemap; sourceTree = "<group>"; };
 		0A400BDDB8E70EC8F367ABC51C7A002B /* Pods-UNUMCanvas_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		0EEB9FAB921EC94E2AB3076C00E39E3F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		144E0B0BF5DC443362FFFE261122A7B2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		0EEB9FAB921EC94E2AB3076C00E39E3F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		144E0B0BF5DC443362FFFE261122A7B2 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		14C52954FE1335D5AE5BBC38D9E6C473 /* Pods-UNUMCanvas_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Example.release.xcconfig"; sourceTree = "<group>"; };
 		24F3EEED913FE85BE04D40F54E323C61 /* CanvasView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CanvasView.swift; path = UNUMCanvas/Classes/CanvasView.swift; sourceTree = "<group>"; };
-		2A1D85BF73E366212B66813EBE7DF67F /* Pods_UNUMCanvas_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UNUMCanvas_Example.framework; path = "Pods-UNUMCanvas_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2C39C6BDEBFCD01278740B3F21711BEC /* UNUMCanvas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = UNUMCanvas.framework; path = UNUMCanvas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F4C3C9E7696BE54A32FB6CA467E1614 /* Pods_UNUMCanvas_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UNUMCanvas_Tests.framework; path = "Pods-UNUMCanvas_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A1D85BF73E366212B66813EBE7DF67F /* Pods_UNUMCanvas_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNUMCanvas_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C39C6BDEBFCD01278740B3F21711BEC /* UNUMCanvas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UNUMCanvas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F4C3C9E7696BE54A32FB6CA467E1614 /* Pods_UNUMCanvas_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNUMCanvas_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4938ACC81A72A22FD128E934EC75D583 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AD557BE4EF328E363B99BE09F9DC905 /* Pods-UNUMCanvas_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UNUMCanvas_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		53C352F279D70AEFA01CB6D46EBB5651 /* UNUMCanvas.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = UNUMCanvas.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		53C352F279D70AEFA01CB6D46EBB5651 /* UNUMCanvas.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = UNUMCanvas.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		54BC0E0E33AD0A8B369852789A361EBF /* Pods-UNUMCanvas_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UNUMCanvas_Example.modulemap"; sourceTree = "<group>"; };
 		5696337E9453582E0CA5C2D7DA78BFC5 /* Pods-UNUMCanvas_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UNUMCanvas_Tests-umbrella.h"; sourceTree = "<group>"; };
 		62329D5422D7047DDC0D1147F0F7CE31 /* UNUMCanvas-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UNUMCanvas-umbrella.h"; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		87843ACE7C73F0CD9E2EBBF5C27C3027 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = UNUMCanvas/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		878AC399A4FEDAACDD33A7A166C001AE /* UNUMCanvas.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UNUMCanvas.xcconfig; sourceTree = "<group>"; };
 		92ED7FAF4AE258C0D843A820933BF2C1 /* Pods-UNUMCanvas_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Example-frameworks.sh"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		99402027A011806D2A8947E56E7D8055 /* Pods-UNUMCanvas_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UNUMCanvas_Example-dummy.m"; sourceTree = "<group>"; };
 		9CB73CE9D5CEFE7D964F00D9A132DA27 /* Pods-UNUMCanvas_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		9F201F231262E0E68FFE9B963F0DE9CE /* Pods-UNUMCanvas_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UNUMCanvas_Tests-dummy.m"; sourceTree = "<group>"; };
@@ -323,7 +323,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1000;
+				TargetAttributes = {
+					99C715C428E20352E7D3874E4F4A67B6 = {
+						LastSwiftMigration = 1000;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -485,7 +490,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -643,6 +648,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
@@ -705,7 +711,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
