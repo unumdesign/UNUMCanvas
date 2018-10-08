@@ -16,9 +16,9 @@
 		87CD3D5C5F439C232731FDC498E511FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		A2209F411D3EE85843E89D8B4BF6B838 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		A56A383E26C1FD8661F2236669EC1A47 /* Pods-UNUMCanvas_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5696337E9453582E0CA5C2D7DA78BFC5 /* Pods-UNUMCanvas_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B04526F668D2B0D9D00524BB89406B2D /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87843ACE7C73F0CD9E2EBBF5C27C3027 /* ReplaceMe.swift */; };
 		DBB0BFC46E3C87277ECF7B6AF3D164FD /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F3EEED913FE85BE04D40F54E323C61 /* CanvasView.swift */; };
 		E81E8C95C7D9769E6ED0957A3F462EF5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		F955109F216BC5A500A59300 /* MediaScalableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F955109E216BC5A500A59300 /* MediaScalableObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +57,6 @@
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		713A858E5F3F0B6E0B68A9BB1BB869EB /* Pods-UNUMCanvas_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UNUMCanvas_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		789DC6B3BB2ADA532778597139A828F8 /* Pods-UNUMCanvas_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Example-resources.sh"; sourceTree = "<group>"; };
-		87843ACE7C73F0CD9E2EBBF5C27C3027 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = UNUMCanvas/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		878AC399A4FEDAACDD33A7A166C001AE /* UNUMCanvas.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UNUMCanvas.xcconfig; sourceTree = "<group>"; };
 		92ED7FAF4AE258C0D843A820933BF2C1 /* Pods-UNUMCanvas_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Example-frameworks.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -75,6 +74,7 @@
 		E7AA480FFAC1CE08578C072010E51853 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E94B56CFE66348C6E1639A204DB36313 /* Pods-UNUMCanvas_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F33868CCA373B177E88F3E258E734DF5 /* UNUMCanvas-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UNUMCanvas-dummy.m"; sourceTree = "<group>"; };
+		F955109E216BC5A500A59300 /* MediaScalableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaScalableObject.swift; path = /Users/patrickflanagan/Dev/UNUMCanvas/MediaScalableObject.swift; sourceTree = "<absolute>"; };
 		FDF3DBE1508B51904C37A790A7C42298 /* Pods-UNUMCanvas_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UNUMCanvas_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,8 +119,8 @@
 		75E4930EAB693E33F491CA2F1BB77893 /* UNUMCanvas */ = {
 			isa = PBXGroup;
 			children = (
+				F955109E216BC5A500A59300 /* MediaScalableObject.swift */,
 				24F3EEED913FE85BE04D40F54E323C61 /* CanvasView.swift */,
-				87843ACE7C73F0CD9E2EBBF5C27C3027 /* ReplaceMe.swift */,
 				DD837BBF51A819289E1AFAF74FE0829D /* UIView+Extension.swift */,
 				5C3C9BAE2BDC4893BDED910A400B4959 /* Pod */,
 				B299F324B72D4295AB7637837B510FE4 /* Support Files */,
@@ -371,7 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBB0BFC46E3C87277ECF7B6AF3D164FD /* CanvasView.swift in Sources */,
-				B04526F668D2B0D9D00524BB89406B2D /* ReplaceMe.swift in Sources */,
+				F955109F216BC5A500A59300 /* MediaScalableObject.swift in Sources */,
 				6E45AD30B2961AC5C9098963A4AB961B /* UIView+Extension.swift in Sources */,
 				35E49D6590784E0F4B05CCB302B87DB4 /* UNUMCanvas-dummy.m in Sources */,
 			);

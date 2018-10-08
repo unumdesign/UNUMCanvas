@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/patrickflanagan/Dev/UNUMCanvas/File.swift">
+   </FileRef>
+   <FileRef
       location = "group:UNUMCanvas.xcodeproj">
    </FileRef>
    <FileRef
