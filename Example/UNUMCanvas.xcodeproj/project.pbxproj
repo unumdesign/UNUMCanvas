@@ -13,7 +13,7 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		8083ED611DC27E1B9F003C9C /* Pods_UNUMCanvas_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4481DD9A89B277277050ECC7 /* Pods_UNUMCanvas_Tests.framework */; };
-		F95510AD216D154800A59300 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95510AC216D154800A59300 /* MainViewController.swift */; };
+		F95510AD216D154800A59300 /* ExampleCanvasCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95510AC216D154800A59300 /* ExampleCanvasCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,7 @@
 		AEF2E7FB978C9A33B99F883F /* Pods_UNUMCanvas_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNUMCanvas_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7596DF45F7444E05BB05599 /* Pods-UNUMCanvas_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UNUMCanvas_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-UNUMCanvas_Example/Pods-UNUMCanvas_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C25A275AF3A8B87C2651DB3D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		F95510AC216D154800A59300 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		F95510AC216D154800A59300 /* ExampleCanvasCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleCanvasCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				F95510AC216D154800A59300 /* MainViewController.swift */,
+				F95510AC216D154800A59300 /* ExampleCanvasCollectionViewController.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
@@ -320,7 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				F95510AD216D154800A59300 /* MainViewController.swift in Sources */,
+				F95510AD216D154800A59300 /* ExampleCanvasCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

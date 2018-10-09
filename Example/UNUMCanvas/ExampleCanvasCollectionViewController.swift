@@ -1,7 +1,7 @@
 import UIKit
 import UNUMCanvas
 
-class MainViewController: UIViewController {
+class ExampleCanvasCollectionViewController: UIViewController {
     
     let canvasController = CanvasController()
     let collectionView: UICollectionView
@@ -67,13 +67,13 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UICollectionViewDelegateFlowLayout {
+extension ExampleCanvasCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 100, height: 100)
     }
 }
 
-extension MainViewController: UICollectionViewDataSource {
+extension ExampleCanvasCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
