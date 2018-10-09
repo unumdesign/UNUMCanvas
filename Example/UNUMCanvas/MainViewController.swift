@@ -28,6 +28,8 @@ class MainViewController: CanvasController {
         
         view.backgroundColor = .white
         
+        // Views below are setup to experiement on iPads. You can still run on an iPhone but some of the contents will be off-screen.
+        
         canvasView1 = UIView(frame: CGRect(x: 200, y: 200, width: 400, height: 400))
         canvasView1.backgroundColor = .lightGray
         view.addSubview(canvasView1)
