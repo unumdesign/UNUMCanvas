@@ -1,52 +1,88 @@
 import UIKit
 import UNUMCanvas
 
-class MainViewController: CanvasController {
+class MainViewController: UIViewController {
     
-    private var canvasView1 = UIView()
-    private var canvasView2 = UIView()
+    let canvasController = CanvasController()
+    let collectionView: UICollectionView
     
     private var interactableView1 = UIView()
     private var interactableView2 = UIView()
     
-    override init() {
-        super.init()
-        movableViews.append(interactableView1)
-        movableViews.append(interactableView2)
-        selectedView = interactableView1
+    init() {
+        let viewLayout = UICollectionViewFlowLayout()
+        viewLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
-        canvasViews.append(canvasView1)
-        canvasViews.append(canvasView2)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        view = collectionView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         view.backgroundColor = .white
+        
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(UICollectionViewCell.self))
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         // Views below are setup to experiement on iPads. You can still run on an iPhone but some of the contents will be off-screen.
         
-        canvasView1 = UIView(frame: CGRect(x: 200, y: 200, width: 400, height: 400))
-        canvasView1.backgroundColor = .lightGray
-        view.addSubview(canvasView1)
+        collectionView.frame = view.frame
         
-        canvasView2 = UIView(frame: CGRect(x: 400, y: 400, width: 300, height: 300))
-        canvasView2.backgroundColor = .yellow
-        view.addSubview(canvasView2)
-        
-        
-        interactableView1 = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        interactableView1.backgroundColor = .red
-        view.addSubview(interactableView1)
+        interactableView1 = UIView(frame: CGRect(x: 100, y: 400, width: 100, height: 100))
+        interactableView1.backgroundColor = .blue
+        collectionView.addSubview(interactableView1)
         interactableView1.center = view.center
         
         interactableView2 = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
         interactableView2.backgroundColor = .green
-        view.addSubview(interactableView2)
+        collectionView.addSubview(interactableView2)
+        
+        canvasController.movableViews.append(interactableView1)
+        canvasController.movableViews.append(interactableView2)
+        canvasController.selectedView = interactableView1
+
+        canvasController.interactableView = collectionView
+        canvasController.setupViewGestures(view: collectionView)
     }
 }
 
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 100, height: 100)
+    }
+}
+
+extension MainViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(UICollectionViewCell.self), for: indexPath)
+        cell.backgroundColor = .red
+        
+        canvasController.canvasViews.append(cell)
+        return cell
+    }
+}

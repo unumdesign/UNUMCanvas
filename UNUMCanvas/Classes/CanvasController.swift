@@ -1,12 +1,13 @@
 import UIKit
 
-open class CanvasController: UIViewController {
+open class CanvasController: NSObject {
     
     let absoluteVelocityEnablingLocking: CGFloat = 100
     let absoluteDistanceEnablingLocking: CGFloat = 20
     
     public var movableViews: [UIView] = []
     public var canvasViews: [UIView] = []
+    public weak var interactableView: UIView?
     
     var tapGesture = UITapGestureRecognizer()
     var panGesture = UIPanGestureRecognizer()
@@ -23,27 +24,21 @@ open class CanvasController: UIViewController {
         }
     }
 
-    public init() {
-        super.init(nibName: nil, bundle: nil)
+    public override init() {
+        super.init()
+    }
+    
+    public func setupViewGestures(view: UIView) {
         
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
-        pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchOnViewController(_:)))
-        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateView(_:)))
+        tapGesture = UITapGestureRecognizer(target: view, action: #selector(tapOnViewController(_:)))
+        panGesture = UIPanGestureRecognizer(target: view, action: #selector(panOnViewController(_:)))
+        pinchGesture = UIPinchGestureRecognizer(target: view, action: #selector(pinchOnViewController(_:)))
+        rotationGesture = UIRotationGestureRecognizer(target: view, action: #selector(rotateView(_:)))
         
         view.addGestureRecognizer(tapGesture)
         view.addGestureRecognizer(panGesture)
         view.addGestureRecognizer(pinchGesture)
         view.addGestureRecognizer(rotationGesture)
-        
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
         
         tapGesture.delegate = self
         panGesture.delegate = self
@@ -211,7 +206,7 @@ extension CanvasController {
     
     // X Axis
     private func velocityIsWithinRangeToEnableLockingOnXAxis(sender: UIPanGestureRecognizer) -> Bool {
-        let velocityX = sender.velocity(in: view).x
+        let velocityX = sender.velocity(in: interactableView).x
         return isWithinVelocityRangeToEnableLocking(velocity: velocityX)
     }
     
@@ -228,7 +223,7 @@ extension CanvasController {
     
     // Y Axis
     private func velocityIsWithinRangeToEnableLockingOnYAxis(sender: UIPanGestureRecognizer) -> Bool {
-        let velocityY = sender.velocity(in: view).y
+        let velocityY = sender.velocity(in: interactableView).y
         return isWithinVelocityRangeToEnableLocking(velocity: velocityY)
     }
     
@@ -247,12 +242,15 @@ extension CanvasController {
 extension CanvasController {
     
     private func transformToBeOnScreen(_ origin: CGPoint, for view: UIView) -> CGPoint {
+        guard let interactableView = interactableView else {
+            return origin
+        }
         let borderControlAmount: CGFloat = 2
         
         let minX = borderControlAmount - view.frame.width
         let minY = borderControlAmount - view.frame.height
-        let maxX = self.view.frame.maxX - borderControlAmount
-        let maxY = self.view.frame.maxY - borderControlAmount
+        let maxX = interactableView.frame.maxX - borderControlAmount
+        let maxY = interactableView.frame.maxY - borderControlAmount
         
         var legitimateX: CGFloat
         if origin.x < minX {
