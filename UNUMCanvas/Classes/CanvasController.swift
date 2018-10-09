@@ -1,19 +1,29 @@
 import UIKit
 
-class CanvasController: UIViewController {
+open class CanvasController: UIViewController {
     
     let absoluteVelocityEnablingLocking: CGFloat = 100
     let absoluteDistanceEnablingLocking: CGFloat = 20
     
-    var movableViews: [UIView] = []
-    var canvasViews: [UIView] = []
+    public var movableViews: [UIView] = []
+    public var canvasViews: [UIView] = []
     
     var tapGesture = UITapGestureRecognizer()
     var panGesture = UIPanGestureRecognizer()
     var pinchGesture = UIPinchGestureRecognizer()
     var rotationGesture = UIRotationGestureRecognizer()
     
-    init() {
+    public var selectedView: UIView? {
+        didSet {
+            movableViews.forEach({ $0.alpha = 1.0 })
+            
+            if let selectedView = selectedView {
+                selectedView.alpha = 0.5 // Setup view as selected
+            }
+        }
+    }
+
+    public init() {
         super.init(nibName: nil, bundle: nil)
         
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
@@ -28,21 +38,11 @@ class CanvasController: UIViewController {
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var selectedView: UIView? {
-        didSet {
-            movableViews.forEach({ $0.alpha = 1.0 })
-            
-            if let selectedView = selectedView {
-                selectedView.alpha = 0.5 // Setup view as selected
-            }
-        }
-    }
-
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         tapGesture.delegate = self
@@ -194,7 +194,7 @@ class CanvasController: UIViewController {
 }
 
 extension CanvasController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }
