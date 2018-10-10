@@ -32,10 +32,6 @@ class ExampleCanvasCollectionViewController: UIViewController {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(UICollectionViewCell.self))
         collectionView.dataSource = self
         collectionView.delegate = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         // Views below are setup to experiement on iPads. You can still run on an iPhone but some of the contents will be off-screen.
         
@@ -50,6 +46,10 @@ class ExampleCanvasCollectionViewController: UIViewController {
         canvasController.interactableViews.append(contentsOf: [interactableView1, interactableView2])
         canvasController.selectedView = interactableView1
         canvasController.mainView = collectionView
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 }
 
