@@ -2,9 +2,10 @@ import UIKit
 
 open class CanvasController: NSObject {
     
+    // MARK: - public API
+    
     /// The views that the user can interact with (scale, rotate, move, etc.)
     public var interactableViews: [UIView] = []
-    
     
     /// The views that the interactableViews should be aware of for pinning.
     public var canvasViews: [UIView] = []
@@ -26,6 +27,12 @@ open class CanvasController: NSObject {
             }
         }
     }
+
+    public override init() {
+        super.init()
+    }
+    
+    // MARK: - private variables
     
     private let absoluteVelocityEnablingLocking: CGFloat = 100
     private let absoluteDistanceEnablingLocking: CGFloat = 20
@@ -35,9 +42,7 @@ open class CanvasController: NSObject {
     private var pinchGesture = UIPinchGestureRecognizer()
     private var rotationGesture = UIRotationGestureRecognizer()
 
-    public override init() {
-        super.init()
-    }
+    // MARK: - private functions
     
     private func setupViewGestures(view: UIView) {
         
