@@ -91,6 +91,7 @@ extension UIView {
         
         if xIndicatingView == nil {
             let newXIndicatingView = CenterXIndicatingView()
+            newXIndicatingView.isUserInteractionEnabled = false
             addSubview(newXIndicatingView)
             newXIndicatingView.translatesAutoresizingMaskIntoConstraints = false
             newXIndicatingView.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -127,6 +128,7 @@ extension UIView {
         
         if yIndicatingView == nil {
             let newYIndicatingView = CenterYIndicatingView()
+            newYIndicatingView.isUserInteractionEnabled = false
             addSubview(newYIndicatingView)
             newYIndicatingView.translatesAutoresizingMaskIntoConstraints = false
             newYIndicatingView.topAnchor.constraint(equalTo: topAnchor).isActive = true

@@ -39,6 +39,7 @@ open class CanvasController: NSObject {
             guard let `self` = self else {
                 return
             }
+            gesture.cancelsTouchesInView = false
             view.addGestureRecognizer(gesture)
             gesture.delegate = self
         }
