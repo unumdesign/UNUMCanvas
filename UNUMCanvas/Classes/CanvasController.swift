@@ -2,6 +2,7 @@ import UIKit
 
 public class CanvasController: NSObject {
     
+    
     // MARK: - public API
     
     /// The views that the user can interact with (scale, rotate, move, etc.)
@@ -32,6 +33,7 @@ public class CanvasController: NSObject {
         super.init()
     }
     
+    
     // MARK: - private variables
     
     private let absoluteVelocityEnablingLocking: CGFloat = 100
@@ -42,14 +44,15 @@ public class CanvasController: NSObject {
     private var pinchGesture = UIPinchGestureRecognizer()
     private var rotationGesture = UIRotationGestureRecognizer()
 
+    
     // MARK: - private functions
     
     private func setupViewGestures(view: UIView) {
         
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectOrDeselectViewOnTap(_:)))
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
-        pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchOnViewController(_:)))
-        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateOnViewController(_:)))
+        pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleSelectedView(_:)))
+        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateSelectedViewController(_:)))
         
         [tapGesture, panGesture, pinchGesture, rotationGesture].forEach { [weak self] gesture in
             guard let `self` = self else {
@@ -61,12 +64,14 @@ public class CanvasController: NSObject {
         }
     }
 }
+
+
 // MARK: - Gesture Handling
 
 // MARK: Tap Gesture
 extension CanvasController {
     
-    @objc private func tapOnViewController(_ sender: UITapGestureRecognizer) {
+    @objc private func selectOrDeselectViewOnTap(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else {
             return
         }
@@ -96,6 +101,15 @@ extension CanvasController {
 // MARK: Pan Gesture
 extension CanvasController {
     
+    @objc private func panOnViewController(_ sender: UIPanGestureRecognizer) {
+        if sender.state == .ended {
+            hideAllAxisIndicators()
+            return
+        }
+        
+        moveSelectedViewAndShowIndicatorViewsIfNecessary(sender)
+    }
+    
     private func hideAllAxisIndicators() {
         canvasViews.forEach({
             $0.hideCenterXIndication()
@@ -103,12 +117,7 @@ extension CanvasController {
         })
     }
     
-    @objc private func panOnViewController(_ sender: UIPanGestureRecognizer) {
-        if sender.state == .ended {
-            hideAllAxisIndicators()
-            return
-        }
-        
+    private func moveSelectedViewAndShowIndicatorViewsIfNecessary(_ sender: UIPanGestureRecognizer) {
         guard let selectedView = selectedView else {
             return
         }
@@ -239,7 +248,7 @@ extension CanvasController {
 // MARK: Pinch Gesture
 extension CanvasController {
     
-    @objc private func pinchOnViewController(_ sender: UIPinchGestureRecognizer) {
+    @objc private func scaleSelectedView(_ sender: UIPinchGestureRecognizer) {
         guard let selectedView = selectedView else {
             return
         }
@@ -252,7 +261,7 @@ extension CanvasController {
 // MARK: Rotate Gesture
 extension CanvasController {
     
-    @objc private func rotateOnViewController(_ sender: UIRotationGestureRecognizer) {
+    @objc private func rotateSelectedViewController(_ sender: UIRotationGestureRecognizer) {
         guard let selectedView = selectedView else {
             return
         }
