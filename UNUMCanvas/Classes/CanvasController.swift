@@ -49,7 +49,7 @@ public class CanvasController: NSObject {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
         pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchOnViewController(_:)))
-        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateView(_:)))
+        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateOnViewController(_:)))
         
         [tapGesture, panGesture, pinchGesture, rotationGesture].forEach { [weak self] gesture in
             guard let `self` = self else {
@@ -252,7 +252,7 @@ extension CanvasController {
 // MARK: Rotate Gesture
 extension CanvasController {
     
-    @objc private func rotateView(_ sender: UIRotationGestureRecognizer) {
+    @objc private func rotateOnViewController(_ sender: UIRotationGestureRecognizer) {
         guard let selectedView = selectedView else {
             return
         }
