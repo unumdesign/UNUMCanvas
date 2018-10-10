@@ -39,8 +39,6 @@ class ExampleCanvasCollectionViewController: UIViewController {
         
         // Views below are setup to experiement on iPads. You can still run on an iPhone but some of the contents will be off-screen.
         
-        collectionView.frame = view.frame
-        
         interactableView1 = UIView(frame: CGRect(x: 100, y: 400, width: 100, height: 100))
         interactableView1.backgroundColor = .blue
         collectionView.addSubview(interactableView1)
