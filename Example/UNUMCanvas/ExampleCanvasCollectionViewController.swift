@@ -47,10 +47,6 @@ class ExampleCanvasCollectionViewController: UIViewController {
         canvasController.selectedView = interactableView1
         canvasController.mainView = collectionView
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
 }
 
 extension ExampleCanvasCollectionViewController: UICollectionViewDelegateFlowLayout {
