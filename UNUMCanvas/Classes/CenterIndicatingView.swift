@@ -72,6 +72,19 @@ class CenterXIndicatingView: CenterIndicatingView {
 }
 
 extension UIView {
+    
+    private var properViewForSubviews: UIView {
+        if let view = self as? UITableViewCell {
+            return view.contentView
+        }
+        else if let view = self as? UICollectionViewCell {
+            return view.contentView
+        }
+        else {
+            return self
+        }
+    }
+    
     func showCenterXIndication() {
         var xIndicatingView: CenterXIndicatingView?
         
@@ -92,17 +105,18 @@ extension UIView {
         if xIndicatingView == nil {
             let newXIndicatingView = CenterXIndicatingView()
             newXIndicatingView.isUserInteractionEnabled = false
-            addSubview(newXIndicatingView)
+            
+            properViewForSubviews.addSubview(newXIndicatingView)
             newXIndicatingView.translatesAutoresizingMaskIntoConstraints = false
-            newXIndicatingView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            newXIndicatingView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-            newXIndicatingView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-            newXIndicatingView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            newXIndicatingView.topAnchor.constraint(equalTo: properViewForSubviews.topAnchor).isActive = true
+            newXIndicatingView.leadingAnchor.constraint(equalTo: properViewForSubviews.leadingAnchor).isActive = true
+            newXIndicatingView.trailingAnchor.constraint(equalTo: properViewForSubviews.trailingAnchor).isActive = true
+            newXIndicatingView.bottomAnchor.constraint(equalTo: properViewForSubviews.bottomAnchor).isActive = true
         }
     }
     
     func hideCenterXIndication() {
-        for subview in subviews {
+        for subview in properViewForSubviews.subviews {
             if let centerXIndicatingView = subview as? CenterXIndicatingView {
                 centerXIndicatingView.isVisible = false
             }
@@ -129,17 +143,18 @@ extension UIView {
         if yIndicatingView == nil {
             let newYIndicatingView = CenterYIndicatingView()
             newYIndicatingView.isUserInteractionEnabled = false
-            addSubview(newYIndicatingView)
+            
+            properViewForSubviews.addSubview(newYIndicatingView)
             newYIndicatingView.translatesAutoresizingMaskIntoConstraints = false
-            newYIndicatingView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            newYIndicatingView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-            newYIndicatingView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-            newYIndicatingView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            newYIndicatingView.topAnchor.constraint(equalTo: properViewForSubviews.topAnchor).isActive = true
+            newYIndicatingView.leadingAnchor.constraint(equalTo: properViewForSubviews.leadingAnchor).isActive = true
+            newYIndicatingView.trailingAnchor.constraint(equalTo: properViewForSubviews.trailingAnchor).isActive = true
+            newYIndicatingView.bottomAnchor.constraint(equalTo: properViewForSubviews.bottomAnchor).isActive = true
         }
     }
     
     func hideCenterYIndication() {
-        for subview in subviews {
+        for subview in properViewForSubviews.subviews {
             if let centerYIndicatingView = subview as? CenterYIndicatingView {
                 centerYIndicatingView.isVisible = false
             }
