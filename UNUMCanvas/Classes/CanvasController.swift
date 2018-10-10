@@ -39,7 +39,7 @@ open class CanvasController: NSObject {
         super.init()
     }
     
-    public func setupViewGestures(view: UIView) {
+    private func setupViewGestures(view: UIView) {
         
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
@@ -58,7 +58,7 @@ open class CanvasController: NSObject {
     
     // MARK: - Gesture Handling
     
-    @IBAction func tapOnViewController(_ sender: UITapGestureRecognizer) {
+    @objc private func tapOnViewController(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else {
             return
         }
@@ -91,7 +91,7 @@ open class CanvasController: NSObject {
         })
     }
     
-    @IBAction func panOnViewController(_ sender: UIPanGestureRecognizer) {
+    @objc private func panOnViewController(_ sender: UIPanGestureRecognizer) {
         if sender.state == .ended {
             hideAllAxisIndicators()
             return
@@ -145,7 +145,7 @@ open class CanvasController: NSObject {
         }
     }
     
-    @IBAction func pinchOnViewController(_ sender: UIPinchGestureRecognizer) {
+    @objc private func pinchOnViewController(_ sender: UIPinchGestureRecognizer) {
         guard let selectedView = selectedView else {
             return
         }
@@ -154,7 +154,7 @@ open class CanvasController: NSObject {
         sender.scale = 1.0
     }
     
-    @IBAction func rotateView(_ sender: UIRotationGestureRecognizer) {
+    @objc private func rotateView(_ sender: UIRotationGestureRecognizer) {
         guard let selectedView = selectedView else {
             return
         }
