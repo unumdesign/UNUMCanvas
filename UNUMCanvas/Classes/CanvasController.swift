@@ -167,7 +167,7 @@ extension CanvasController {
     }
     
     private func isWithinVelocityRangeToEnableLocking(velocity: CGFloat) -> Bool {
-        return abs(velocity) < absoluteVelocityEnablingLocking
+        return abs(velocity) > 50 && abs(velocity) < 150 //< absoluteVelocityEnablingLocking
     }
     
     private func isWithinDistanceRangeToEnableLocking(distance: CGFloat) -> Bool {
