@@ -29,10 +29,12 @@ class ExampleCanvasCollectionViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        // Setup collectionView
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(UICollectionViewCell.self))
         collectionView.dataSource = self
         collectionView.delegate = self
         
+        // Add some views that should be interactable.
         interactableView1 = UIView(frame: CGRect(x: 100, y: 400, width: 100, height: 100))
         interactableView1.backgroundColor = .blue
         collectionView.addSubview(interactableView1)
@@ -41,6 +43,7 @@ class ExampleCanvasCollectionViewController: UIViewController {
         interactableView2.backgroundColor = .green
         collectionView.addSubview(interactableView2)
         
+        // Setup canvasController with appropriate views. In this example, the canvasViews will be the tableViewCells, which will need to be added to the canvasController when they are setup.
         canvasController.interactableViews.append(contentsOf: [interactableView1, interactableView2])
         canvasController.selectedView = interactableView1
         canvasController.mainView = collectionView
@@ -62,6 +65,7 @@ extension ExampleCanvasCollectionViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(UICollectionViewCell.self), for: indexPath)
         cell.backgroundColor = .red
         
+        // Add the cells as canvases to the canvasController.
         canvasController.canvasViews.append(cell)
         return cell
     }
