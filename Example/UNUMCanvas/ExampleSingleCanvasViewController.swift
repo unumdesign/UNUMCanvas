@@ -20,8 +20,6 @@ class ExampleSingleCanvasViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        // Views below are setup to experiement on iPads. You can still run on an iPhone but some of the contents will be off-screen.
-        
         interactableView1 = UIView(frame: CGRect(x: 100, y: 400, width: 100, height: 100))
         interactableView1.backgroundColor = .blue
         view.addSubview(interactableView1)
