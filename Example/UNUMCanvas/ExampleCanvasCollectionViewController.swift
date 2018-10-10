@@ -12,16 +12,9 @@ class ExampleCanvasCollectionViewController: UIViewController {
     init() {
         let viewLayout = UICollectionViewFlowLayout()
         viewLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
         
         super.init(nibName: nil, bundle: nil)
-        
-        
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,12 +27,11 @@ class ExampleCanvasCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         view.backgroundColor = .white
         
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(UICollectionViewCell.self))
-        
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,18 +44,14 @@ class ExampleCanvasCollectionViewController: UIViewController {
         interactableView1 = UIView(frame: CGRect(x: 100, y: 400, width: 100, height: 100))
         interactableView1.backgroundColor = .blue
         collectionView.addSubview(interactableView1)
-        interactableView1.center = view.center
         
         interactableView2 = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
         interactableView2.backgroundColor = .green
         collectionView.addSubview(interactableView2)
         
-        canvasController.movableViews.append(interactableView1)
-        canvasController.movableViews.append(interactableView2)
+        canvasController.interactableViews.append(contentsOf: [interactableView1, interactableView2])
         canvasController.selectedView = interactableView1
-
-        canvasController.interactableView = collectionView
-        canvasController.setupViewGestures(view: collectionView)
+        canvasController.mainView = collectionView
     }
 }
 

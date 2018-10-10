@@ -2,27 +2,38 @@ import UIKit
 
 open class CanvasController: NSObject {
     
-    let absoluteVelocityEnablingLocking: CGFloat = 100
-    let absoluteDistanceEnablingLocking: CGFloat = 20
+    /// The views that the user can interact with (scale, rotate, move, etc.)
+    public var interactableViews: [UIView] = []
     
-    public var movableViews: [UIView] = []
+    
+    /// The views that the interactableViews should be aware of for pinning.
     public var canvasViews: [UIView] = []
-    public weak var interactableView: UIView?
     
-    var tapGesture = UITapGestureRecognizer()
-    var panGesture = UIPanGestureRecognizer()
-    var pinchGesture = UIPinchGestureRecognizer()
-    var rotationGesture = UIRotationGestureRecognizer()
+    // plf - maybe this could be inferred via superview? Would that be reliable enough?
+    /// The main view which handles all touch events and movement of interactableViews.
+    public weak var mainView: UIView! {
+        didSet {
+            setupViewGestures(view: mainView)
+        }
+    }
     
     public var selectedView: UIView? {
         didSet {
-            movableViews.forEach({ $0.alpha = 1.0 })
+            interactableViews.forEach({ $0.alpha = 1.0 })
             
             if let selectedView = selectedView {
-                selectedView.alpha = 0.5 // Setup view as selected
+                selectedView.alpha = 0.5 // TODO: plf - Setup view as selected according to design
             }
         }
     }
+    
+    private let absoluteVelocityEnablingLocking: CGFloat = 100
+    private let absoluteDistanceEnablingLocking: CGFloat = 20
+    
+    private var tapGesture = UITapGestureRecognizer()
+    private var panGesture = UIPanGestureRecognizer()
+    private var pinchGesture = UIPinchGestureRecognizer()
+    private var rotationGesture = UIRotationGestureRecognizer()
 
     public override init() {
         super.init()
@@ -54,7 +65,7 @@ open class CanvasController: NSObject {
         
         // TODO: plf - will want this to select "highest-layered" view once integrated.
         // If click is within movableViews, set to first one.
-        for view in movableViews {
+        for view in interactableViews {
             let viewClicked = view.point(inside: sender.location(in: view), with: nil)
             if viewClicked {
                 if let unwrappedView = selectedView, unwrappedView == view {
@@ -68,7 +79,7 @@ open class CanvasController: NSObject {
             }
         }
         
-        // If click was not within any movableView, then set to nil
+        // If click was not within any movableView, then set to nil (making all views deselected).
         selectedView = nil
         return
     }
@@ -205,7 +216,7 @@ extension CanvasController {
     
     // X Axis
     private func velocityIsWithinRangeToEnableLockingOnXAxis(sender: UIPanGestureRecognizer) -> Bool {
-        let velocityX = sender.velocity(in: interactableView).x
+        let velocityX = sender.velocity(in: mainView).x
         return isWithinVelocityRangeToEnableLocking(velocity: velocityX)
     }
     
@@ -222,7 +233,7 @@ extension CanvasController {
     
     // Y Axis
     private func velocityIsWithinRangeToEnableLockingOnYAxis(sender: UIPanGestureRecognizer) -> Bool {
-        let velocityY = sender.velocity(in: interactableView).y
+        let velocityY = sender.velocity(in: mainView).y
         return isWithinVelocityRangeToEnableLocking(velocity: velocityY)
     }
     
@@ -241,7 +252,7 @@ extension CanvasController {
 extension CanvasController {
     
     private func transformToBeOnScreen(_ origin: CGPoint, for view: UIView) -> CGPoint {
-        guard let interactableView = interactableView else {
+        guard let interactableView = mainView else {
             return origin
         }
         let borderControlAmount: CGFloat = 2
