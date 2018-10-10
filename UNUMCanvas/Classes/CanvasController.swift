@@ -1,6 +1,6 @@
 import UIKit
 
-open class CanvasController: NSObject {
+public class CanvasController: NSObject {
     
     // MARK: - public API
     

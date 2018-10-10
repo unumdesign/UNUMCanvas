@@ -1,9 +1,9 @@
 import UIKit
 import UNUMCanvas
 
-class ExampleSingleCanvasViewController: UIViewController {
+final class ExampleSingleCanvasViewController: UIViewController {
     
-    let canvasController = CanvasController()
+    private let canvasController = CanvasController()
     
     private var interactableView1 = UIView()
     private var interactableView2 = UIView()

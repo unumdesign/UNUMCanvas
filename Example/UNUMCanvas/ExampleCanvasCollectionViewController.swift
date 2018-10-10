@@ -1,10 +1,10 @@
 import UIKit
 import UNUMCanvas
 
-class ExampleCanvasCollectionViewController: UIViewController {
+final class ExampleCanvasCollectionViewController: UIViewController {
     
-    let canvasController = CanvasController()
-    let collectionView: UICollectionView
+    private let canvasController = CanvasController()
+    private let collectionView: UICollectionView
     
     private var interactableView1 = UIView()
     private var interactableView2 = UIView()
