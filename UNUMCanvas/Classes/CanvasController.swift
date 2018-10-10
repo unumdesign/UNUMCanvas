@@ -30,20 +30,18 @@ open class CanvasController: NSObject {
     
     public func setupViewGestures(view: UIView) {
         
-        tapGesture = UITapGestureRecognizer(target: view, action: #selector(tapOnViewController(_:)))
-        panGesture = UIPanGestureRecognizer(target: view, action: #selector(panOnViewController(_:)))
-        pinchGesture = UIPinchGestureRecognizer(target: view, action: #selector(pinchOnViewController(_:)))
-        rotationGesture = UIRotationGestureRecognizer(target: view, action: #selector(rotateView(_:)))
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
+        pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchOnViewController(_:)))
+        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateView(_:)))
         
-        view.addGestureRecognizer(tapGesture)
-        view.addGestureRecognizer(panGesture)
-        view.addGestureRecognizer(pinchGesture)
-        view.addGestureRecognizer(rotationGesture)
-        
-        tapGesture.delegate = self
-        panGesture.delegate = self
-        pinchGesture.delegate = self
-        rotationGesture.delegate = self
+        [tapGesture, panGesture, pinchGesture, rotationGesture].forEach { [weak self] gesture in
+            guard let `self` = self else {
+                return
+            }
+            view.addGestureRecognizer(gesture)
+            gesture.delegate = self
+        }
     }
     
     // MARK: - Gesture Handling

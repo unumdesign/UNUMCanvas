@@ -85,4 +85,8 @@ extension ExampleCanvasCollectionViewController: UICollectionViewDataSource {
         canvasController.canvasViews.append(cell)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("selected")
+    }
 }
