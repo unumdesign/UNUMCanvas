@@ -88,6 +88,17 @@ extension UIView {
         }
     }
     
+    private func addIndicatorSubview(view: UIView) {
+        view.isUserInteractionEnabled = false
+        
+        properViewForSubviews.addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.topAnchor.constraint(equalTo: properViewForSubviews.topAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: properViewForSubviews.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: properViewForSubviews.trailingAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: properViewForSubviews.bottomAnchor).isActive = true
+    }
+    
     func showCenterXIndication() {
         var xIndicatingView: CenterXIndicatingView?
         
@@ -107,14 +118,7 @@ extension UIView {
         
         if xIndicatingView == nil {
             let newXIndicatingView = CenterXIndicatingView()
-            newXIndicatingView.isUserInteractionEnabled = false
-            
-            properViewForSubviews.addSubview(newXIndicatingView)
-            newXIndicatingView.translatesAutoresizingMaskIntoConstraints = false
-            newXIndicatingView.topAnchor.constraint(equalTo: properViewForSubviews.topAnchor).isActive = true
-            newXIndicatingView.leadingAnchor.constraint(equalTo: properViewForSubviews.leadingAnchor).isActive = true
-            newXIndicatingView.trailingAnchor.constraint(equalTo: properViewForSubviews.trailingAnchor).isActive = true
-            newXIndicatingView.bottomAnchor.constraint(equalTo: properViewForSubviews.bottomAnchor).isActive = true
+            addIndicatorSubview(view: newXIndicatingView)
         }
     }
     
@@ -145,14 +149,7 @@ extension UIView {
         
         if yIndicatingView == nil {
             let newYIndicatingView = CenterYIndicatingView()
-            newYIndicatingView.isUserInteractionEnabled = false
-            
-            properViewForSubviews.addSubview(newYIndicatingView)
-            newYIndicatingView.translatesAutoresizingMaskIntoConstraints = false
-            newYIndicatingView.topAnchor.constraint(equalTo: properViewForSubviews.topAnchor).isActive = true
-            newYIndicatingView.leadingAnchor.constraint(equalTo: properViewForSubviews.leadingAnchor).isActive = true
-            newYIndicatingView.trailingAnchor.constraint(equalTo: properViewForSubviews.trailingAnchor).isActive = true
-            newYIndicatingView.bottomAnchor.constraint(equalTo: properViewForSubviews.bottomAnchor).isActive = true
+            addIndicatorSubview(view: newYIndicatingView)
         }
     }
     
