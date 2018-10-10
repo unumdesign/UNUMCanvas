@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let frame = UIScreen.main.bounds
         self.window = UIWindow(frame: frame)
         let viewController = ExampleCanvasCollectionViewController()
-        self.window?.rootViewController = viewController
+        let nc = UINavigationController(rootViewController: viewController)
+        self.window?.rootViewController = nc
         self.window?.makeKeyAndVisible()
         
         return true

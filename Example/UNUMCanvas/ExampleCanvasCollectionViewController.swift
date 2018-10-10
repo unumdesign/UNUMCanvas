@@ -73,6 +73,6 @@ extension ExampleCanvasCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected")
+        navigationController?.pushViewController(UIViewController(nibName: nil, bundle: nil), animated: true)
     }
 }
