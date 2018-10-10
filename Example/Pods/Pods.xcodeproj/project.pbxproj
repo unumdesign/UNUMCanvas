@@ -10,7 +10,7 @@
 		0C0A771A0B8012252A786F900249F343 /* Pods-UNUMCanvas_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F201F231262E0E68FFE9B963F0DE9CE /* Pods-UNUMCanvas_Tests-dummy.m */; };
 		2689652BD698B9A35C497CE5343BD48A /* Pods-UNUMCanvas_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D03432A95864774D8E5097AA3861838C /* Pods-UNUMCanvas_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27709A4609CC49F923E4F80797D1E507 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		2D0874128EE94B98C034C0D8C3A75BD2 /* CenterIndicatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5036B4A6CB7ABB7B49750DBB9CAB7CD /* CenterIndicatingView.swift */; };
+		2D0874128EE94B98C034C0D8C3A75BD2 /* CenterIndicatingViews&UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5036B4A6CB7ABB7B49750DBB9CAB7CD /* CenterIndicatingViews&UIViewExtension.swift */; };
 		412CA6B9D1D97B03BDF1274A5173DD47 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		5BF807584F8D6407D77E10EF28F8552B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		62CAEF723A8728A9BF8EE34AB7C9D329 /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAAFE0CC688CB754B0A22546C2AEF0C /* CanvasController.swift */; };
@@ -41,20 +41,20 @@
 		0A400BDDB8E70EC8F367ABC51C7A002B /* Pods-UNUMCanvas_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		14C52954FE1335D5AE5BBC38D9E6C473 /* Pods-UNUMCanvas_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Example.release.xcconfig"; sourceTree = "<group>"; };
 		2137250240D19436A425BCF36FD911E9 /* UNUMCanvas.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UNUMCanvas.xcconfig; sourceTree = "<group>"; };
-		2A1D85BF73E366212B66813EBE7DF67F /* Pods_UNUMCanvas_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UNUMCanvas_Example.framework; path = "Pods-UNUMCanvas_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2C39C6BDEBFCD01278740B3F21711BEC /* UNUMCanvas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = UNUMCanvas.framework; path = UNUMCanvas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F4C3C9E7696BE54A32FB6CA467E1614 /* Pods_UNUMCanvas_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UNUMCanvas_Tests.framework; path = "Pods-UNUMCanvas_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A1D85BF73E366212B66813EBE7DF67F /* Pods_UNUMCanvas_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNUMCanvas_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C39C6BDEBFCD01278740B3F21711BEC /* UNUMCanvas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UNUMCanvas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F4C3C9E7696BE54A32FB6CA467E1614 /* Pods_UNUMCanvas_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNUMCanvas_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AD557BE4EF328E363B99BE09F9DC905 /* Pods-UNUMCanvas_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UNUMCanvas_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		54BC0E0E33AD0A8B369852789A361EBF /* Pods-UNUMCanvas_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UNUMCanvas_Example.modulemap"; sourceTree = "<group>"; };
 		5696337E9453582E0CA5C2D7DA78BFC5 /* Pods-UNUMCanvas_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UNUMCanvas_Tests-umbrella.h"; sourceTree = "<group>"; };
 		5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6039BFC82D7AD98DE98F35A5FA5728DE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		6039BFC82D7AD98DE98F35A5FA5728DE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		69BF069D13242056F50BC16A2821159B /* UNUMCanvas-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UNUMCanvas-umbrella.h"; sourceTree = "<group>"; };
 		713A858E5F3F0B6E0B68A9BB1BB869EB /* Pods-UNUMCanvas_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UNUMCanvas_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		77ED24F2385E02E941E4A1572E9FBFF9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		77ED24F2385E02E941E4A1572E9FBFF9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		789DC6B3BB2ADA532778597139A828F8 /* Pods-UNUMCanvas_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Example-resources.sh"; sourceTree = "<group>"; };
 		92ED7FAF4AE258C0D843A820933BF2C1 /* Pods-UNUMCanvas_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Example-frameworks.sh"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		99402027A011806D2A8947E56E7D8055 /* Pods-UNUMCanvas_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UNUMCanvas_Example-dummy.m"; sourceTree = "<group>"; };
 		9CB73CE9D5CEFE7D964F00D9A132DA27 /* Pods-UNUMCanvas_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		9F201F231262E0E68FFE9B963F0DE9CE /* Pods-UNUMCanvas_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UNUMCanvas_Tests-dummy.m"; sourceTree = "<group>"; };
@@ -65,12 +65,12 @@
 		C459C3989596E8C45BAFFB1FA447F8E1 /* Pods-UNUMCanvas_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UNUMCanvas_Tests.modulemap"; sourceTree = "<group>"; };
 		D03432A95864774D8E5097AA3861838C /* Pods-UNUMCanvas_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UNUMCanvas_Example-umbrella.h"; sourceTree = "<group>"; };
 		D512742883D8125FC49FCAC46C0A1126 /* Pods-UNUMCanvas_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UNUMCanvas_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		D896AABDEAE94E6C001B4E140E5BE836 /* UNUMCanvas.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = UNUMCanvas.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D896AABDEAE94E6C001B4E140E5BE836 /* UNUMCanvas.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = UNUMCanvas.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		DC3496EFDE1AA4C04664B13B4CE6CA33 /* Pods-UNUMCanvas_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E7AA480FFAC1CE08578C072010E51853 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E94B56CFE66348C6E1639A204DB36313 /* Pods-UNUMCanvas_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F206B0C00AD7E853DAE9B6FE6AC4ECD8 /* UNUMCanvas.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = UNUMCanvas.modulemap; sourceTree = "<group>"; };
-		F5036B4A6CB7ABB7B49750DBB9CAB7CD /* CenterIndicatingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CenterIndicatingView.swift; path = UNUMCanvas/Classes/CenterIndicatingView.swift; sourceTree = "<group>"; };
+		F5036B4A6CB7ABB7B49750DBB9CAB7CD /* CenterIndicatingViews&UIViewExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CenterIndicatingViews&UIViewExtension.swift"; path = "UNUMCanvas/Classes/CenterIndicatingViews&UIViewExtension.swift"; sourceTree = "<group>"; };
 		FD02D2BFBACA47AB0C7EAFB4B56BA04D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDF3DBE1508B51904C37A790A7C42298 /* Pods-UNUMCanvas_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UNUMCanvas_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		FFAAFE0CC688CB754B0A22546C2AEF0C /* CanvasController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CanvasController.swift; path = UNUMCanvas/Classes/CanvasController.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				FFAAFE0CC688CB754B0A22546C2AEF0C /* CanvasController.swift */,
-				F5036B4A6CB7ABB7B49750DBB9CAB7CD /* CenterIndicatingView.swift */,
+				F5036B4A6CB7ABB7B49750DBB9CAB7CD /* CenterIndicatingViews&UIViewExtension.swift */,
 				0D537A17B6796710E87B0A1FCD085C6A /* Pod */,
 				F2019C816F5174E95FC03B1D2D70E022 /* Support Files */,
 			);
@@ -347,7 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62CAEF723A8728A9BF8EE34AB7C9D329 /* CanvasController.swift in Sources */,
-				2D0874128EE94B98C034C0D8C3A75BD2 /* CenterIndicatingView.swift in Sources */,
+				2D0874128EE94B98C034C0D8C3A75BD2 /* CenterIndicatingViews&UIViewExtension.swift in Sources */,
 				CFA372829A469438ACAF8984ABE9A11B /* UNUMCanvas-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
