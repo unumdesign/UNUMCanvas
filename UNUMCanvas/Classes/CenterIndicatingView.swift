@@ -4,6 +4,8 @@ class CenterIndicatingView: UIView {
     let indicatorOne = UIView()
     let indicatorTwo = UIView()
     
+    let indicatorThickness: CGFloat = 3
+    
     var isVisible: Bool = true {
         didSet {
             indicatorOne.alpha = isVisible ? 1.0 : 0.0
@@ -35,12 +37,12 @@ class CenterYIndicatingView: CenterIndicatingView {
         super.init()
         
         indicatorOne.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        indicatorOne.heightAnchor.constraint(equalToConstant: 3).isActive = true
+        indicatorOne.heightAnchor.constraint(equalToConstant: indicatorThickness).isActive = true
         indicatorOne.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25).isActive = true
         indicatorOne.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         
         indicatorTwo.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        indicatorTwo.heightAnchor.constraint(equalToConstant: 3).isActive = true
+        indicatorTwo.heightAnchor.constraint(equalToConstant: indicatorThickness).isActive = true
         indicatorTwo.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.25).isActive = true
         indicatorTwo.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
@@ -56,12 +58,12 @@ class CenterXIndicatingView: CenterIndicatingView {
         super.init()
         
         indicatorOne.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        indicatorOne.widthAnchor.constraint(equalToConstant: 3).isActive = true
+        indicatorOne.widthAnchor.constraint(equalToConstant: indicatorThickness).isActive = true
         indicatorOne.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
         indicatorOne.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
         indicatorTwo.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        indicatorTwo.widthAnchor.constraint(equalToConstant: 3).isActive = true
+        indicatorTwo.widthAnchor.constraint(equalToConstant: indicatorThickness).isActive = true
         indicatorTwo.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
         indicatorTwo.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
