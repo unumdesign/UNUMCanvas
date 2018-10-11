@@ -1,5 +1,9 @@
 import UIKit
 
+public protocol SelectedViewObserving: AnyObject {
+    func selectedValueChanged(to view: UIView?)
+}
+
 public class CanvasController: NSObject {
     
     
@@ -26,8 +30,12 @@ public class CanvasController: NSObject {
             if let selectedView = selectedView {
                 selectedView.alpha = 0.5 // TODO: plf - Setup view as selected according to design
             }
+            
+            selectedViewObservingDelegate?.selectedValueChanged(to: selectedView)
         }
     }
+    
+    public weak var selectedViewObservingDelegate: SelectedViewObserving?
 
     public override init() {
         super.init()
