@@ -47,6 +47,8 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         canvasController.interactableViews.append(contentsOf: [interactableView1, interactableView2])
         canvasController.selectedView = interactableView1
         canvasController.mainView = collectionView
+        
+        canvasController.selectedViewObservingDelegate = self
     }
 }
 
@@ -72,5 +74,11 @@ extension ExampleCanvasCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         navigationController?.pushViewController(ExampleSingleCanvasViewController(), animated: true)
+    }
+}
+
+extension ExampleCanvasCollectionViewController: SelectedViewObserving {
+    func selectedValueChanged(to view: UIView?) {
+        collectionView.isScrollEnabled = view == nil
     }
 }
