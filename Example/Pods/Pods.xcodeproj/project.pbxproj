@@ -18,6 +18,7 @@
 		854C43DF5B1624A4F3E9BBDA98D1B276 /* UNUMCanvas-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BF069D13242056F50BC16A2821159B /* UNUMCanvas-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A56A383E26C1FD8661F2236669EC1A47 /* Pods-UNUMCanvas_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5696337E9453582E0CA5C2D7DA78BFC5 /* Pods-UNUMCanvas_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CFA372829A469438ACAF8984ABE9A11B /* UNUMCanvas-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F258F39829FD835ADD33BD0E91A7101 /* UNUMCanvas-dummy.m */; };
+		F985090D217914B8002F8C53 /* SelectionShowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F985090C217914B8002F8C53 /* SelectionShowingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		E94B56CFE66348C6E1639A204DB36313 /* Pods-UNUMCanvas_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F206B0C00AD7E853DAE9B6FE6AC4ECD8 /* UNUMCanvas.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = UNUMCanvas.modulemap; sourceTree = "<group>"; };
 		F5036B4A6CB7ABB7B49750DBB9CAB7CD /* CenterIndicatingViews&UIViewExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CenterIndicatingViews&UIViewExtension.swift"; path = "UNUMCanvas/Classes/CenterIndicatingViews&UIViewExtension.swift"; sourceTree = "<group>"; };
+		F985090C217914B8002F8C53 /* SelectionShowingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectionShowingView.swift; path = UNUMCanvas/Classes/SelectionShowingView.swift; sourceTree = "<group>"; };
 		FD02D2BFBACA47AB0C7EAFB4B56BA04D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDF3DBE1508B51904C37A790A7C42298 /* Pods-UNUMCanvas_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UNUMCanvas_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		FFAAFE0CC688CB754B0A22546C2AEF0C /* CanvasController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CanvasController.swift; path = UNUMCanvas/Classes/CanvasController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				FFAAFE0CC688CB754B0A22546C2AEF0C /* CanvasController.swift */,
+				F985090C217914B8002F8C53 /* SelectionShowingView.swift */,
 				F5036B4A6CB7ABB7B49750DBB9CAB7CD /* CenterIndicatingViews&UIViewExtension.swift */,
 				0D537A17B6796710E87B0A1FCD085C6A /* Pod */,
 				F2019C816F5174E95FC03B1D2D70E022 /* Support Files */,
@@ -347,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62CAEF723A8728A9BF8EE34AB7C9D329 /* CanvasController.swift in Sources */,
+				F985090D217914B8002F8C53 /* SelectionShowingView.swift in Sources */,
 				2D0874128EE94B98C034C0D8C3A75BD2 /* CenterIndicatingViews&UIViewExtension.swift in Sources */,
 				CFA372829A469438ACAF8984ABE9A11B /* UNUMCanvas-dummy.m in Sources */,
 			);

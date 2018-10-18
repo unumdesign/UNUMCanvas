@@ -28,7 +28,16 @@ public class CanvasController: NSObject {
             interactableViews.forEach({ $0.alpha = 1.0 })
             
             if let selectedView = selectedView {
-                selectedView.alpha = 0.5 // TODO: plf - Setup view as selected according to design
+                selectedView.addSubview(SelectionShowingView())
+            }
+            else {
+                if let oldView = oldValue {
+                    oldView.subviews.forEach { subview in
+                        if let selectedView = subview as? SelectionShowingView {
+                            selectedView.removeFromSuperview()
+                        }
+                    }
+                }
             }
             
             selectedViewObservingDelegate?.selectedValueChanged(to: selectedView)
