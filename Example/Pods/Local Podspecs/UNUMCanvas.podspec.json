@@ -19,5 +19,10 @@
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "UNUMCanvas/Classes/**/*"
+  "source_files": "UNUMCanvas/Classes/**/*",
+  "resource_bundles": {
+    "UNUMCanvas": [
+      "UNUMCanvas/Assets/*.png"
+    ]
+  }
 }

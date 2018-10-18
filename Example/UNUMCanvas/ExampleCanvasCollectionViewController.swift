@@ -33,22 +33,23 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(UICollectionViewCell.self))
         collectionView.dataSource = self
         collectionView.delegate = self
+
+        canvasController.selectedViewObservingDelegate = self
         
         // Add some views that should be interactable.
         interactableView1 = UIView(frame: CGRect(x: 100, y: 400, width: 100, height: 100))
         interactableView1.backgroundColor = .blue
         collectionView.addSubview(interactableView1)
-        
+
         interactableView2 = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
         interactableView2.backgroundColor = .green
         collectionView.addSubview(interactableView2)
-        
+
         // Setup canvasController with appropriate views. In this example, the canvasViews will be the tableViewCells, which will need to be added to the canvasController when they are setup.
         canvasController.interactableViews.append(contentsOf: [interactableView1, interactableView2])
         canvasController.selectedView = interactableView2
         canvasController.mainView = collectionView
-        
-        canvasController.selectedViewObservingDelegate = self
+
     }
 }
 

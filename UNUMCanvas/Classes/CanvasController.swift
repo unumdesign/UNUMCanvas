@@ -28,7 +28,14 @@ public class CanvasController: NSObject {
             interactableViews.forEach({ $0.alpha = 1.0 })
             
             if let selectedView = selectedView {
-                selectedView.addSubview(SelectionShowingView())
+                let sectionShowingView = SelectionShowingView()
+                selectedView.addSubview(sectionShowingView)
+                sectionShowingView.frame = CGRect(
+                    x: 0,
+                    y: 0,
+                    width: selectedView.frame.width,
+                    height: selectedView.frame.height
+                )
             }
             else {
                 if let oldView = oldValue {
