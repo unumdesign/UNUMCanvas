@@ -36,8 +36,14 @@ public class CanvasController: NSObject {
     
     public var selectedView: UIView? {
         didSet {
-            interactableViews.forEach({ $0.alpha = 1.0 })
-            
+            interactableViews.forEach({ interactableView in
+                interactableView.subviews.forEach { subview in
+                    if let selectedView = subview as? SelectionShowingView {
+                        selectedView.removeFromSuperview()
+                    }
+                }
+            })
+
             if let selectedView = selectedView {
                 let selectionShowingView = SelectionShowingView()
                 selectionShowingView.button.addGestureRecognizer(deleteTapGesture)
@@ -59,16 +65,7 @@ public class CanvasController: NSObject {
                 // return transform onto view in order to keep previous transformations on the view
                 selectedView.transform = transformToReapply
             }
-            else {
-                if let oldView = oldValue {
-                    oldView.subviews.forEach { subview in
-                        if let selectedView = subview as? SelectionShowingView {
-                            selectedView.removeFromSuperview()
-                        }
-                    }
-                }
-            }
-            
+
             selectedViewObservingDelegate?.selectedValueChanged(to: selectedView)
         }
     }
