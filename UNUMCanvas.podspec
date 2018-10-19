@@ -8,9 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UNUMCanvas'
-  s.version          = '1.0.4'
+  s.version          = '1.0.5'
   s.summary          = 'Unum Canvas'
-  s.swift_version = '4.1'
+  s.swift_version = '4.2'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
