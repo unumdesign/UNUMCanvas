@@ -354,10 +354,6 @@ extension CanvasController: UIGestureRecognizerDelegate {
 
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         // Don't recognize a tap until a deleteTap fails.
-        print(gestureRecognizer)
-        print(gestureRecognizer == self.deleteTapGesture)
-        print(otherGestureRecognizer)
-        print(otherGestureRecognizer == self.deleteTapGesture)
         if gestureRecognizer == self.deleteTapGesture || otherGestureRecognizer == self.deleteTapGesture {
             return true
         }
