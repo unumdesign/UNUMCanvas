@@ -2,7 +2,6 @@ import UIKit
 
 public protocol SelectedViewObserving: AnyObject {
     func selectedValueChanged(to view: UIView?)
-    func delete(view: UIView)
 }
 
 public class CanvasController: NSObject {
@@ -28,7 +27,11 @@ public class CanvasController: NSObject {
         guard let view = selectedView else {
             return
         }
-        selectedViewObservingDelegate?.delete(view: view)
+        view.removeFromSuperview()
+        if let index = interactableViews.firstIndex(of: view) {
+            interactableViews.remove(at: index)
+        }
+        selectedView = nil
     }
     
     public var selectedView: UIView? {
@@ -74,6 +77,7 @@ public class CanvasController: NSObject {
 
     public override init() {
         super.init()
+        deleteTapGesture = UITapGestureRecognizer(target: self, action: #selector(deleteButtonPressed))
     }
     
     
@@ -92,8 +96,6 @@ public class CanvasController: NSObject {
     // MARK: - private functions
     
     private func setupViewGestures(view: UIView) {
-        deleteTapGesture = UITapGestureRecognizer(target: self, action: #selector(deleteButtonPressed))
-
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectOrDeselectViewOnTap(_:)))
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
         pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleSelectedView(_:)))
