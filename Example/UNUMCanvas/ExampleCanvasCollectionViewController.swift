@@ -82,4 +82,8 @@ extension ExampleCanvasCollectionViewController: SelectedViewObserving {
     func selectedValueChanged(to view: UIView?) {
         collectionView.isScrollEnabled = view == nil
     }
+
+    func delete(view: UIView) {
+        print("delete")
+    }
 }
