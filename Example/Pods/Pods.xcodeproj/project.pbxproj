@@ -21,6 +21,7 @@
 		D9C4867A9DCB028826CB19C48B867A00 /* Pods-UNUMCanvas_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F201F231262E0E68FFE9B963F0DE9CE /* Pods-UNUMCanvas_Tests-dummy.m */; };
 		DE941D3BE702348F29FAC549BDDBAA3A /* UNUMCanvas-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A6960A18E80EEB2F2D0889F07CC8F414 /* UNUMCanvas-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F9166946217A494E00F6043B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 358B831703C73E5F407E281964BF412E /* Media.xcassets */; };
+		F9166947217A5B5300F6043B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 358B831703C73E5F407E281964BF412E /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -415,6 +416,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9166947217A5B5300F6043B /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
