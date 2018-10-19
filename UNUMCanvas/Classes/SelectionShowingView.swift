@@ -13,7 +13,7 @@ final class SelectionShowingView: UIView {
 
     override init(frame: CGRect) {
 
-        let bundle = Bundle(identifier: "UNUMCanvas")
+        let bundle = Bundle(identifier: "org.cocoapods.UNUMCanvas")
         let image = UIImage(named: "deleteIcon", in: bundle, compatibleWith: nil)
         imageView = UIImageView(image: image)
 
