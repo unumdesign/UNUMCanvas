@@ -22,7 +22,7 @@ final class ExampleSingleCanvasViewController: UIViewController {
         
         // Add some views that should be interactable.
         interactableView1 = UIView(frame: CGRect(x: 100, y: 400, width: 100, height: 100))
-        interactableView1.backgroundColor = .blue
+        interactableView1.backgroundColor = .orange
         view.addSubview(interactableView1)
         
         interactableView2 = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
