@@ -22,7 +22,7 @@
   "source_files": "UNUMCanvas/Classes/**/*",
   "resource_bundles": {
     "UNUMCanvas": [
-      "UNUMCanvas/Assets/*.png"
+      "UNUMCanvas/Assets/*.xcassets"
     ]
   }
 }

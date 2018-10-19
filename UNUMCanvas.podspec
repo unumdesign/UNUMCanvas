@@ -34,7 +34,8 @@ TODO: Add long description of the pod here.
   s.source_files = 'UNUMCanvas/Classes/**/*'
   
    s.resource_bundles = {
-     'UNUMCanvas' => ['UNUMCanvas/Assets/*.png']
+#       UNUMImport/Assets/**/*.xcassets
+     'UNUMCanvas' => ['UNUMCanvas/Assets/*.xcassets']
    }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'

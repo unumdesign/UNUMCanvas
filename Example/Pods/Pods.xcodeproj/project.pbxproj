@@ -11,15 +11,16 @@
 		22875A93917F12722D5520D839954A1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
 		3E6B90B41202651C52A5BDE19BFC8FA4 /* UNUMCanvas.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6514D6CE7AE6D35B36161792C6A27D0A /* UNUMCanvas.bundle */; };
 		41458849FEF4F19BDD81182894C56951 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		5C4BB702CA4980324B57AD6ED24D18E6 /* CenterIndicatingViews&UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B915B468F4046D1E3FBAC71988F0DE63 /* CenterIndicatingViews&UIViewExtension.swift */; };
-		5D215D7C35FB774BDC0BD4E746379F8D /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439B055EE5678969A9CE26F9A79CF98F /* CanvasController.swift */; };
+		5C4BB702CA4980324B57AD6ED24D18E6 /* CenterIndicatingViews&UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7D82D8D30F35E9CDF05741F9ED12F2 /* CenterIndicatingViews&UIViewExtension.swift */; };
+		5D215D7C35FB774BDC0BD4E746379F8D /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916BA339B4AFF710E0944B8663150D7 /* CanvasController.swift */; };
 		883F15DA6203F00A44BADC76C8A92908 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */; };
-		88DEFEC4637427D658637875107289CF /* SelectionShowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47488F3E732EA92675C96C0A6FA352C6 /* SelectionShowingView.swift */; };
+		88DEFEC4637427D658637875107289CF /* SelectionShowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A126E81D8F97623259FA738574A30C2 /* SelectionShowingView.swift */; };
+		970402FD228D33BE89DE57ED2D15D09E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 358B831703C73E5F407E281964BF412E /* Media.xcassets */; };
 		9E23E7E8EA326A3F80ADD83BE9150A76 /* Pods-UNUMCanvas_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5696337E9453582E0CA5C2D7DA78BFC5 /* Pods-UNUMCanvas_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BA7281DCA5F03500BD11FF9D1A8E3DF2 /* UNUMCanvas-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B7CD92F99E3AB57D661F93EB8FDE21C7 /* UNUMCanvas-dummy.m */; };
+		BA7281DCA5F03500BD11FF9D1A8E3DF2 /* UNUMCanvas-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B39D1A136136FCFCEA32FCA743F98AFE /* UNUMCanvas-dummy.m */; };
 		C87C33B962FC8115C8B31941DE2C7DC0 /* Pods-UNUMCanvas_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 99402027A011806D2A8947E56E7D8055 /* Pods-UNUMCanvas_Example-dummy.m */; };
 		D9C4867A9DCB028826CB19C48B867A00 /* Pods-UNUMCanvas_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F201F231262E0E68FFE9B963F0DE9CE /* Pods-UNUMCanvas_Tests-dummy.m */; };
-		DE941D3BE702348F29FAC549BDDBAA3A /* UNUMCanvas-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C2C5D65D60796D0726B595387F88C943 /* UNUMCanvas-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE941D3BE702348F29FAC549BDDBAA3A /* UNUMCanvas-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A6960A18E80EEB2F2D0889F07CC8F414 /* UNUMCanvas-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,44 +48,45 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00231F77B949C9D46308BB741382085A /* UNUMCanvas.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = UNUMCanvas.modulemap; sourceTree = "<group>"; };
 		0A400BDDB8E70EC8F367ABC51C7A002B /* Pods-UNUMCanvas_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		0DA3CCC59F9C175A99AEA78AFB7D47E6 /* UNUMCanvas.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UNUMCanvas.xcconfig; sourceTree = "<group>"; };
 		14C52954FE1335D5AE5BBC38D9E6C473 /* Pods-UNUMCanvas_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Example.release.xcconfig"; sourceTree = "<group>"; };
-		2B9AD64A369154991B3CC76179AB6C3F /* UNUMCanvas-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UNUMCanvas-prefix.pch"; sourceTree = "<group>"; };
-		389C70668997D2F18ADB28466EF6AF84 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		439B055EE5678969A9CE26F9A79CF98F /* CanvasController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CanvasController.swift; path = UNUMCanvas/Classes/CanvasController.swift; sourceTree = "<group>"; };
-		47488F3E732EA92675C96C0A6FA352C6 /* SelectionShowingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SelectionShowingView.swift; path = UNUMCanvas/Classes/SelectionShowingView.swift; sourceTree = "<group>"; };
+		1A126E81D8F97623259FA738574A30C2 /* SelectionShowingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SelectionShowingView.swift; path = UNUMCanvas/Classes/SelectionShowingView.swift; sourceTree = "<group>"; };
+		1F7D82D8D30F35E9CDF05741F9ED12F2 /* CenterIndicatingViews&UIViewExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CenterIndicatingViews&UIViewExtension.swift"; path = "UNUMCanvas/Classes/CenterIndicatingViews&UIViewExtension.swift"; sourceTree = "<group>"; };
+		2C24C2519C63F6C4BEC29314E32C7A9C /* UNUMCanvas.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UNUMCanvas.xcconfig; sourceTree = "<group>"; };
+		358B831703C73E5F407E281964BF412E /* Media.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = UNUMCanvas/Assets/Media.xcassets; sourceTree = "<group>"; };
 		4AD557BE4EF328E363B99BE09F9DC905 /* Pods-UNUMCanvas_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UNUMCanvas_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		54BC0E0E33AD0A8B369852789A361EBF /* Pods-UNUMCanvas_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UNUMCanvas_Example.modulemap"; sourceTree = "<group>"; };
 		5696337E9453582E0CA5C2D7DA78BFC5 /* Pods-UNUMCanvas_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UNUMCanvas_Tests-umbrella.h"; sourceTree = "<group>"; };
+		5916BA339B4AFF710E0944B8663150D7 /* CanvasController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CanvasController.swift; path = UNUMCanvas/Classes/CanvasController.swift; sourceTree = "<group>"; };
 		5A16F4CFC63FAC439D7A04994F579A03 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6514D6CE7AE6D35B36161792C6A27D0A /* UNUMCanvas.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = UNUMCanvas.bundle; path = "UNUMCanvas-UNUMCanvas.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
-		699336FD7624722664EC944E05CA9E42 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		675423D6E0E28952AAC47E180745F810 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		713A858E5F3F0B6E0B68A9BB1BB869EB /* Pods-UNUMCanvas_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UNUMCanvas_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		789DC6B3BB2ADA532778597139A828F8 /* Pods-UNUMCanvas_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Example-resources.sh"; sourceTree = "<group>"; };
+		89754F6CD7492565C694FC6471829D44 /* UNUMCanvas-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UNUMCanvas-prefix.pch"; sourceTree = "<group>"; };
 		92ED7FAF4AE258C0D843A820933BF2C1 /* Pods-UNUMCanvas_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Example-frameworks.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		99402027A011806D2A8947E56E7D8055 /* Pods-UNUMCanvas_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UNUMCanvas_Example-dummy.m"; sourceTree = "<group>"; };
-		9B198EE85BB214728A72083762A69397 /* UNUMCanvas.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = UNUMCanvas.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9CB73CE9D5CEFE7D964F00D9A132DA27 /* Pods-UNUMCanvas_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		9E7CB2DE62261CE9699350F0FE944F67 /* UNUMCanvas.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = UNUMCanvas.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9F201F231262E0E68FFE9B963F0DE9CE /* Pods-UNUMCanvas_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UNUMCanvas_Tests-dummy.m"; sourceTree = "<group>"; };
-		A2229371353357DB02C3ACE31807C86C /* UNUMCanvas.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = UNUMCanvas.modulemap; sourceTree = "<group>"; };
+		A11F193C52A7DEB6A75035084F74D3BF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A371BA1173AD0CC97212173D2F81371D /* Pods_UNUMCanvas_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UNUMCanvas_Example.framework; path = "Pods-UNUMCanvas_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6960A18E80EEB2F2D0889F07CC8F414 /* UNUMCanvas-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UNUMCanvas-umbrella.h"; sourceTree = "<group>"; };
+		AD223A34C98D17A8145AAAE62385FA82 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		AF10E0DA26431B4BFF941C1F212D31C1 /* Pods_UNUMCanvas_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UNUMCanvas_Tests.framework; path = "Pods-UNUMCanvas_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2D6AB4F0E58AEC573AEDFD70ABA20B1 /* Pods-UNUMCanvas_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UNUMCanvas_Tests-resources.sh"; sourceTree = "<group>"; };
-		B65E7B73964B882F0A53EAAC5EE9B981 /* ResourceBundle-UNUMCanvas-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-UNUMCanvas-Info.plist"; sourceTree = "<group>"; };
-		B7CD92F99E3AB57D661F93EB8FDE21C7 /* UNUMCanvas-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UNUMCanvas-dummy.m"; sourceTree = "<group>"; };
-		B915B468F4046D1E3FBAC71988F0DE63 /* CenterIndicatingViews&UIViewExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CenterIndicatingViews&UIViewExtension.swift"; path = "UNUMCanvas/Classes/CenterIndicatingViews&UIViewExtension.swift"; sourceTree = "<group>"; };
+		B39D1A136136FCFCEA32FCA743F98AFE /* UNUMCanvas-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UNUMCanvas-dummy.m"; sourceTree = "<group>"; };
 		BCE72DD7922EFEF36CF247EFF4FB19B6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C2C5D65D60796D0726B595387F88C943 /* UNUMCanvas-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UNUMCanvas-umbrella.h"; sourceTree = "<group>"; };
 		C459C3989596E8C45BAFFB1FA447F8E1 /* Pods-UNUMCanvas_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UNUMCanvas_Tests.modulemap"; sourceTree = "<group>"; };
 		D03432A95864774D8E5097AA3861838C /* Pods-UNUMCanvas_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UNUMCanvas_Example-umbrella.h"; sourceTree = "<group>"; };
 		D512742883D8125FC49FCAC46C0A1126 /* Pods-UNUMCanvas_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UNUMCanvas_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D7CC19F583A190F4841C6D0DDA8DAE6F /* ResourceBundle-UNUMCanvas-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-UNUMCanvas-Info.plist"; sourceTree = "<group>"; };
 		DBA4F72B1D1992D1B8D4059F8B0CDEA8 /* UNUMCanvas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = UNUMCanvas.framework; path = UNUMCanvas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC3496EFDE1AA4C04664B13B4CE6CA33 /* Pods-UNUMCanvas_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		E7AA480FFAC1CE08578C072010E51853 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E94B56CFE66348C6E1639A204DB36313 /* Pods-UNUMCanvas_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UNUMCanvas_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		ECEF4185EB72BEC0DB418EEDD3F8C7B5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDF3DBE1508B51904C37A790A7C42298 /* Pods-UNUMCanvas_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UNUMCanvas_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,27 +136,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2B8D8A7E94C27D912AC510D2ADFD64E1 /* Pod */ = {
+		2AB9A135334B86820E2BFBE2750791FD /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				699336FD7624722664EC944E05CA9E42 /* LICENSE */,
-				389C70668997D2F18ADB28466EF6AF84 /* README.md */,
-				9B198EE85BB214728A72083762A69397 /* UNUMCanvas.podspec */,
+				B64F1E349BF7B5D68836E08EEE47E8D2 /* UNUMCanvas */,
 			);
-			name = Pod;
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		3786C9298C8BA46B6B68446FEC1D61E2 /* UNUMCanvas */ = {
+		58DD3A84D597E2E333E0C76EBE4F2C23 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				439B055EE5678969A9CE26F9A79CF98F /* CanvasController.swift */,
-				B915B468F4046D1E3FBAC71988F0DE63 /* CenterIndicatingViews&UIViewExtension.swift */,
-				47488F3E732EA92675C96C0A6FA352C6 /* SelectionShowingView.swift */,
-				2B8D8A7E94C27D912AC510D2ADFD64E1 /* Pod */,
-				E75FB5059AA4678385CB59AB51D4F506 /* Support Files */,
+				AD223A34C98D17A8145AAAE62385FA82 /* LICENSE */,
+				675423D6E0E28952AAC47E180745F810 /* README.md */,
+				9E7CB2DE62261CE9699350F0FE944F67 /* UNUMCanvas.podspec */,
 			);
-			name = UNUMCanvas;
-			path = ../..;
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		5E0D919E635D23B70123790B8308F8EF /* iOS */ = {
@@ -165,11 +162,26 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		677CA8884ADE82B27B6180434E68D109 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A11F193C52A7DEB6A75035084F74D3BF /* Info.plist */,
+				D7CC19F583A190F4841C6D0DDA8DAE6F /* ResourceBundle-UNUMCanvas-Info.plist */,
+				00231F77B949C9D46308BB741382085A /* UNUMCanvas.modulemap */,
+				2C24C2519C63F6C4BEC29314E32C7A9C /* UNUMCanvas.xcconfig */,
+				B39D1A136136FCFCEA32FCA743F98AFE /* UNUMCanvas-dummy.m */,
+				89754F6CD7492565C694FC6471829D44 /* UNUMCanvas-prefix.pch */,
+				A6960A18E80EEB2F2D0889F07CC8F414 /* UNUMCanvas-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/UNUMCanvas";
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				C1DFDBE2FBD58D95643AAD589C673E5F /* Development Pods */,
+				2AB9A135334B86820E2BFBE2750791FD /* Development Pods */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
 				14B397A416B6527151F2F9112CE8084C /* Products */,
 				F058C602D8DE9B4D7BE11ADC25ECFBD2 /* Targets Support Files */,
@@ -194,6 +206,20 @@
 			path = "Target Support Files/Pods-UNUMCanvas_Tests";
 			sourceTree = "<group>";
 		};
+		B64F1E349BF7B5D68836E08EEE47E8D2 /* UNUMCanvas */ = {
+			isa = PBXGroup;
+			children = (
+				5916BA339B4AFF710E0944B8663150D7 /* CanvasController.swift */,
+				1F7D82D8D30F35E9CDF05741F9ED12F2 /* CenterIndicatingViews&UIViewExtension.swift */,
+				1A126E81D8F97623259FA738574A30C2 /* SelectionShowingView.swift */,
+				58DD3A84D597E2E333E0C76EBE4F2C23 /* Pod */,
+				ED8AE6B2FB20849264962BB7EEF2A14D /* Resources */,
+				677CA8884ADE82B27B6180434E68D109 /* Support Files */,
+			);
+			name = UNUMCanvas;
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,27 +228,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C1DFDBE2FBD58D95643AAD589C673E5F /* Development Pods */ = {
+		ED8AE6B2FB20849264962BB7EEF2A14D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3786C9298C8BA46B6B68446FEC1D61E2 /* UNUMCanvas */,
+				358B831703C73E5F407E281964BF412E /* Media.xcassets */,
 			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		E75FB5059AA4678385CB59AB51D4F506 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				ECEF4185EB72BEC0DB418EEDD3F8C7B5 /* Info.plist */,
-				B65E7B73964B882F0A53EAAC5EE9B981 /* ResourceBundle-UNUMCanvas-Info.plist */,
-				A2229371353357DB02C3ACE31807C86C /* UNUMCanvas.modulemap */,
-				0DA3CCC59F9C175A99AEA78AFB7D47E6 /* UNUMCanvas.xcconfig */,
-				B7CD92F99E3AB57D661F93EB8FDE21C7 /* UNUMCanvas-dummy.m */,
-				2B9AD64A369154991B3CC76179AB6C3F /* UNUMCanvas-prefix.pch */,
-				C2C5D65D60796D0726B595387F88C943 /* UNUMCanvas-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/UNUMCanvas";
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		F058C602D8DE9B4D7BE11ADC25ECFBD2 /* Targets Support Files */ = {
@@ -326,7 +337,7 @@
 			buildPhases = (
 				F4A68184FFC5443C67ACAD6CF6DF4F6C /* Sources */,
 				D18B6B138856FA63DA6CAAC61ABB2398 /* Frameworks */,
-				558963542E3E8032E2B5705350CECE64 /* Resources */,
+				12FC9B111EB9C5A1AD2BABDACAE98C93 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -400,18 +411,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		12FC9B111EB9C5A1AD2BABDACAE98C93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				970402FD228D33BE89DE57ED2D15D09E /* Media.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		15632AD40E68009796B5BFA3D355E93D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3E6B90B41202651C52A5BDE19BFC8FA4 /* UNUMCanvas.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		558963542E3E8032E2B5705350CECE64 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,7 +490,7 @@
 /* Begin XCBuildConfiguration section */
 		01CE25DDC1CD76181955367E2ACFC04B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0DA3CCC59F9C175A99AEA78AFB7D47E6 /* UNUMCanvas.xcconfig */;
+			baseConfigurationReference = 2C24C2519C63F6C4BEC29314E32C7A9C /* UNUMCanvas.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -707,7 +719,7 @@
 		};
 		6A87DA20D26B9CCB81F131CEC3F0E1BD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0DA3CCC59F9C175A99AEA78AFB7D47E6 /* UNUMCanvas.xcconfig */;
+			baseConfigurationReference = 2C24C2519C63F6C4BEC29314E32C7A9C /* UNUMCanvas.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/UNUMCanvas";
@@ -787,7 +799,7 @@
 		};
 		EA2B0B3FC3599C8376B094E19700E34C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0DA3CCC59F9C175A99AEA78AFB7D47E6 /* UNUMCanvas.xcconfig */;
+			baseConfigurationReference = 2C24C2519C63F6C4BEC29314E32C7A9C /* UNUMCanvas.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/UNUMCanvas";
@@ -803,7 +815,7 @@
 		};
 		FE5A0A40CC2004E50D87BFCE0FEA980B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0DA3CCC59F9C175A99AEA78AFB7D47E6 /* UNUMCanvas.xcconfig */;
+			baseConfigurationReference = 2C24C2519C63F6C4BEC29314E32C7A9C /* UNUMCanvas.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
