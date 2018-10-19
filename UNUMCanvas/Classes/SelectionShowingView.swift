@@ -23,10 +23,10 @@ final class SelectionShowingView: UIView {
 
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
     }
 
     required init?(coder aDecoder: NSCoder) {

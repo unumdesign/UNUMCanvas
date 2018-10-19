@@ -30,12 +30,22 @@ public class CanvasController: NSObject {
             if let selectedView = selectedView {
                 let sectionShowingView = SelectionShowingView()
                 selectedView.addSubview(sectionShowingView)
+
+                // store the view's transform so that it can be reapplied after moving the view.
+                let transformToReapply = selectedView.transform
+
+                // reset transform to allow proper directional navigation of object
+                selectedView.transform = CGAffineTransform.identity
+
                 sectionShowingView.frame = CGRect(
                     x: 0,
                     y: 0,
                     width: selectedView.frame.width,
                     height: selectedView.frame.height
                 )
+
+                // return transform onto view in order to keep previous transformations on the view
+                selectedView.transform = transformToReapply
             }
             else {
                 if let oldView = oldValue {
