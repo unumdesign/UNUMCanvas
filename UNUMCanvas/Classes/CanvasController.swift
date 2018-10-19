@@ -28,8 +28,8 @@ public class CanvasController: NSObject {
             interactableViews.forEach({ $0.alpha = 1.0 })
             
             if let selectedView = selectedView {
-                let sectionShowingView = SelectionShowingView()
-                selectedView.addSubview(sectionShowingView)
+                let selectionShowingView = SelectionShowingView()
+                selectedView.addSubview(selectionShowingView)
 
                 // store the view's transform so that it can be reapplied after moving the view.
                 let transformToReapply = selectedView.transform
@@ -37,7 +37,7 @@ public class CanvasController: NSObject {
                 // reset transform to allow proper directional navigation of object
                 selectedView.transform = CGAffineTransform.identity
 
-                sectionShowingView.frame = CGRect(
+                selectionShowingView.frame = CGRect(
                     x: 0,
                     y: 0,
                     width: selectedView.frame.width,
