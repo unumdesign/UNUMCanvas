@@ -101,11 +101,9 @@ public class CanvasController: NSObject {
 // MARK: Tap Gesture
 extension CanvasController {
 
-    @objc private func deleteButtonPressed(_ sender: UITapGestureRecognizer) -> Bool {
-        guard
-            let view = selectedView
-            else {
-                return false
+    @objc private func deleteButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
+        guard view == selectedView else {
+            return false
         }
 
         var actionPerformed = false
@@ -125,18 +123,19 @@ extension CanvasController {
     }
 
     @objc private func tapOnViewController(_ sender: UITapGestureRecognizer) {
-        let deletedView = deleteButtonPressed(sender)
-
-        guard
-            sender.state == .ended,
-            deletedView == false
-            else {
-                return
-        }
-
         // If click is within movableViews, set to first one.
         // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
         for view in interactableViews.reversed() {
+
+            let deletedView = deleteButtonPressed(on: view, sender: sender)
+
+            guard
+                sender.state == .ended,
+                deletedView == false
+                else {
+                    return
+            }
+
             let viewClicked = view.point(inside: sender.location(in: view), with: nil)
             guard viewClicked else {
                 continue
