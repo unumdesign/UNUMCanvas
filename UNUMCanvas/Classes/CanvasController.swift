@@ -23,17 +23,6 @@ public class CanvasController: NSObject {
         }
     }
 
-    @objc private func deleteButtonPressed() {
-        guard let view = selectedView else {
-            return
-        }
-        view.removeFromSuperview()
-        if let index = interactableViews.firstIndex(of: view) {
-            interactableViews.remove(at: index)
-        }
-        selectedView = nil
-    }
-    
     public var selectedView: UIView? {
         didSet {
             interactableViews.forEach({ interactableView in
@@ -46,7 +35,6 @@ public class CanvasController: NSObject {
 
             if let selectedView = selectedView {
                 let selectionShowingView = SelectionShowingView()
-                selectionShowingView.button.addGestureRecognizer(deleteTapGesture)
                 selectedView.addSubview(selectionShowingView)
 
                 // store the view's transform so that it can be reapplied after moving the view.
@@ -74,26 +62,24 @@ public class CanvasController: NSObject {
 
     public override init() {
         super.init()
-        deleteTapGesture = UITapGestureRecognizer(target: self, action: #selector(deleteButtonPressed))
     }
-    
-    
+
+
     // MARK: - private variables
-    
+
     private let absoluteVelocityEnablingLocking: CGFloat = 100
     private let absoluteDistanceEnablingLocking: CGFloat = 20
 
-    private var deleteTapGesture = UITapGestureRecognizer()
     private var tapGesture = UITapGestureRecognizer()
     private var panGesture = UIPanGestureRecognizer()
     private var pinchGesture = UIPinchGestureRecognizer()
     private var rotationGesture = UIRotationGestureRecognizer()
 
-    
+
     // MARK: - private functions
-    
+
     private func setupViewGestures(view: UIView) {
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectOrDeselectViewOnTap(_:)))
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
         pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleSelectedView(_:)))
         rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateSelectedViewController(_:)))
@@ -114,25 +100,56 @@ public class CanvasController: NSObject {
 
 // MARK: Tap Gesture
 extension CanvasController {
-    
-    @objc private func selectOrDeselectViewOnTap(_ sender: UITapGestureRecognizer) {
-        guard sender.state == .ended else {
-            return
+
+    @objc private func deleteButtonPressed(_ sender: UITapGestureRecognizer) -> Bool {
+        guard
+            let view = selectedView
+            else {
+                return false
         }
 
-        // TODO: plf - will want this to select "highest-layered" view once integrated.
-        // If click is within movableViews, set to first one.
-        for view in interactableViews {
-            let viewClicked = view.point(inside: sender.location(in: view), with: nil)
-            if viewClicked {
-                if let unwrappedView = selectedView, unwrappedView == view {
+        var actionPerformed = false
+        view.subviews.forEach { subview in
+            if let subview = subview as? SelectionShowingView {
+                if subview.closeImage.bounds.contains(sender.location(in: subview.closeImage)) {
+                    view.removeFromSuperview()
+                    if let index = interactableViews.firstIndex(of: view) {
+                        interactableViews.remove(at: index)
+                    }
                     selectedView = nil
-                    return
+                    actionPerformed = true
                 }
-                else {
-                    selectedView = view
-                    return
-                }
+            }
+        }
+        return actionPerformed
+    }
+
+    @objc private func tapOnViewController(_ sender: UITapGestureRecognizer) {
+        let deletedView = deleteButtonPressed(sender)
+
+        guard
+            sender.state == .ended,
+            deletedView == false
+            else {
+                return
+        }
+
+        // If click is within movableViews, set to first one.
+        // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
+        for view in interactableViews.reversed() {
+            let viewClicked = view.point(inside: sender.location(in: view), with: nil)
+            guard viewClicked else {
+                continue
+            }
+            // If click was within selected view, then deselect and return.
+            if let unwrappedView = selectedView, unwrappedView == view {
+                selectedView = nil
+                return
+            }
+            // Otherwise set the clicked view as the selected view and return.
+            else {
+                selectedView = view
+                return
             }
         }
 
@@ -349,13 +366,5 @@ extension CanvasController {
 extension CanvasController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
-    }
-
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        // Don't recognize a tap until a deleteTap fails.
-        if gestureRecognizer == self.deleteTapGesture || otherGestureRecognizer == self.deleteTapGesture {
-            return true
-        }
-        return false
     }
 }

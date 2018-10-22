@@ -37,7 +37,7 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         canvasController.selectedViewObservingDelegate = self
         
         // Add some views that should be interactable.
-        interactableView1 = UIView(frame: CGRect(x: 100, y: 400, width: 100, height: 100))
+        interactableView1 = UIView(frame: CGRect(x: 100, y: 150, width: 100, height: 100))
         interactableView1.backgroundColor = .orange
         collectionView.addSubview(interactableView1)
 
