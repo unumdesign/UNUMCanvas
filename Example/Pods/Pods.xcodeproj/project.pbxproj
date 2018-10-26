@@ -17,6 +17,8 @@
 		88DEFEC4637427D658637875107289CF /* SelectionShowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A126E81D8F97623259FA738574A30C2 /* SelectionShowingView.swift */; };
 		9E23E7E8EA326A3F80ADD83BE9150A76 /* Pods-UNUMCanvas_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5696337E9453582E0CA5C2D7DA78BFC5 /* Pods-UNUMCanvas_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA7281DCA5F03500BD11FF9D1A8E3DF2 /* UNUMCanvas-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B39D1A136136FCFCEA32FCA743F98AFE /* UNUMCanvas-dummy.m */; };
+		C4D9996C2183D12E00939943 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9996B2183D12E00939943 /* CanvasView.swift */; };
+		C4D9996E2183D13C00939943 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D9996D2183D13C00939943 /* UIView+Extension.swift */; };
 		C87C33B962FC8115C8B31941DE2C7DC0 /* Pods-UNUMCanvas_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 99402027A011806D2A8947E56E7D8055 /* Pods-UNUMCanvas_Example-dummy.m */; };
 		D9C4867A9DCB028826CB19C48B867A00 /* Pods-UNUMCanvas_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F201F231262E0E68FFE9B963F0DE9CE /* Pods-UNUMCanvas_Tests-dummy.m */; };
 		DE941D3BE702348F29FAC549BDDBAA3A /* UNUMCanvas-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A6960A18E80EEB2F2D0889F07CC8F414 /* UNUMCanvas-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -81,6 +83,8 @@
 		B39D1A136136FCFCEA32FCA743F98AFE /* UNUMCanvas-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UNUMCanvas-dummy.m"; sourceTree = "<group>"; };
 		BCE72DD7922EFEF36CF247EFF4FB19B6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C459C3989596E8C45BAFFB1FA447F8E1 /* Pods-UNUMCanvas_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UNUMCanvas_Tests.modulemap"; sourceTree = "<group>"; };
+		C4D9996B2183D12E00939943 /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CanvasView.swift; path = UNUMCanvas/Classes/CanvasView.swift; sourceTree = "<group>"; };
+		C4D9996D2183D13C00939943 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Extension.swift"; path = "UNUMCanvas/Classes/UIView+Extension.swift"; sourceTree = "<group>"; };
 		D03432A95864774D8E5097AA3861838C /* Pods-UNUMCanvas_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UNUMCanvas_Example-umbrella.h"; sourceTree = "<group>"; };
 		D512742883D8125FC49FCAC46C0A1126 /* Pods-UNUMCanvas_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UNUMCanvas_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		D7CC19F583A190F4841C6D0DDA8DAE6F /* ResourceBundle-UNUMCanvas-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-UNUMCanvas-Info.plist"; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 		B64F1E349BF7B5D68836E08EEE47E8D2 /* UNUMCanvas */ = {
 			isa = PBXGroup;
 			children = (
+				C4D9996D2183D13C00939943 /* UIView+Extension.swift */,
+				C4D9996B2183D12E00939943 /* CanvasView.swift */,
 				5916BA339B4AFF710E0944B8663150D7 /* CanvasController.swift */,
 				1F7D82D8D30F35E9CDF05741F9ED12F2 /* CenterIndicatingViews&UIViewExtension.swift */,
 				1A126E81D8F97623259FA738574A30C2 /* SelectionShowingView.swift */,
@@ -452,8 +458,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4D9996E2183D13C00939943 /* UIView+Extension.swift in Sources */,
 				5D215D7C35FB774BDC0BD4E746379F8D /* CanvasController.swift in Sources */,
 				5C4BB702CA4980324B57AD6ED24D18E6 /* CenterIndicatingViews&UIViewExtension.swift in Sources */,
+				C4D9996C2183D12E00939943 /* CanvasView.swift in Sources */,
 				88DEFEC4637427D658637875107289CF /* SelectionShowingView.swift in Sources */,
 				BA7281DCA5F03500BD11FF9D1A8E3DF2 /* UNUMCanvas-dummy.m in Sources */,
 			);
