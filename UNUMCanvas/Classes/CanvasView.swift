@@ -520,22 +520,22 @@ public class CanvasView: UIView {
         rightMidView?.alpha = show ? 1 : 0
 
         if let topMidView = topMidView {
-            self.bringSubview(toFront: topMidView)
+            self.bringSubviewToFront(topMidView)
 
         }
 
         if let bottomMidView = bottomMidView {
-            self.bringSubview(toFront: bottomMidView)
+            self.bringSubviewToFront(bottomMidView)
 
         }
 
         if let leftMidView = leftMidView {
-            self.bringSubview(toFront: leftMidView)
+            self.bringSubviewToFront(leftMidView)
 
         }
 
         if let rightMidView = rightMidView {
-            self.bringSubview(toFront: rightMidView)
+            self.bringSubviewToFront(rightMidView)
 
         }
     }
