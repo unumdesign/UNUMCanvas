@@ -8,9 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UNUMCanvas'
-  s.version          = '1.0.3'
+  s.version          = '1.0.6'
   s.summary          = 'Unum Canvas'
-  s.swift_version = '4.1'
+  s.swift_version = '4.2'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -33,9 +33,10 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'UNUMCanvas/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'UNUMCanvas' => ['UNUMCanvas/Assets/*.png']
-  # }
+   s.resource_bundles = {
+#       UNUMImport/Assets/**/*.xcassets
+     'UNUMCanvas' => ['UNUMCanvas/Assets/*.xcassets']
+   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

@@ -1,5 +1,5 @@
 PODS:
-  - UNUMCanvas (0.1.0)
+  - UNUMCanvas (1.0.3)
 
 DEPENDENCIES:
   - UNUMCanvas (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  UNUMCanvas: 0afbf9687dd81a31ae7ffba27a6621e400d6f3f1
+  UNUMCanvas: a4d5a266c5047617c824420c63ea051ccd2245f5
 
 PODFILE CHECKSUM: 550c61bb3e5ef3a73244231a12a42d4fc12ca706
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
