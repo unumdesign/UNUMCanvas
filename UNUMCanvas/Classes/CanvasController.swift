@@ -270,6 +270,7 @@ extension CanvasController {
                 && saidView(selectedView, isWithinYAxisLockingEnablingDistanceRangeOf: centerY)
     }
     
+    /// Make sure the given view is always on screen. The borderControlAmount determines how 'on-screen' the view should be kept. This function ensures that selected views are not moved extremely far off-screen when user is panning.
     private func transformToBeOnScreen(_ origin: CGPoint, for view: UIView) -> CGPoint {
         let borderControlAmount: CGFloat = 2
         
@@ -278,6 +279,7 @@ extension CanvasController {
         let maxX = mainView.frame.maxX - borderControlAmount
         let maxY = mainView.frame.maxY - borderControlAmount
         
+        // Keep view's x coordinate between the beginning and end of mainView
         var legitimateX: CGFloat
         if origin.x < minX {
             legitimateX = minX
@@ -289,6 +291,7 @@ extension CanvasController {
             legitimateX = origin.x
         }
         
+        // Keep view's y coordinate between the beginning and end of mainView
         var legitimateY: CGFloat
         if origin.y < minY {
             legitimateY = minY
