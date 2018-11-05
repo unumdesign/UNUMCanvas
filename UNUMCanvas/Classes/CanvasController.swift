@@ -4,16 +4,23 @@ public protocol SelectedViewObserving: AnyObject {
     func selectedValueChanged(to view: UIView?)
 }
 
+public class CanvasRegion {
+    public var interactableViews: [UIView] = []
+    public var canvasViews: [UIView] = []
+    
+    public init() {}
+}
+
 public class CanvasController: NSObject {
     
     
     // MARK: - public API
     
-    /// The views that the user can interact with (scale, rotate, move, etc.)
-    public var interactableViews: [UIView] = []
-    
-    /// The views that the interactableViews should be aware of for pinning.
-    public var canvasViews: [UIView] = []
+//    /// The views that the user can interact with (scale, rotate, move, etc.)
+//    public var interactableViews: [UIView] = []
+//
+//    /// The views that the interactableViews should be aware of for pinning.
+//    public var canvasViews: [UIView] = []
     
     // plf - maybe this could be inferred via superview? Would that be reliable enough?
     /// The main view which handles all touch events and movement of interactableViews.
@@ -23,12 +30,24 @@ public class CanvasController: NSObject {
         }
     }
     
+    private var allInteractableViews: [UIView] {
+        var views: [UIView] = []
+        canvasRegionViews.forEach({ $0.interactableViews.forEach({ views.append($0) })})
+        return views
+    }
+    
+    private var allCanvasViews: [UIView] {
+        var views: [UIView] = []
+        canvasRegionViews.forEach({ $0.canvasViews.forEach({ views.append($0) })})
+        return views
+    }
+    
     /// The area interactable views are limited to and differentiates click-regions. If clicking in that region, then only interactableViews of that region should be considered interactable.
-    public var canvasRegionView: UIView!
+    public var canvasRegionViews: [CanvasRegion] = []
 
     public var selectedView: UIView? {
         didSet {
-            interactableViews.forEach({ interactableView in
+            allInteractableViews.forEach({ interactableView in
                 interactableView.subviews.forEach { subview in
                     if let selectedView = subview as? SelectionShowingView {
                         selectedView.removeFromSuperview()
@@ -111,15 +130,20 @@ extension CanvasController {
 
         var actionPerformed = false
         view.subviews.forEach { subview in
-            if let subview = subview as? SelectionShowingView {
-                if subview.closeImage.bounds.contains(sender.location(in: subview.closeImage)) {
-                    view.removeFromSuperview()
-                    if let index = interactableViews.firstIndex(of: view) {
-                        interactableViews.remove(at: index)
+            if
+                let subview = subview as? SelectionShowingView,
+                subview.closeImage.bounds.contains(sender.location(in: subview.closeImage))
+            {
+                view.removeFromSuperview()
+                
+                canvasRegionViews.forEach({ canvasRegionView in
+                    if let index = canvasRegionView.interactableViews.firstIndex(of: view) {
+                        canvasRegionView.interactableViews.remove(at: index)
                     }
-                    selectedView = nil
-                    actionPerformed = true
-                }
+                })
+                
+                selectedView = nil
+                actionPerformed = true
             }
         }
         return actionPerformed
@@ -128,7 +152,7 @@ extension CanvasController {
     @objc private func tapOnViewController(_ sender: UITapGestureRecognizer) {
         // If click is within movableViews, set to first one.
         // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
-        for view in interactableViews.reversed() {
+        for view in allInteractableViews.reversed() {
 
             let deletedView = deleteButtonPressed(on: view, sender: sender)
 
@@ -173,7 +197,7 @@ extension CanvasController {
     }
     
     private func hideAllAxisIndicators() {
-        canvasViews.forEach({
+        allCanvasViews.forEach({
             $0.hideCenterXIndication()
             $0.hideCenterYIndication()
         })
@@ -184,9 +208,9 @@ extension CanvasController {
             return
         }
         
-        assert(canvasViews.count > 0)
+        assert(allCanvasViews.count > 0)
         
-        for canvasView in canvasViews {
+        for canvasView in allCanvasViews {
             // store the view's transform so that it can be reapplied after moving the view.
             let transformToReapply = selectedView.transform
             
@@ -270,6 +294,7 @@ extension CanvasController {
                 && saidView(selectedView, isWithinYAxisLockingEnablingDistanceRangeOf: centerY)
     }
     
+    // TODO: plf - will need to change from mainView to canvasRegionView
     /// Make sure the given view is always on screen. The borderControlAmount determines how 'on-screen' the view should be kept. This function ensures that selected views are not moved extremely far off-screen when user is panning.
     private func transformToBeOnScreen(_ origin: CGPoint, for view: UIView) -> CGPoint {
         let borderControlAmount: CGFloat = 2

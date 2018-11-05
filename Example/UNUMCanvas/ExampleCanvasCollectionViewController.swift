@@ -25,6 +25,8 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         view = collectionView
     }
     
+    private let canvas = CanvasRegion()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -46,10 +48,10 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         collectionView.addSubview(interactableView2)
 
         // Setup canvasController with appropriate views. In this example, the canvasViews will be the tableViewCells, which will need to be added to the canvasController when they are setup.
-        canvasController.interactableViews.append(contentsOf: [interactableView1, interactableView2])
+        canvas.interactableViews.append(contentsOf: [interactableView1, interactableView2])
         canvasController.selectedView = interactableView2
         canvasController.mainView = collectionView
-
+        canvasController.canvasRegionViews = [canvas]
     }
 }
 
@@ -69,7 +71,7 @@ extension ExampleCanvasCollectionViewController: UICollectionViewDataSource {
         cell.backgroundColor = .red
         
         // Add the cells as canvases to the canvasController.
-        canvasController.canvasViews.append(cell)
+        canvas.canvasViews.append(cell)
         return cell
     }
     

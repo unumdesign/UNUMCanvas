@@ -16,6 +16,8 @@ final class ExampleSingleCanvasViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private let canvas = CanvasRegion()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -30,9 +32,10 @@ final class ExampleSingleCanvasViewController: UIViewController {
         view.addSubview(interactableView2)
         
         // Setup canvasController with appropriate views. In this example, the canvas is the same as the main view.
-        canvasController.interactableViews.append(contentsOf: [interactableView1, interactableView2])
+        canvas.interactableViews.append(contentsOf: [interactableView1, interactableView2])
+        canvas.canvasViews = [view]
         canvasController.selectedView = interactableView1
         canvasController.mainView = view
-        canvasController.canvasViews = [view]
+        canvasController.canvasRegionViews = [canvas]
     }
 }
