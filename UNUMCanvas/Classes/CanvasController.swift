@@ -22,6 +22,9 @@ public class CanvasController: NSObject {
             setupViewGestures(view: mainView)
         }
     }
+    
+    /// The area interactable views are limited to and differentiates click-regions. If clicking in that region, then only interactableViews of that region should be considered interactable.
+    public var canvasRegionView: UIView!
 
     public var selectedView: UIView? {
         didSet {
@@ -268,15 +271,12 @@ extension CanvasController {
     }
     
     private func transformToBeOnScreen(_ origin: CGPoint, for view: UIView) -> CGPoint {
-        guard let interactableView = mainView else {
-            return origin
-        }
         let borderControlAmount: CGFloat = 2
         
         let minX = borderControlAmount - view.frame.width
         let minY = borderControlAmount - view.frame.height
-        let maxX = interactableView.frame.maxX - borderControlAmount
-        let maxY = interactableView.frame.maxY - borderControlAmount
+        let maxX = mainView.frame.maxX - borderControlAmount
+        let maxY = mainView.frame.maxY - borderControlAmount
         
         var legitimateX: CGFloat
         if origin.x < minX {
