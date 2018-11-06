@@ -26,7 +26,19 @@ public class CanvasController: NSObject {
     /// The main view which handles all touch events and movement of interactableViews.
     public weak var gestureRecognizingView: UIView! {
         didSet {
-            setupViewGestures(view: gestureRecognizingView)
+            tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
+            panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
+            pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleSelectedView(_:)))
+            rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateSelectedViewController(_:)))
+            
+            [tapGesture, panGesture, pinchGesture, rotationGesture].forEach { [weak self] gesture in
+                guard let `self` = self else {
+                    return
+                }
+                gesture.cancelsTouchesInView = false
+                gestureRecognizingView.addGestureRecognizer(gesture)
+                gesture.delegate = self
+            }
         }
     }
     
@@ -96,29 +108,9 @@ public class CanvasController: NSObject {
     private var panGesture = UIPanGestureRecognizer()
     private var pinchGesture = UIPinchGestureRecognizer()
     private var rotationGesture = UIRotationGestureRecognizer()
-
-
-    // MARK: - private functions
-
-    private func setupViewGestures(view: UIView) {
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
-        pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleSelectedView(_:)))
-        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateSelectedViewController(_:)))
-        
-        [tapGesture, panGesture, pinchGesture, rotationGesture].forEach { [weak self] gesture in
-            guard let `self` = self else {
-                return
-            }
-            gesture.cancelsTouchesInView = false
-            view.addGestureRecognizer(gesture)
-            gesture.delegate = self
-        }
-    }
+    
+    
 }
-
-
-// MARK: - Gesture Handling
 
 // MARK: Tap Gesture
 extension CanvasController {
