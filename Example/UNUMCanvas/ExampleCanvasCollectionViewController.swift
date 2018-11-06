@@ -70,15 +70,26 @@ extension ExampleCanvasCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(UICollectionViewCell.self), for: indexPath)
-        cell.backgroundColor = .red
+        
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = .red
+        }
+        else {
+            cell.backgroundColor = .purple
+        }
         
         // Add the cells as canvases to the canvasController.
-        canvas.canvasViews.append(cell)
+        canvasRegion.canvasViews.append(cell)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(ExampleSingleCanvasViewController(), animated: true)
+        if indexPath.row % 2 == 0 {
+            navigationController?.pushViewController(ExampleSingleCanvasViewController(), animated: true)
+        }
+        else {
+            navigationController?.pushViewController(ExampleSingleCanvasViewController(), animated: true)
+        }
     }
 }
 
