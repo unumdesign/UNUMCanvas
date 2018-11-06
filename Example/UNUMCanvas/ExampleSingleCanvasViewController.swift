@@ -4,7 +4,7 @@ import UNUMCanvas
 final class ExampleSingleCanvasViewController: UIViewController {
     
     private let canvasController = CanvasController()
-    private let canvasRegion = CanvasRegion()
+    private let canvasRegion = CanvasRegionView()
     
     private var interactableView1 = UIView()
     private var interactableView2 = UIView()
@@ -34,6 +34,7 @@ final class ExampleSingleCanvasViewController: UIViewController {
         
         canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2])
         canvasRegion.canvasViews = [view]
+        canvasRegion.regionView = view
         
         canvasController.selectedView = interactableView1
         canvasController.gestureRecognizingView = view

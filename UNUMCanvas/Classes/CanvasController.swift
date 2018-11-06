@@ -4,9 +4,10 @@ public protocol SelectedViewObserving: AnyObject {
     func selectedValueChanged(to view: UIView?)
 }
 
-public class CanvasRegion {
+public class CanvasRegionView {
     public var interactableViews: [UIView] = []
     public var canvasViews: [UIView] = []
+    public var regionView: UIView = UIView()
     
     public init() {}
 }
@@ -17,7 +18,7 @@ public class CanvasController: NSObject {
     // MARK: - public API
     
     /// The area interactable views are limited to and differentiates click-regions. If clicking in that region, then only interactableViews of that region should be considered interactable.
-    public var canvasRegionViews: [CanvasRegion] = []
+    public var canvasRegionViews: [CanvasRegionView] = []
 
     public var selectedView: UIView? {
         didSet {
@@ -135,34 +136,78 @@ extension CanvasController {
     }
 
     @objc private func tapOnViewController(_ sender: UITapGestureRecognizer) {
-        // If click is within movableViews, set to first one.
-        // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
-        for view in allInteractableViews.reversed() {
-
-            let deletedView = deleteButtonPressed(on: view, sender: sender)
-
-            guard
-                sender.state == .ended,
-                deletedView == false
-                else {
-                    return
-            }
-
-            let viewClicked = view.point(inside: sender.location(in: view), with: nil)
-            guard viewClicked else {
+        
+        // only act on completed clicks
+        guard sender.state == .ended else {
+            return
+        }
+        
+        for canvasRegion in canvasRegionViews {
+            
+            // ensure the click was within the given region.
+            let regionClicked = canvasRegion.regionView.point(inside: sender.location(in: canvasRegion.regionView), with: nil)
+            guard regionClicked else {
                 continue
             }
-            // If click was within selected view, then deselect and return.
-            if let unwrappedView = selectedView, unwrappedView == view {
-                selectedView = nil
-                return
-            }
-            // Otherwise set the clicked view as the selected view and return.
-            else {
-                selectedView = view
-                return
+            
+            // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
+            for view in canvasRegion.interactableViews.reversed() {
+                
+                // ensure the click was within the given interactableView
+                let viewClicked = view.point(inside: sender.location(in: view), with: nil)
+                guard viewClicked else {
+                    continue
+                }
+
+                // delete the view if the click was within the delete icon
+                let deletedView = deleteButtonPressed(on: view, sender: sender)
+                
+                // don't continue after a successful delete
+                guard deletedView == false else {
+                    return
+                }
+                
+                // If click was within selected view, then deselect and return.
+                if let unwrappedView = selectedView, unwrappedView == view {
+                    selectedView = nil
+                    return
+                }
+                    // Otherwise set the clicked view as the selected view and return.
+                else {
+                    selectedView = view
+                    return
+                }
             }
         }
+        
+//        // If click is within movableViews, set to first one.
+//        // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
+//        for view in allInteractableViews.reversed() {
+//
+//            let deletedView = deleteButtonPressed(on: view, sender: sender)
+//
+//            guard
+//                sender.state == .ended,
+//                deletedView == false
+//                else {
+//                    return
+//            }
+//
+//            let viewClicked = view.point(inside: sender.location(in: view), with: nil)
+//            guard viewClicked else {
+//                continue
+//            }
+//            // If click was within selected view, then deselect and return.
+//            if let unwrappedView = selectedView, unwrappedView == view {
+//                selectedView = nil
+//                return
+//            }
+//            // Otherwise set the clicked view as the selected view and return.
+//            else {
+//                selectedView = view
+//                return
+//            }
+//        }
 
         // If click was not within any movableView, then set to nil (making all views deselected).
         selectedView = nil

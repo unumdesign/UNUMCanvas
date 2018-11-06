@@ -4,8 +4,8 @@ import UNUMCanvas
 final class MultipleCanvasRegionViewController: UIViewController {
     
     private let canvasController = CanvasController()
-    private let canvasRegion1 = CanvasRegion()
-    private let canvasRegion2 = CanvasRegion()
+    private let canvasRegion1 = CanvasRegionView()
+    private let canvasRegion2 = CanvasRegionView()
     
     private var region1View = UIView()
     private var region2View = UIView()
@@ -44,12 +44,14 @@ final class MultipleCanvasRegionViewController: UIViewController {
         region1View.addSubview(interactableView1)
         canvasRegion1.interactableViews.append(contentsOf: [interactableView1])
         canvasRegion1.canvasViews = [region1View]
+        canvasRegion1.regionView = region1View
         
         interactableView2 = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
         interactableView2.backgroundColor = .green
         region2View.addSubview(interactableView2)
         canvasRegion2.interactableViews.append(contentsOf: [interactableView2])
         canvasRegion2.canvasViews = [region2View]
+        canvasRegion2.regionView = region2View
         
         canvasController.selectedView = interactableView1
         canvasController.gestureRecognizingView = view
