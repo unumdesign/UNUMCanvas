@@ -234,13 +234,16 @@ extension CanvasController {
     }
     
     private func moveSelectedViewAndShowIndicatorViewsIfNecessary(_ sender: UIPanGestureRecognizer) {
-        guard let selectedView = selectedView else {
-            return
+        guard
+            let selectedView = selectedView,
+            let selectedRegion = canvasRegionViews.filter({ $0.interactableViews.contains(selectedView) }).first
+            else {
+                return
         }
         
         assert(allCanvasViews.count > 0)
         
-        for canvasView in allCanvasViews {
+        for canvasView in selectedRegion.canvasViews {
             // store the view's transform so that it can be reapplied after moving the view.
             let transformToReapply = selectedView.transform
             
@@ -272,7 +275,7 @@ extension CanvasController {
                 canvasView.hideCenterYIndication()
             }
             
-            updatedOrigin = transformToBeOnScreen(updatedOrigin, for: selectedView)
+            updatedOrigin = transformToBeOnScreen(updatedOrigin, for: selectedView, canvasRegionView: selectedRegion.regionView)
             selectedView.frame.origin = updatedOrigin
             
             sender.setTranslation(.zero, in: canvasView)
@@ -326,14 +329,14 @@ extension CanvasController {
     
     // TODO: plf - will need to change from mainView to canvasRegionView
     /// Make sure the given view is always on screen. The borderControlAmount determines how 'on-screen' the view should be kept. This function ensures that selected views are not moved extremely far off-screen when user is panning.
-    private func transformToBeOnScreen(_ origin: CGPoint, for view: UIView) -> CGPoint {
+    private func transformToBeOnScreen(_ origin: CGPoint, for view: UIView, canvasRegionView: UIView) -> CGPoint {
         
         let borderControlAmount: CGFloat = 2
         
-        let minX = borderControlAmount - view.frame.width
+        let minX = borderControlAmount - view.frame.width // canvasRegionView?
         let minY = borderControlAmount - view.frame.height
-        let maxX = gestureRecognizingView.frame.maxX - borderControlAmount
-        let maxY = gestureRecognizingView.frame.maxY - borderControlAmount
+        let maxX = canvasRegionView.frame.maxX - borderControlAmount
+        let maxY = canvasRegionView.frame.maxY - borderControlAmount
         
         // Keep view's x coordinate between the beginning and end of mainView
         var legitimateX: CGFloat
