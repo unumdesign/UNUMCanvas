@@ -32,9 +32,11 @@ final class MultipleCanvasRegionViewController: UIViewController {
         
         region1View = UIView(frame: CGRect(x: 0, y: 0, width: halfWidth, height: view.frame.height))
         region1View.backgroundColor = .lightGray
+        region1View.clipsToBounds = true
         view.addSubview(region1View)
         
         region2View = UIView(frame: CGRect(x: halfwayLocation, y: 0, width: halfWidth, height: view.frame.height))
+        region2View.clipsToBounds = true
         region2View.backgroundColor = .darkGray
         view.addSubview(region2View)
         
