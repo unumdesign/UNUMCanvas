@@ -15,6 +15,7 @@
 		8083ED611DC27E1B9F003C9C /* Pods_UNUMCanvas_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4481DD9A89B277277050ECC7 /* Pods_UNUMCanvas_Tests.framework */; };
 		F95510AD216D154800A59300 /* ExampleCanvasCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95510AC216D154800A59300 /* ExampleCanvasCollectionViewController.swift */; };
 		F95510B1216E61F800A59300 /* ExampleSingleCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95510B0216E61F800A59300 /* ExampleSingleCanvasViewController.swift */; };
+		F9D4333C219200B00001B36E /* MultipleCanvasRegionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D4333B219200B00001B36E /* MultipleCanvasRegionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		C25A275AF3A8B87C2651DB3D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		F95510AC216D154800A59300 /* ExampleCanvasCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleCanvasCollectionViewController.swift; sourceTree = "<group>"; };
 		F95510B0216E61F800A59300 /* ExampleSingleCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleSingleCanvasViewController.swift; sourceTree = "<group>"; };
+		F9D4333B219200B00001B36E /* MultipleCanvasRegionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCanvasRegionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				F95510AC216D154800A59300 /* ExampleCanvasCollectionViewController.swift */,
 				F95510B0216E61F800A59300 /* ExampleSingleCanvasViewController.swift */,
+				F9D4333B219200B00001B36E /* MultipleCanvasRegionViewController.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
@@ -324,6 +327,7 @@
 			files = (
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				F95510B1216E61F800A59300 /* ExampleSingleCanvasViewController.swift in Sources */,
+				F9D4333C219200B00001B36E /* MultipleCanvasRegionViewController.swift in Sources */,
 				F95510AD216D154800A59300 /* ExampleCanvasCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

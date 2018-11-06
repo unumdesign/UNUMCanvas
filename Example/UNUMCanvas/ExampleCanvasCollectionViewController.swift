@@ -88,7 +88,7 @@ extension ExampleCanvasCollectionViewController: UICollectionViewDataSource {
             navigationController?.pushViewController(ExampleSingleCanvasViewController(), animated: true)
         }
         else {
-            navigationController?.pushViewController(ExampleSingleCanvasViewController(), animated: true)
+            navigationController?.pushViewController(MultipleCanvasRegionViewController(), animated: true)
         }
     }
 }
