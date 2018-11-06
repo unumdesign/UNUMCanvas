@@ -50,7 +50,7 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         // Setup canvasController with appropriate views. In this example, the canvasViews will be the tableViewCells, which will need to be added to the canvasController when they are setup.
         canvas.interactableViews.append(contentsOf: [interactableView1, interactableView2])
         canvasController.selectedView = interactableView2
-        canvasController.mainView = collectionView
+        canvasController.gestureRecognizingView = collectionView
         canvasController.canvasRegionViews = [canvas]
     }
 }

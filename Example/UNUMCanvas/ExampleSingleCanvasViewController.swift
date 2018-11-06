@@ -35,7 +35,7 @@ final class ExampleSingleCanvasViewController: UIViewController {
         canvas.interactableViews.append(contentsOf: [interactableView1, interactableView2])
         canvas.canvasViews = [view]
         canvasController.selectedView = interactableView1
-        canvasController.mainView = view
+        canvasController.gestureRecognizingView = view
         canvasController.canvasRegionViews = [canvas]
     }
 }

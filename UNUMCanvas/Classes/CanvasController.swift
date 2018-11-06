@@ -24,9 +24,9 @@ public class CanvasController: NSObject {
     
     // plf - maybe this could be inferred via superview? Would that be reliable enough?
     /// The main view which handles all touch events and movement of interactableViews.
-    public weak var mainView: UIView! {
+    public weak var gestureRecognizingView: UIView! {
         didSet {
-            setupViewGestures(view: mainView)
+            setupViewGestures(view: gestureRecognizingView)
         }
     }
     
@@ -262,7 +262,7 @@ extension CanvasController {
     
     // X Axis
     private func velocityIsWithinRangeToEnableLockingOnXAxis(sender: UIPanGestureRecognizer) -> Bool {
-        let velocityX = sender.velocity(in: mainView).x
+        let velocityX = sender.velocity(in: gestureRecognizingView).x
         return isWithinVelocityRangeToEnableLocking(velocity: velocityX)
     }
     
@@ -279,7 +279,7 @@ extension CanvasController {
     
     // Y Axis
     private func velocityIsWithinRangeToEnableLockingOnYAxis(sender: UIPanGestureRecognizer) -> Bool {
-        let velocityY = sender.velocity(in: mainView).y
+        let velocityY = sender.velocity(in: gestureRecognizingView).y
         return isWithinVelocityRangeToEnableLocking(velocity: velocityY)
     }
     
@@ -301,8 +301,8 @@ extension CanvasController {
         
         let minX = borderControlAmount - view.frame.width
         let minY = borderControlAmount - view.frame.height
-        let maxX = mainView.frame.maxX - borderControlAmount
-        let maxY = mainView.frame.maxY - borderControlAmount
+        let maxX = gestureRecognizingView.frame.maxX - borderControlAmount
+        let maxY = gestureRecognizingView.frame.maxY - borderControlAmount
         
         // Keep view's x coordinate between the beginning and end of mainView
         var legitimateX: CGFloat
