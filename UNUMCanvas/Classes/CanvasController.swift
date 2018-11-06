@@ -59,7 +59,9 @@ public class CanvasController: NSObject {
     // MARK: - private variables
     
     /// The main view which handles all touch events and movement of interactableViews.
-    private unowned let gestureRecognizingView: UIView
+    public weak var gestureRecognizingView: UIView! {
+        didSet { setupGestureRecognizers() }
+    }
     
     private var allInteractableViews: [UIView] {
         var views: [UIView] = []
@@ -82,10 +84,8 @@ public class CanvasController: NSObject {
     private var rotationGesture = UIRotationGestureRecognizer()
 
 
-    public init(gestureRecognizingView: UIView) {
-        self.gestureRecognizingView = gestureRecognizingView
+    public override init() {
         super.init()
-        setupGestureRecognizers()
     }
     
     private func setupGestureRecognizers() {
