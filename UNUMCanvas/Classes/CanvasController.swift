@@ -16,44 +16,6 @@ public class CanvasController: NSObject {
     
     // MARK: - public API
     
-//    /// The views that the user can interact with (scale, rotate, move, etc.)
-//    public var interactableViews: [UIView] = []
-//
-//    /// The views that the interactableViews should be aware of for pinning.
-//    public var canvasViews: [UIView] = []
-    
-    // plf - maybe this could be inferred via superview? Would that be reliable enough?
-    /// The main view which handles all touch events and movement of interactableViews.
-    public weak var gestureRecognizingView: UIView! {
-        didSet {
-            tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
-            panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
-            pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleSelectedView(_:)))
-            rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateSelectedViewController(_:)))
-            
-            [tapGesture, panGesture, pinchGesture, rotationGesture].forEach { [weak self] gesture in
-                guard let `self` = self else {
-                    return
-                }
-                gesture.cancelsTouchesInView = false
-                gestureRecognizingView.addGestureRecognizer(gesture)
-                gesture.delegate = self
-            }
-        }
-    }
-    
-    private var allInteractableViews: [UIView] {
-        var views: [UIView] = []
-        canvasRegionViews.forEach({ $0.interactableViews.forEach({ views.append($0) })})
-        return views
-    }
-    
-    private var allCanvasViews: [UIView] {
-        var views: [UIView] = []
-        canvasRegionViews.forEach({ $0.canvasViews.forEach({ views.append($0) })})
-        return views
-    }
-    
     /// The area interactable views are limited to and differentiates click-regions. If clicking in that region, then only interactableViews of that region should be considered interactable.
     public var canvasRegionViews: [CanvasRegion] = []
 
@@ -93,23 +55,54 @@ public class CanvasController: NSObject {
     }
     
     public weak var selectedViewObservingDelegate: SelectedViewObserving?
-
-    public override init() {
-        super.init()
-    }
-
-
+    
     // MARK: - private variables
-
+    
+    /// The main view which handles all touch events and movement of interactableViews.
+    private unowned let gestureRecognizingView: UIView
+    
+    private var allInteractableViews: [UIView] {
+        var views: [UIView] = []
+        canvasRegionViews.forEach({ $0.interactableViews.forEach({ views.append($0) })})
+        return views
+    }
+    
+    private var allCanvasViews: [UIView] {
+        var views: [UIView] = []
+        canvasRegionViews.forEach({ $0.canvasViews.forEach({ views.append($0) })})
+        return views
+    }
+    
     private let absoluteVelocityEnablingLocking: CGFloat = 100
     private let absoluteDistanceEnablingLocking: CGFloat = 20
-
+    
     private var tapGesture = UITapGestureRecognizer()
     private var panGesture = UIPanGestureRecognizer()
     private var pinchGesture = UIPinchGestureRecognizer()
     private var rotationGesture = UIRotationGestureRecognizer()
+
+
+    public init(gestureRecognizingView: UIView) {
+        self.gestureRecognizingView = gestureRecognizingView
+        super.init()
+        setupGestureRecognizers()
+    }
     
-    
+    private func setupGestureRecognizers() {
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnViewController(_:)))
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(panOnViewController(_:)))
+        pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(scaleSelectedView(_:)))
+        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateSelectedViewController(_:)))
+        
+        [tapGesture, panGesture, pinchGesture, rotationGesture].forEach { [weak self] gesture in
+            guard let `self` = self else {
+                return
+            }
+            gesture.cancelsTouchesInView = false
+            gestureRecognizingView.addGestureRecognizer(gesture)
+            gesture.delegate = self
+        }
+    }
 }
 
 // MARK: Tap Gesture
@@ -289,6 +282,7 @@ extension CanvasController {
     // TODO: plf - will need to change from mainView to canvasRegionView
     /// Make sure the given view is always on screen. The borderControlAmount determines how 'on-screen' the view should be kept. This function ensures that selected views are not moved extremely far off-screen when user is panning.
     private func transformToBeOnScreen(_ origin: CGPoint, for view: UIView) -> CGPoint {
+        
         let borderControlAmount: CGFloat = 2
         
         let minX = borderControlAmount - view.frame.width
