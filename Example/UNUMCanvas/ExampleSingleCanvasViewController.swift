@@ -4,6 +4,7 @@ import UNUMCanvas
 final class ExampleSingleCanvasViewController: UIViewController {
     
     private let canvasController = CanvasController()
+    private let canvasRegion = CanvasRegion()
     
     private var interactableView1 = UIView()
     private var interactableView2 = UIView()
@@ -16,7 +17,6 @@ final class ExampleSingleCanvasViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let canvas = CanvasRegion()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +31,12 @@ final class ExampleSingleCanvasViewController: UIViewController {
         interactableView2.backgroundColor = .green
         view.addSubview(interactableView2)
         
-        // Setup canvasController with appropriate views. In this example, the canvas is the same as the main view.
-        canvas.interactableViews.append(contentsOf: [interactableView1, interactableView2])
-        canvas.canvasViews = [view]
+        
+        canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2])
+        canvasRegion.canvasViews = [view]
+        
         canvasController.selectedView = interactableView1
         canvasController.gestureRecognizingView = view
-        canvasController.canvasRegionViews = [canvas]
+        canvasController.canvasRegionViews = [canvasRegion]
     }
 }

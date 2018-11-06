@@ -4,6 +4,8 @@ import UNUMCanvas
 final class ExampleCanvasCollectionViewController: UIViewController {
     
     private let canvasController = CanvasController()
+    private let canvasRegion = CanvasRegion()
+
     private let collectionView: UICollectionView
     
     private var interactableView1 = UIView()
@@ -25,7 +27,6 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         view = collectionView
     }
     
-    private let canvas = CanvasRegion()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +49,11 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         collectionView.addSubview(interactableView2)
 
         // Setup canvasController with appropriate views. In this example, the canvasViews will be the tableViewCells, which will need to be added to the canvasController when they are setup.
-        canvas.interactableViews.append(contentsOf: [interactableView1, interactableView2])
+        canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2])
+        
         canvasController.selectedView = interactableView2
         canvasController.gestureRecognizingView = collectionView
-        canvasController.canvasRegionViews = [canvas]
+        canvasController.canvasRegionViews = [canvasRegion]
     }
 }
 
