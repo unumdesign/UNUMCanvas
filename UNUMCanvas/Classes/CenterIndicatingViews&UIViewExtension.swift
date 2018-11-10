@@ -1,5 +1,19 @@
 import UIKit
 
+
+// TODO: plf - see about making this functionality part of how the canvas works rather than needing it here.
+public extension UIView {
+    public func removeCanvasSupportingViews() {
+        self.subviews.forEach { view in
+            view.removeCanvasSupportingViews()
+        }
+        
+        if self is CenterYIndicatingView || self is CenterXIndicatingView {
+            self.removeFromSuperview()
+        }
+    }
+}
+
 class CenterIndicatingView: UIView {
     let indicatorOne = UIView()
     let indicatorTwo = UIView()
