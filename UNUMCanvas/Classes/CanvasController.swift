@@ -1,4 +1,5 @@
 import UIKit
+import Anchorage
 
 public protocol SelectedViewObserving: AnyObject {
     func selectedValueChanged(to view: UIView?)
@@ -19,7 +20,7 @@ public class CanvasController: NSObject {
     
     /// The area interactable views are limited to and differentiates click-regions. If clicking in that region, then only interactableViews of that region should be considered interactable.
     public var canvasRegionViews: [CanvasRegionView] = []
-
+    
     public var selectedView: UIView? {
         didSet {
             allInteractableViews.forEach({ interactableView in
@@ -29,28 +30,27 @@ public class CanvasController: NSObject {
                     }
                 }
             })
-
+            
             if let selectedView = selectedView {
                 let selectionShowingView = SelectionShowingView()
                 selectedView.addSubview(selectionShowingView)
-
+                
                 // store the view's transform so that it can be reapplied after moving the view.
                 let transformToReapply = selectedView.transform
-
+                
                 // reset transform to allow proper directional navigation of object
                 selectedView.transform = CGAffineTransform.identity
-
-                selectionShowingView.frame = CGRect(
-                    x: 0,
-                    y: 0,
-                    width: selectedView.frame.width,
-                    height: selectedView.frame.height
-                )
-
+                
+                selectionShowingView.translatesAutoresizingMaskIntoConstraints = false
+                selectionShowingView.topAnchor.constraint(equalTo: selectedView.topAnchor).isActive = true
+                selectionShowingView.leadingAnchor.constraint(equalTo: selectedView.leadingAnchor).isActive = true
+                selectionShowingView.widthAnchor.constraint(equalTo: selectedView.widthAnchor).isActive = true
+                selectionShowingView.heightAnchor.constraint(equalTo: selectedView.heightAnchor).isActive = true
+                
                 // return transform onto view in order to keep previous transformations on the view
                 selectedView.transform = transformToReapply
             }
-
+            
             selectedViewObservingDelegate?.selectedValueChanged(to: selectedView)
         }
     }
@@ -83,8 +83,8 @@ public class CanvasController: NSObject {
     private var panGesture = UIPanGestureRecognizer()
     private var pinchGesture = UIPinchGestureRecognizer()
     private var rotationGesture = UIRotationGestureRecognizer()
-
-
+    
+    
     public override init() {
         super.init()
     }
@@ -108,12 +108,12 @@ public class CanvasController: NSObject {
 
 // MARK: Tap Gesture
 extension CanvasController {
-
+    
     @objc private func deleteButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
         guard view == selectedView else {
             return false
         }
-
+        
         var actionPerformed = false
         view.subviews.forEach { subview in
             if
@@ -134,7 +134,7 @@ extension CanvasController {
         }
         return actionPerformed
     }
-
+    
     @objc private func tapOnViewController(_ sender: UITapGestureRecognizer) {
         
         // only act on completed clicks
@@ -158,7 +158,7 @@ extension CanvasController {
                 guard viewClicked else {
                     continue
                 }
-
+                
                 // delete the view if the click was within the delete icon
                 let deletedView = deleteButtonPressed(on: view, sender: sender)
                 
@@ -180,35 +180,35 @@ extension CanvasController {
             }
         }
         
-//        // If click is within movableViews, set to first one.
-//        // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
-//        for view in allInteractableViews.reversed() {
-//
-//            let deletedView = deleteButtonPressed(on: view, sender: sender)
-//
-//            guard
-//                sender.state == .ended,
-//                deletedView == false
-//                else {
-//                    return
-//            }
-//
-//            let viewClicked = view.point(inside: sender.location(in: view), with: nil)
-//            guard viewClicked else {
-//                continue
-//            }
-//            // If click was within selected view, then deselect and return.
-//            if let unwrappedView = selectedView, unwrappedView == view {
-//                selectedView = nil
-//                return
-//            }
-//            // Otherwise set the clicked view as the selected view and return.
-//            else {
-//                selectedView = view
-//                return
-//            }
-//        }
-
+        //        // If click is within movableViews, set to first one.
+        //        // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
+        //        for view in allInteractableViews.reversed() {
+        //
+        //            let deletedView = deleteButtonPressed(on: view, sender: sender)
+        //
+        //            guard
+        //                sender.state == .ended,
+        //                deletedView == false
+        //                else {
+        //                    return
+        //            }
+        //
+        //            let viewClicked = view.point(inside: sender.location(in: view), with: nil)
+        //            guard viewClicked else {
+        //                continue
+        //            }
+        //            // If click was within selected view, then deselect and return.
+        //            if let unwrappedView = selectedView, unwrappedView == view {
+        //                selectedView = nil
+        //                return
+        //            }
+        //            // Otherwise set the clicked view as the selected view and return.
+        //            else {
+        //                selectedView = view
+        //                return
+        //            }
+        //        }
+        
         // If click was not within any movableView, then set to nil (making all views deselected).
         selectedView = nil
     }
@@ -252,31 +252,62 @@ extension CanvasController {
             
             let translation = sender.translation(in: canvasView)
             
-            var updatedOrigin = CGPoint(
-                x: selectedView.frame.origin.x + translation.x,
-                y: selectedView.frame.origin.y + translation.y
-            )
+            //            var updatedOrigin = CGPoint(
+            //                x: selectedView.frame.origin.x + translation.x,
+            //                y: selectedView.frame.origin.y + translation.y
+            //            )
+            //
+            //            let centerX = canvasView.frame.origin.x + canvasView.frame.width / 2
+            //            if shouldLock(selectedView, toCenterX: centerX, usingSender: sender) {
+            //                updatedOrigin = CGPoint(x: centerX - selectedView.frame.width / 2, y: updatedOrigin.y)
+            //                canvasView.showCenterXIndication()
+            //            }
+            //            else {
+            //                canvasView.hideCenterXIndication()
+            //            }
             
-            let centerX = canvasView.frame.origin.x + canvasView.frame.width / 2
-            if shouldLock(selectedView, toCenterX: centerX, usingSender: sender) {
-                updatedOrigin = CGPoint(x: centerX - selectedView.frame.width / 2, y: updatedOrigin.y)
-                canvasView.showCenterXIndication()
-            }
-            else {
-                canvasView.hideCenterXIndication()
+            //            let centerY = canvasView.frame.origin.y + canvasView.frame.height / 2
+            //            if shouldLock(selectedView, toCenterY: centerY, usingSender: sender) {
+            //                updatedOrigin = CGPoint(x: updatedOrigin.x, y: centerY - selectedView.frame.height / 2)
+            //                canvasView.showCenterYIndication()
+            //            }
+            //            else {
+            //                canvasView.hideCenterYIndication()
+            //            }
+            
+            //            updatedOrigin = transformToBeOnScreen(updatedOrigin, for: selectedView, canvasRegionView: selectedRegion.regionView)
+            
+            // update sele
+            //            selectedView.constraints.forEach { constraint in
+            //                switch constraint.firstAttribute {
+            //                case .leading:
+            //                    constraint.constant += translation.x
+            //                case .top:
+            //                    constraint.constant += translation.y
+            //                default:
+            //                    return
+            //                }
+            //            }
+            
+            selectedView.superview?.constraints.forEach { constraint in
+                guard
+                    let view = constraint.firstItem as? UIView,
+                    view == selectedView
+                    else {
+                        return
+                }
+                switch constraint.firstAttribute {
+                case .leading:
+                    constraint.constant += translation.x
+                case .top:
+                    constraint.constant += translation.y
+                default:
+                    return
+                }
             }
             
-            let centerY = canvasView.frame.origin.y + canvasView.frame.height / 2
-            if shouldLock(selectedView, toCenterY: centerY, usingSender: sender) {
-                updatedOrigin = CGPoint(x: updatedOrigin.x, y: centerY - selectedView.frame.height / 2)
-                canvasView.showCenterYIndication()
-            }
-            else {
-                canvasView.hideCenterYIndication()
-            }
             
-            updatedOrigin = transformToBeOnScreen(updatedOrigin, for: selectedView, canvasRegionView: selectedRegion.regionView)
-            selectedView.frame.origin = updatedOrigin
+            //            selectedView.frame.origin = updatedOrigin
             
             sender.setTranslation(.zero, in: canvasView)
             
