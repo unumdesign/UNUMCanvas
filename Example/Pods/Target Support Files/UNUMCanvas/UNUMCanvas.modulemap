@@ -1,6 +1,0 @@
-framework module UNUMCanvas {
-  umbrella header "UNUMCanvas-umbrella.h"
-
-  export *
-  module * { export * }
-}
