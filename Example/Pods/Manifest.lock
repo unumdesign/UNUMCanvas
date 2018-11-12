@@ -1,16 +1,24 @@
 PODS:
-  - UNUMCanvas (1.0.6)
+  - Anchorage (4.3)
+  - UNUMCanvas (2.0.3):
+    - Anchorage
 
 DEPENDENCIES:
+  - Anchorage
   - UNUMCanvas (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Anchorage
 
 EXTERNAL SOURCES:
   UNUMCanvas:
     :path: "../"
 
 SPEC CHECKSUMS:
-  UNUMCanvas: 70be58f18fb687aebf24c0672be2c80c90555a3b
+  Anchorage: 21a98675245188427f0bcea21404d42a824a766f
+  UNUMCanvas: 4dc54a1da997d9a1bf7c0bbbec997e758bcb19b3
 
-PODFILE CHECKSUM: 550c61bb3e5ef3a73244231a12a42d4fc12ca706
+PODFILE CHECKSUM: 1f8ab7093a7b85f96cfab8966b0d833dfb39b221
 
 COCOAPODS: 1.5.3

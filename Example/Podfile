@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'UNUMCanvas_Example' do
   pod 'UNUMCanvas', :path => '../'
+  pod 'Anchorage'
 
   target 'UNUMCanvas_Tests' do
     inherit! :search_paths
