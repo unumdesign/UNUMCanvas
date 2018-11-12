@@ -40,13 +40,25 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         canvasController.selectedViewObservingDelegate = self
         
         // Add some views that should be interactable.
-        interactableView1 = UIView(frame: CGRect(x: 100, y: 150, width: 100, height: 100))
-        interactableView1.backgroundColor = .orange
+        interactableView1 = UIView()
         collectionView.addSubview(interactableView1)
+        //CGRect(x: 100, y: 150, width: 100, height: 100)
+        interactableView1.translatesAutoresizingMaskIntoConstraints = false
+        interactableView1.topAnchor.constraint(equalTo: interactableView1.superview!.topAnchor, constant: 150).isActive = true
+        interactableView1.leadingAnchor.constraint(equalTo: interactableView1.superview!.leadingAnchor, constant: 100).isActive = true
+        interactableView1.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        interactableView1.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        interactableView1.backgroundColor = .orange
 
-        interactableView2 = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
-        interactableView2.backgroundColor = .green
+        interactableView2 = UIView()
         collectionView.addSubview(interactableView2)
+        // CGRect(x: 100, y: 100, width: 100, height: 100)
+        interactableView2.translatesAutoresizingMaskIntoConstraints = false
+        interactableView2.topAnchor.constraint(equalTo: interactableView1.superview!.topAnchor, constant: 100).isActive = true
+        interactableView2.leadingAnchor.constraint(equalTo: interactableView1.superview!.leadingAnchor, constant: 100).isActive = true
+        interactableView2.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        interactableView2.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        interactableView2.backgroundColor = .green
 
         // Setup canvasController with appropriate views. In this example, the canvasViews will be the tableViewCells, which will need to be added to the canvasController when they are setup.
         canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2])
