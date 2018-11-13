@@ -55,27 +55,19 @@ public class CanvasController: NSObject {
                 // reset transform to allow proper directional navigation of object
                 selectedView.transform = CGAffineTransform.identity
                 
+                var selectionShowingView: SelectionShowingView
                 if let imageView = selectedView as? UIImageView {
-                    let image = imageView.image?.imageWithBorder(width: 10, color: .blue)
-                    let selectedImageView = UIImageView(image: image)
-                    selectedImageView.clipsToBounds = true
-                    selectedImageView.contentMode = .scaleAspectFit
-                    selectedView.addSubview(selectedImageView)
-                    selectedImageView.translatesAutoresizingMaskIntoConstraints = false
-                    selectedImageView.topAnchor == imageView.topAnchor
-                    selectedImageView.leadingAnchor == imageView.leadingAnchor
-                    selectedImageView.sizeAnchors == imageView.sizeAnchors
+                    selectionShowingView = SelectionShowingView(image: imageView.image)
                 }
                 else {
-                    let selectionShowingView = SelectionShowingView()
-                    selectedView.addSubview(selectionShowingView)
-                    
-                    selectionShowingView.translatesAutoresizingMaskIntoConstraints = false
-                    selectionShowingView.topAnchor.constraint(equalTo: selectedView.topAnchor).isActive = true
-                    selectionShowingView.leadingAnchor.constraint(equalTo: selectedView.leadingAnchor).isActive = true
-                    selectionShowingView.widthAnchor.constraint(equalTo: selectedView.widthAnchor).isActive = true
-                    selectionShowingView.heightAnchor.constraint(equalTo: selectedView.heightAnchor).isActive = true
+                    selectionShowingView = SelectionShowingView()
                 }
+                selectedView.addSubview(selectionShowingView)
+                selectionShowingView.translatesAutoresizingMaskIntoConstraints = false
+                selectionShowingView.topAnchor.constraint(equalTo: selectedView.topAnchor).isActive = true
+                selectionShowingView.leadingAnchor.constraint(equalTo: selectedView.leadingAnchor).isActive = true
+                selectionShowingView.widthAnchor.constraint(equalTo: selectedView.widthAnchor).isActive = true
+                selectionShowingView.heightAnchor.constraint(equalTo: selectedView.heightAnchor).isActive = true
                 
                 // return transform onto view in order to keep previous transformations on the view
                 selectedView.transform = transformToReapply
