@@ -13,6 +13,22 @@ public class CanvasRegionView {
     public init() {}
 }
 
+extension UIImage {
+    func imageWithBorder(width: CGFloat, color: UIColor) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
+        imageView.contentMode = .center
+        imageView.image = self
+        imageView.layer.borderWidth = width
+        imageView.layer.borderColor = color.cgColor
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
+}
+
 public class CanvasController: NSObject {
     
     
@@ -32,8 +48,6 @@ public class CanvasController: NSObject {
             })
             
             if let selectedView = selectedView {
-                let selectionShowingView = SelectionShowingView()
-                selectedView.addSubview(selectionShowingView)
                 
                 // store the view's transform so that it can be reapplied after moving the view.
                 let transformToReapply = selectedView.transform
@@ -41,11 +55,27 @@ public class CanvasController: NSObject {
                 // reset transform to allow proper directional navigation of object
                 selectedView.transform = CGAffineTransform.identity
                 
-                selectionShowingView.translatesAutoresizingMaskIntoConstraints = false
-                selectionShowingView.topAnchor.constraint(equalTo: selectedView.topAnchor).isActive = true
-                selectionShowingView.leadingAnchor.constraint(equalTo: selectedView.leadingAnchor).isActive = true
-                selectionShowingView.widthAnchor.constraint(equalTo: selectedView.widthAnchor).isActive = true
-                selectionShowingView.heightAnchor.constraint(equalTo: selectedView.heightAnchor).isActive = true
+                if let imageView = selectedView as? UIImageView {
+                    let image = imageView.image?.imageWithBorder(width: 10, color: .blue)
+                    let selectedImageView = UIImageView(image: image)
+                    selectedImageView.clipsToBounds = true
+                    selectedImageView.contentMode = .scaleAspectFit
+                    selectedView.addSubview(selectedImageView)
+                    selectedImageView.translatesAutoresizingMaskIntoConstraints = false
+                    selectedImageView.topAnchor == imageView.topAnchor
+                    selectedImageView.leadingAnchor == imageView.leadingAnchor
+                    selectedImageView.sizeAnchors == imageView.sizeAnchors
+                }
+                else {
+                    let selectionShowingView = SelectionShowingView()
+                    selectedView.addSubview(selectionShowingView)
+                    
+                    selectionShowingView.translatesAutoresizingMaskIntoConstraints = false
+                    selectionShowingView.topAnchor.constraint(equalTo: selectedView.topAnchor).isActive = true
+                    selectionShowingView.leadingAnchor.constraint(equalTo: selectedView.leadingAnchor).isActive = true
+                    selectionShowingView.widthAnchor.constraint(equalTo: selectedView.widthAnchor).isActive = true
+                    selectionShowingView.heightAnchor.constraint(equalTo: selectedView.heightAnchor).isActive = true
+                }
                 
                 // return transform onto view in order to keep previous transformations on the view
                 selectedView.transform = transformToReapply
