@@ -140,7 +140,7 @@ extension CanvasController {
         view.subviews.forEach { subview in
             if
                 let subview = subview as? SelectionShowingView,
-                subview.closeImage.bounds.contains(sender.location(in: subview.closeImage))
+                subview.closeImageView.bounds.contains(sender.location(in: subview.closeImageView))
             {
                 view.removeFromSuperview()
                 
