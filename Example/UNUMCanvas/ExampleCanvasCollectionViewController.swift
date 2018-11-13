@@ -39,10 +39,16 @@ final class ExampleCanvasCollectionViewController: UIViewController {
 
         canvasController.selectedViewObservingDelegate = self
         
+        var bundle = Bundle(identifier: "org.cocoapods.UNUMCanvas")
+        if let resourcePath = bundle?.path(forResource: "Media", ofType: "bundle") {
+            bundle = Bundle(path: resourcePath)!
+        }
+        
         let image = UIImage(named: "test_image", in: bundle, compatibleWith: nil)
 
         // Add some views that should be interactable.
         interactableView1 = UIImageView(image: image)
+        interactableView1.contentMode = .scaleAspectFit
         collectionView.addSubview(interactableView1)
 
         //CGRect(x: 100, y: 150, width: 100, height: 100)
@@ -51,7 +57,6 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         interactableView1.leadingAnchor.constraint(equalTo: interactableView1.superview!.leadingAnchor, constant: 100).isActive = true
         interactableView1.widthAnchor.constraint(equalToConstant: 100).isActive = true
         interactableView1.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        interactableView1.backgroundColor = .orange
         
 
         interactableView2 = UIView()
