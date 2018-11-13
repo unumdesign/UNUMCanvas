@@ -39,9 +39,12 @@ final class ExampleCanvasCollectionViewController: UIViewController {
 
         canvasController.selectedViewObservingDelegate = self
         
+        let image = UIImage(named: "test_image", in: bundle, compatibleWith: nil)
+
         // Add some views that should be interactable.
-        interactableView1 = UIView()
+        interactableView1 = UIImageView(image: image)
         collectionView.addSubview(interactableView1)
+
         //CGRect(x: 100, y: 150, width: 100, height: 100)
         interactableView1.translatesAutoresizingMaskIntoConstraints = false
         interactableView1.topAnchor.constraint(equalTo: interactableView1.superview!.topAnchor, constant: 150).isActive = true
@@ -49,6 +52,7 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         interactableView1.widthAnchor.constraint(equalToConstant: 100).isActive = true
         interactableView1.heightAnchor.constraint(equalToConstant: 100).isActive = true
         interactableView1.backgroundColor = .orange
+        
 
         interactableView2 = UIView()
         collectionView.addSubview(interactableView2)
