@@ -13,12 +13,10 @@ final class SelectionShowingView: UIView {
     let closeImageView: UIImageView
     
     private func addToView(image: UIImage) {
-        let image = image.imageWithBorder(width: 90, color: .blue)
+        
         let selectedImageView = UIImageView(image: image)
         selectedImageView.clipsToBounds = true
         selectedImageView.contentMode = .scaleAspectFit
-        
-        addCloseButton(to: selectedImageView)
         
         addSubview(selectedImageView)
         selectedImageView.topAnchor == self.topAnchor
@@ -26,16 +24,17 @@ final class SelectionShowingView: UIView {
         selectedImageView.sizeAnchors == self.sizeAnchors
     }
     
-    private func addCloseButton(to view: UIView) {
+    private func addCloseButton() {
         
-        view.addSubview(closeImageView)
+        addSubview(closeImageView)
         closeImageView.sizeAnchors == CGSize(width: 40, height: 40)
-        closeImageView.topAnchor == view.topAnchor + 5
-        closeImageView.trailingAnchor == view.trailingAnchor - 5
+        closeImageView.topAnchor == topAnchor + 5
+        closeImageView.trailingAnchor == trailingAnchor - 5
 
     }
     
     init(image: UIImage? = nil) {
+        
         var bundle = Bundle(identifier: "org.cocoapods.UNUMCanvas")
         if let resourcePath = bundle?.path(forResource: "UNUMCanvas", ofType: "bundle") {
             bundle = Bundle(path: resourcePath)!
@@ -45,14 +44,17 @@ final class SelectionShowingView: UIView {
         
         super.init(frame: .zero)
 
+        layoutView(image: image)
+    }
+    
+    private func layoutView(image: UIImage?) {
         if let image = image {
             addToView(image: image)
         }
-        else {
-            layer.borderWidth = 4
-            layer.borderColor = UIColor.blue.cgColor
-            addCloseButton(to: self)
-        }
+        
+        layer.borderWidth = 4
+        layer.borderColor = UIColor.blue.cgColor
+        addCloseButton()
     }
 
     required init?(coder aDecoder: NSCoder) {

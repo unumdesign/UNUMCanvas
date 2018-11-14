@@ -1,5 +1,6 @@
 import UIKit
 import UNUMCanvas
+import Anchorage
 
 final class ExampleCanvasCollectionViewController: UIViewController {
     
@@ -44,20 +45,21 @@ final class ExampleCanvasCollectionViewController: UIViewController {
             bundle = Bundle(path: resourcePath)!
         }
         
-        let image = UIImage(named: "test_image", in: bundle, compatibleWith: nil)
+        if let image = UIImage(named: "test_image", in: bundle, compatibleWith: nil) {
 
-        // Add some views that should be interactable.
-        interactableView1 = UIImageView(image: image)
-        interactableView1.contentMode = .scaleAspectFit
-        collectionView.addSubview(interactableView1)
-
-        //CGRect(x: 100, y: 150, width: 100, height: 100)
-        interactableView1.translatesAutoresizingMaskIntoConstraints = false
-        interactableView1.topAnchor.constraint(equalTo: interactableView1.superview!.topAnchor, constant: 150).isActive = true
-        interactableView1.leadingAnchor.constraint(equalTo: interactableView1.superview!.leadingAnchor, constant: 100).isActive = true
-        interactableView1.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        interactableView1.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        
+            // Add some views that should be interactable.
+            interactableView1 = UIImageView(image: image)
+            interactableView1.contentMode = .scaleAspectFit
+            collectionView.addSubview(interactableView1)
+            
+            //CGRect(x: 100, y: 150, width: 100, height: 100)
+            interactableView1.translatesAutoresizingMaskIntoConstraints = false
+            interactableView1.topAnchor.constraint(equalTo: interactableView1.superview!.topAnchor, constant: 150).isActive = true
+            interactableView1.leadingAnchor.constraint(equalTo: interactableView1.superview!.leadingAnchor, constant: 100).isActive = true
+            interactableView1.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            
+            interactableView1.heightAnchor == interactableView1.widthAnchor * image.size.height / image.size.width
+        }
 
         interactableView2 = UIView()
         collectionView.addSubview(interactableView2)

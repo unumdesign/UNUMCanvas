@@ -13,22 +13,6 @@ public class CanvasRegionView {
     public init() {}
 }
 
-extension UIImage {
-    func imageWithBorder(width: CGFloat, color: UIColor) -> UIImage? {
-        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
-        imageView.contentMode = .center
-        imageView.image = self
-        imageView.layer.borderWidth = width
-        imageView.layer.borderColor = color.cgColor
-        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        imageView.layer.render(in: context)
-        let result = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return result
-    }
-}
-
 public class CanvasController: NSObject {
     
     
