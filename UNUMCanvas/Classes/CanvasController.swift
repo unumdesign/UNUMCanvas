@@ -41,11 +41,9 @@ public class CanvasController: NSObject {
                 
                 let selectionShowingView = SelectionShowingView()
                 selectedView.addSubview(selectionShowingView)
-                selectionShowingView.translatesAutoresizingMaskIntoConstraints = false
-                selectionShowingView.topAnchor.constraint(equalTo: selectedView.topAnchor).isActive = true
-                selectionShowingView.leadingAnchor.constraint(equalTo: selectedView.leadingAnchor).isActive = true
-                selectionShowingView.widthAnchor.constraint(equalTo: selectedView.widthAnchor).isActive = true
-                selectionShowingView.heightAnchor.constraint(equalTo: selectedView.heightAnchor).isActive = true
+                selectionShowingView.topAnchor == selectedView.topAnchor
+                selectionShowingView.leadingAnchor == selectedView.leadingAnchor
+                selectionShowingView.sizeAnchors == selectedView.sizeAnchors
                 
                 // return transform onto view in order to keep previous transformations on the view
                 selectedView.transform = transformToReapply
