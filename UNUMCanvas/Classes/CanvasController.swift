@@ -1,8 +1,11 @@
 import UIKit
 import Anchorage
 
-public protocol SelectedViewObserving: AnyObject {
+@objc public protocol SelectedViewObserving: AnyObject {
     func selectedValueChanged(to view: UIView?)
+    
+    /// An optional function indicating when a tap was in a selectableView. This is needed only when there are other entities that are handling tap events in the same clickable-area, such as if an interactableView is added on top of a tableView or a collectionView. This enables you to make sure to disable their tap events when the tap is within an interactableView.
+    @objc optional func tapWasInSelectableView()
 }
 
 public class CanvasRegionView {
@@ -134,6 +137,8 @@ extension CanvasController {
     }
     
     @objc private func tapOnViewController(_ sender: UITapGestureRecognizer) {
+        
+        selectedViewObservingDelegate?.tapWasInSelectableView?()
         
         // only act on completed clicks
         guard sender.state == .ended else {

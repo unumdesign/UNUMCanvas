@@ -12,6 +12,8 @@ final class ExampleCanvasCollectionViewController: UIViewController {
     private var interactableView1 = UIView()
     private var interactableView2 = UIView()
     
+    var skipTapEventOnce = false
+    
     init() {
         let viewLayout = UICollectionViewFlowLayout()
         viewLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -109,6 +111,13 @@ extension ExampleCanvasCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        // If the interactableViews are on a surface where there are other things handling tap events (such as collectionViews and tableViews), then the optional function `tapWasInSelectableView()` likely should be implemented in the following manner. Taps on the view process before the cells -- assuming that the views are above the cells. The views being behind the cells will likely cause issues, as tapWasInSelectableView will occur after this collectionView function occurs, which will mean that this guard will get hit the next time a cell is attempted to be selected and not at the time the interactableView was tapped.
+        guard !skipTapEventOnce else {
+            skipTapEventOnce = false
+            return
+        }
+        
         if indexPath.row % 2 == 0 {
             navigationController?.pushViewController(ExampleSingleCanvasViewController(), animated: true)
         }
@@ -121,5 +130,9 @@ extension ExampleCanvasCollectionViewController: UICollectionViewDataSource {
 extension ExampleCanvasCollectionViewController: SelectedViewObserving {
     func selectedValueChanged(to view: UIView?) {
         collectionView.isScrollEnabled = view == nil
+    }
+    
+    func tapWasInSelectableView() {
+        skipTapEventOnce = true
     }
 }
