@@ -57,6 +57,8 @@ final class ExampleCanvasCollectionViewController: UIViewController {
             interactableView1.topAnchor == collectionView.topAnchor + 100
             interactableView1.leadingAnchor == collectionView.leadingAnchor + 100
             interactableView1.widthAnchor ==  100
+            
+            // It is important that the ratio of the size of the interactableView match the aspect ratio of the image of the imageView. Otherwise the border will be off. You can make the width or the height match the aspect ratio.
             interactableView1.heightAnchor == interactableView1.widthAnchor * imageHeightRatio
         }
 
