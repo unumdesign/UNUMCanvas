@@ -32,8 +32,6 @@ public class CanvasController: NSObject {
             })
             
             if let selectedView = selectedView {
-                let selectionShowingView = SelectionShowingView()
-                selectedView.addSubview(selectionShowingView)
                 
                 // store the view's transform so that it can be reapplied after moving the view.
                 let transformToReapply = selectedView.transform
@@ -41,11 +39,11 @@ public class CanvasController: NSObject {
                 // reset transform to allow proper directional navigation of object
                 selectedView.transform = CGAffineTransform.identity
                 
-                selectionShowingView.translatesAutoresizingMaskIntoConstraints = false
-                selectionShowingView.topAnchor.constraint(equalTo: selectedView.topAnchor).isActive = true
-                selectionShowingView.leadingAnchor.constraint(equalTo: selectedView.leadingAnchor).isActive = true
-                selectionShowingView.widthAnchor.constraint(equalTo: selectedView.widthAnchor).isActive = true
-                selectionShowingView.heightAnchor.constraint(equalTo: selectedView.heightAnchor).isActive = true
+                let selectionShowingView = SelectionShowingView()
+                selectedView.addSubview(selectionShowingView)
+                selectionShowingView.topAnchor == selectedView.topAnchor
+                selectionShowingView.leadingAnchor == selectedView.leadingAnchor
+                selectionShowingView.sizeAnchors == selectedView.sizeAnchors
                 
                 // return transform onto view in order to keep previous transformations on the view
                 selectedView.transform = transformToReapply
@@ -118,7 +116,7 @@ extension CanvasController {
         view.subviews.forEach { subview in
             if
                 let subview = subview as? SelectionShowingView,
-                subview.closeImage.bounds.contains(sender.location(in: subview.closeImage))
+                subview.closeImageView.bounds.contains(sender.location(in: subview.closeImageView))
             {
                 view.removeFromSuperview()
                 

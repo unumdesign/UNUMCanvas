@@ -6,26 +6,36 @@
 //
 
 import Foundation
+import Anchorage
 
 final class SelectionShowingView: UIView {
 
-    let closeImage: UIImageView
+    let closeImageView: UIImageView
+    
+    private func addCloseButton() {
+        addSubview(closeImageView)
+        closeImageView.sizeAnchors == CGSize(width: 40, height: 40)
+        closeImageView.topAnchor == topAnchor + 5
+        closeImageView.trailingAnchor == trailingAnchor - 5
+    }
+    
+    init() {
+        var bundle = Bundle(identifier: "org.cocoapods.UNUMCanvas")
+        if let resourcePath = bundle?.path(forResource: "UNUMCanvas", ofType: "bundle") {
+            bundle = Bundle(path: resourcePath)!
+        }
+        let closeImage = UIImage(named: "deleteImageIcon", in: bundle, compatibleWith: nil)
+        closeImageView = UIImageView(image: closeImage)
+        
+        super.init(frame: .zero)
 
-    override init(frame: CGRect) {
-        let bundle = Bundle(identifier: "org.cocoapods.UNUMCanvas")
-        let image = UIImage(named: "deleteImageIcon", in: bundle, compatibleWith: nil)
-        closeImage = UIImageView(image: image)
-
-        super.init(frame: frame)
+        layoutView()
+    }
+    
+    private func layoutView() {
         layer.borderWidth = 4
         layer.borderColor = UIColor.blue.cgColor
-
-        addSubview(closeImage)
-        closeImage.translatesAutoresizingMaskIntoConstraints = false
-        closeImage.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        closeImage.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        closeImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
-        closeImage.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
+        addCloseButton()
     }
 
     required init?(coder aDecoder: NSCoder) {

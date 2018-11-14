@@ -1,5 +1,6 @@
 import UIKit
 import UNUMCanvas
+import Anchorage
 
 final class ExampleSingleCanvasViewController: UIViewController {
     
@@ -23,24 +24,22 @@ final class ExampleSingleCanvasViewController: UIViewController {
         view.backgroundColor = .white
         
         // Add some views that should be interactable.
-        interactableView1 = UIView()//UIView(frame: CGRect(x: 100, y: 400, width: 100, height: 100))
+        interactableView1 = UIView()
         view.addSubview(interactableView1)
-        interactableView1.translatesAutoresizingMaskIntoConstraints = false
-        interactableView1.topAnchor.constraint(equalTo: interactableView1.superview!.topAnchor, constant: 400).isActive = true
-        interactableView1.leadingAnchor.constraint(equalTo: interactableView1.superview!.leadingAnchor, constant: 100).isActive = true
-        interactableView1.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        interactableView1.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        interactableView1.topAnchor == view.topAnchor + 100
+        interactableView1.leadingAnchor == view.leadingAnchor + 400
+        interactableView1.sizeAnchors == CGSize(width: 100, height: 100)
+        
         interactableView1.backgroundColor = .orange
         
-        interactableView2 = UIView()//UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
-        interactableView2.backgroundColor = .green
+        interactableView2 = UIView()
         view.addSubview(interactableView2)
-        interactableView2.translatesAutoresizingMaskIntoConstraints = false
-        interactableView2.topAnchor.constraint(equalTo: interactableView1.superview!.topAnchor, constant: 100).isActive = true
-        interactableView2.leadingAnchor.constraint(equalTo: interactableView1.superview!.leadingAnchor, constant: 100).isActive = true
-        interactableView2.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        interactableView2.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        interactableView2.topAnchor == view.topAnchor + 100
+        interactableView2.leadingAnchor == view.leadingAnchor + 100
+        interactableView2.sizeAnchors == CGSize(width: 100, height: 100)
         
+        interactableView2.backgroundColor = .green
+
         canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2])
         canvasRegion.canvasViews = [view]
         canvasRegion.regionView = view
