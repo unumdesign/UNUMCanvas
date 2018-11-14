@@ -1,4 +1,5 @@
 import UIKit
+import Anchorage
 
 
 // TODO: plf - see about making this functionality part of how the canvas works rather than needing it here.
@@ -34,10 +35,7 @@ class CenterIndicatingView: UIView {
         addSubview(indicatorOne)
         addSubview(indicatorTwo)
         
-        indicatorOne.translatesAutoresizingMaskIntoConstraints = false
         indicatorOne.backgroundColor = .black
-        
-        indicatorTwo.translatesAutoresizingMaskIntoConstraints = false
         indicatorTwo.backgroundColor = .black
     }
     
@@ -51,15 +49,15 @@ class CenterYIndicatingView: CenterIndicatingView {
     override init() {
         super.init()
         
-        indicatorOne.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        indicatorOne.heightAnchor.constraint(equalToConstant: indicatorThickness).isActive = true
-        indicatorOne.widthAnchor.constraint(equalTo: widthAnchor, multiplier: indicatorLengthMultiplier).isActive = true
-        indicatorOne.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        indicatorOne.centerYAnchor == centerYAnchor
+        indicatorOne.heightAnchor == indicatorThickness
+        indicatorOne.widthAnchor == widthAnchor * indicatorLengthMultiplier
+        indicatorOne.leadingAnchor == leadingAnchor
         
-        indicatorTwo.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        indicatorTwo.heightAnchor.constraint(equalToConstant: indicatorThickness).isActive = true
-        indicatorTwo.widthAnchor.constraint(equalTo: widthAnchor, multiplier: indicatorLengthMultiplier).isActive = true
-        indicatorTwo.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        indicatorTwo.centerYAnchor == centerYAnchor
+        indicatorTwo.heightAnchor == indicatorThickness
+        indicatorTwo.widthAnchor == widthAnchor * indicatorLengthMultiplier
+        indicatorTwo.trailingAnchor == trailingAnchor
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -72,15 +70,15 @@ class CenterXIndicatingView: CenterIndicatingView {
     override init() {
         super.init()
         
-        indicatorOne.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        indicatorOne.widthAnchor.constraint(equalToConstant: indicatorThickness).isActive = true
-        indicatorOne.heightAnchor.constraint(equalTo: heightAnchor, multiplier: indicatorLengthMultiplier).isActive = true
-        indicatorOne.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        indicatorOne.centerXAnchor == centerXAnchor
+        indicatorOne.widthAnchor == indicatorThickness
+        indicatorOne.heightAnchor == heightAnchor * indicatorLengthMultiplier
+        indicatorOne.topAnchor == topAnchor
         
-        indicatorTwo.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        indicatorTwo.widthAnchor.constraint(equalToConstant: indicatorThickness).isActive = true
-        indicatorTwo.heightAnchor.constraint(equalTo: heightAnchor, multiplier: indicatorLengthMultiplier).isActive = true
-        indicatorTwo.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        indicatorTwo.centerXAnchor == centerXAnchor
+        indicatorTwo.widthAnchor == indicatorThickness
+        indicatorTwo.heightAnchor == heightAnchor * indicatorLengthMultiplier
+        indicatorTwo.bottomAnchor == bottomAnchor
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -106,11 +104,7 @@ extension UIView {
         view.isUserInteractionEnabled = false
         
         properViewForSubviews.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.topAnchor.constraint(equalTo: properViewForSubviews.topAnchor).isActive = true
-        view.leadingAnchor.constraint(equalTo: properViewForSubviews.leadingAnchor).isActive = true
-        view.trailingAnchor.constraint(equalTo: properViewForSubviews.trailingAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: properViewForSubviews.bottomAnchor).isActive = true
+        view.edgeAnchors == properViewForSubviews.edgeAnchors
     }
     
     func showCenterXIndication() {
