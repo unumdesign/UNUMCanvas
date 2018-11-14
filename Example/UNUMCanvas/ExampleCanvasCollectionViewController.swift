@@ -54,7 +54,6 @@ final class ExampleCanvasCollectionViewController: UIViewController {
             interactableView1.contentMode = .scaleAspectFit
             collectionView.addSubview(interactableView1)
             
-            interactableView1.translatesAutoresizingMaskIntoConstraints = false
             interactableView1.topAnchor == collectionView.topAnchor + 100
             interactableView1.leadingAnchor == collectionView.leadingAnchor + 100
             interactableView1.widthAnchor ==  100
