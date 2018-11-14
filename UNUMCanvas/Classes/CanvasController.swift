@@ -39,13 +39,7 @@ public class CanvasController: NSObject {
                 // reset transform to allow proper directional navigation of object
                 selectedView.transform = CGAffineTransform.identity
                 
-                var selectionShowingView: SelectionShowingView
-                if let imageView = selectedView as? UIImageView {
-                    selectionShowingView = SelectionShowingView(image: imageView.image)
-                }
-                else {
-                    selectionShowingView = SelectionShowingView()
-                }
+                let selectionShowingView = SelectionShowingView()
                 selectedView.addSubview(selectionShowingView)
                 selectionShowingView.translatesAutoresizingMaskIntoConstraints = false
                 selectionShowingView.topAnchor.constraint(equalTo: selectedView.topAnchor).isActive = true
