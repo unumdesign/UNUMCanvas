@@ -45,30 +45,30 @@ final class ExampleCanvasCollectionViewController: UIViewController {
             bundle = Bundle(path: resourcePath)!
         }
         
+        // Add imageView that should be interactable.
         if let image = UIImage(named: "test_image", in: bundle, compatibleWith: nil) {
+            
+            let imageHeightRatio = image.size.height / image.size.width
 
-            // Add some views that should be interactable.
             interactableView1 = UIImageView(image: image)
             interactableView1.contentMode = .scaleAspectFit
             collectionView.addSubview(interactableView1)
             
-            //CGRect(x: 100, y: 150, width: 100, height: 100)
             interactableView1.translatesAutoresizingMaskIntoConstraints = false
-            interactableView1.topAnchor.constraint(equalTo: interactableView1.superview!.topAnchor, constant: 150).isActive = true
-            interactableView1.leadingAnchor.constraint(equalTo: interactableView1.superview!.leadingAnchor, constant: 100).isActive = true
-            interactableView1.widthAnchor.constraint(equalToConstant: 100).isActive = true
-            
-            interactableView1.heightAnchor == interactableView1.widthAnchor * image.size.height / image.size.width
+            interactableView1.topAnchor == collectionView.topAnchor + 100
+            interactableView1.leadingAnchor == collectionView.leadingAnchor + 100
+            interactableView1.widthAnchor ==  100
+            interactableView1.heightAnchor == interactableView1.widthAnchor * imageHeightRatio
         }
 
+        // Add view that should be interactable.
         interactableView2 = UIView()
         collectionView.addSubview(interactableView2)
-        // CGRect(x: 100, y: 100, width: 100, height: 100)
-        interactableView2.translatesAutoresizingMaskIntoConstraints = false
-        interactableView2.topAnchor.constraint(equalTo: interactableView1.superview!.topAnchor, constant: 100).isActive = true
-        interactableView2.leadingAnchor.constraint(equalTo: interactableView1.superview!.leadingAnchor, constant: 100).isActive = true
-        interactableView2.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        interactableView2.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        interactableView2.topAnchor == collectionView.topAnchor + 100
+        interactableView2.leadingAnchor == collectionView.leadingAnchor + 100
+        interactableView2.sizeAnchors == CGSize(width: 100, height: 100)
+
         interactableView2.backgroundColor = .green
 
         // Setup canvasController with appropriate views. In this example, the canvasViews will be the tableViewCells, which will need to be added to the canvasController when they are setup.
