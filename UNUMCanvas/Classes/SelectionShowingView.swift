@@ -20,9 +20,11 @@ final class SelectionShowingView: UIView {
     }
     
     init() {
-        var bundle = Bundle(identifier: "org.cocoapods.UNUMCanvas")
-        if let resourcePath = bundle?.path(forResource: "UNUMCanvas", ofType: "bundle") {
-            bundle = Bundle(path: resourcePath)!
+        var bundle = Bundle(for: SelectionShowingView.self)
+        if let resourcePath = bundle.path(forResource: "UNUMCanvas", ofType: "bundle") {
+            if let resourcesBundle = Bundle(path: resourcePath) {
+                bundle = resourcesBundle
+            }
         }
         let closeImage = UIImage(named: "deleteImageIcon", in: bundle, compatibleWith: nil)
         closeImageView = UIImageView(image: closeImage)
