@@ -138,8 +138,6 @@ extension CanvasController {
     
     @objc private func tapOnViewController(_ sender: UITapGestureRecognizer) {
         
-        selectedViewObservingDelegate?.tapWasInSelectableView?()
-        
         // only act on completed clicks
         guard sender.state == .ended else {
             return
@@ -161,6 +159,9 @@ extension CanvasController {
                 guard viewClicked else {
                     continue
                 }
+                
+                // since tap was within an interactableView, indicate that the tap was within a selectableView.
+                selectedViewObservingDelegate?.tapWasInSelectableView?()
                 
                 // delete the view if the click was within the delete icon
                 let deletedView = deleteButtonPressed(on: view, sender: sender)
