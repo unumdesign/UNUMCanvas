@@ -430,6 +430,21 @@ extension CanvasController {
             }
         }
         
+        selectedView.superview?.constraints.forEach { constraint in
+            guard
+                let view = constraint.firstItem as? UIView,
+                view == selectedView
+                else {
+                    return
+            }
+            switch constraint.firstAttribute {
+            case .leading, .top:
+                print(constraint)
+            default:
+                return
+            }
+        }
+        
         sender.scale = 1.0
     }
 }
