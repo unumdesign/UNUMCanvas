@@ -415,7 +415,21 @@ extension CanvasController {
             return
         }
         
-        selectedView.transform = CGAffineTransform(scaleX: sender.scale, y: sender.scale).concatenating(selectedView.transform)
+        selectedView.constraints.forEach { constraint in
+            guard
+                let view = constraint.firstItem as? UIView,
+                view == selectedView
+                else {
+                    return
+            }
+            switch constraint.firstAttribute {
+            case .width, .height:
+                constraint.constant = constraint.constant * sender.scale
+            default:
+                return
+            }
+        }
+        
         sender.scale = 1.0
     }
 }
