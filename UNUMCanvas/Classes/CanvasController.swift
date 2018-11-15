@@ -34,26 +34,32 @@ public class CanvasController: NSObject {
                 }
             })
             
-            if let selectedView = selectedView {
-                
-                // store the view's transform so that it can be reapplied after moving the view.
-                let transformToReapply = selectedView.transform
-                
-                // reset transform to allow proper directional navigation of object
-                selectedView.transform = CGAffineTransform.identity
-                
-                let selectionShowingView = SelectionShowingView()
-                selectedView.addSubview(selectionShowingView)
-                selectionShowingView.topAnchor == selectedView.topAnchor
-                selectionShowingView.leadingAnchor == selectedView.leadingAnchor
-                selectionShowingView.sizeAnchors == selectedView.sizeAnchors
-                
-                // return transform onto view in order to keep previous transformations on the view
-                selectedView.transform = transformToReapply
-            }
+            addSelectionShowingView()
             
             selectedViewObservingDelegate?.selectedValueChanged(to: selectedView)
         }
+    }
+    
+
+    private func addSelectionShowingView() {
+        guard let selectedView = selectedView else {
+            return
+        }
+            
+        // store the view's transform so that it can be reapplied after moving the view.
+        let transformToReapply = selectedView.transform
+        
+        // reset transform to allow proper directional navigation of object
+        selectedView.transform = CGAffineTransform.identity
+        
+        let selectionShowingView = SelectionShowingView()
+        selectedView.addSubview(selectionShowingView)
+        selectionShowingView.topAnchor == selectedView.topAnchor
+        selectionShowingView.leadingAnchor == selectedView.leadingAnchor
+        selectionShowingView.sizeAnchors == selectedView.sizeAnchors
+        
+        // return transform onto view in order to keep previous transformations on the view
+        selectedView.transform = transformToReapply
     }
     
     public weak var selectedViewObservingDelegate: SelectedViewObserving?
