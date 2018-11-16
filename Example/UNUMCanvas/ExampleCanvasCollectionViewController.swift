@@ -11,6 +11,7 @@ final class ExampleCanvasCollectionViewController: UIViewController {
     
     private var interactableView1 = UIView()
     private var interactableView2 = UIView()
+    private var interactableTextLabel = UITextField() // maybe make work for anything implementing UITextInput
     
     var skipTapEventOnce = false
     
@@ -64,6 +65,7 @@ final class ExampleCanvasCollectionViewController: UIViewController {
             interactableView1.heightAnchor == interactableView1.widthAnchor * imageHeightRatio
         }
 
+        
         // Add view that should be interactable.
         interactableView2 = UIView()
         collectionView.addSubview(interactableView2)
@@ -73,12 +75,23 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         interactableView2.sizeAnchors == CGSize(width: 100, height: 100)
 
         interactableView2.backgroundColor = .green
+        
+        
+        // Add textView that should be interactable.
+        collectionView.addSubview(interactableTextLabel)
+        interactableTextLabel.topAnchor == collectionView.topAnchor + 300
+        interactableTextLabel.leadingAnchor == collectionView.leadingAnchor + 200
+        
+        interactableTextLabel.text = "Text Text Text Text Text Text and longer sesquipedalian words"
+//        interactableTextLabel.numberOfLines = 0
+//        interactableTextLabel.lineBreakMode = .byCharWrapping
 
+        
         // Setup canvasController with appropriate views. In this example, the canvasViews will be the tableViewCells, which will need to be added to the canvasController when they are setup.
-        canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2])
+        canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2, interactableTextLabel])
         canvasRegion.regionView = view
         
-        canvasController.selectedView = interactableView2
+        canvasController.selectedView = interactableTextLabel
         canvasController.gestureRecognizingView = collectionView
         canvasController.canvasRegionViews = [canvasRegion]
     }
