@@ -40,10 +40,23 @@ extension CanvasController {
         let relativeLocation = PaningRelativeLocation(location: location, frame: frame)
         
         
-        if relativeLocation.isNearBottomOfFrame {
-            print("\tbottom location")
+        if sender.state == .began {
+            if relativeLocation.isNearBottomOfFrame {
+                panType = .bottom
+            }
+            else {
+                panType = .moving
+            }
         }
-        else {
+        
+        guard let panType = panType else {
+            return
+        }
+        
+        switch panType {
+        case .bottom:
+            print("\tbottom location")
+        default:
             moveView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
         }
     }
@@ -55,7 +68,7 @@ struct PaningRelativeLocation {
     let frame: CGRect
     
     var isNearBottomOfFrame: Bool {
-        return abs(location.y - frame.height) <= 40
+        return abs(location.y - frame.height) <= 25
     }
 }
 

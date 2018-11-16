@@ -1,6 +1,11 @@
 import UIKit
 import Anchorage
 
+enum PanType {
+    case bottom
+    case moving
+}
+
 @objc public protocol SelectedViewObserving: AnyObject {
     func selectedValueChanged(to view: UIView?)
     
@@ -40,6 +45,7 @@ public class CanvasController: NSObject {
         }
     }
     
+    var panType: PanType?
 
     private func addSelectionShowingView() {
         guard let selectedView = selectedView else {
