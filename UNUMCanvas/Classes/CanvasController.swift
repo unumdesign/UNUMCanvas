@@ -34,26 +34,32 @@ public class CanvasController: NSObject {
                 }
             })
             
-            if let selectedView = selectedView {
-                
-                // store the view's transform so that it can be reapplied after moving the view.
-                let transformToReapply = selectedView.transform
-                
-                // reset transform to allow proper directional navigation of object
-                selectedView.transform = CGAffineTransform.identity
-                
-                let selectionShowingView = SelectionShowingView()
-                selectedView.addSubview(selectionShowingView)
-                selectionShowingView.topAnchor == selectedView.topAnchor
-                selectionShowingView.leadingAnchor == selectedView.leadingAnchor
-                selectionShowingView.sizeAnchors == selectedView.sizeAnchors
-                
-                // return transform onto view in order to keep previous transformations on the view
-                selectedView.transform = transformToReapply
-            }
+            addSelectionShowingView()
             
             selectedViewObservingDelegate?.selectedValueChanged(to: selectedView)
         }
+    }
+    
+
+    private func addSelectionShowingView() {
+        guard let selectedView = selectedView else {
+            return
+        }
+            
+        // store the view's transform so that it can be reapplied after moving the view.
+        let transformToReapply = selectedView.transform
+        
+        // reset transform to allow proper directional navigation of object
+        selectedView.transform = CGAffineTransform.identity
+        
+        let selectionShowingView = SelectionShowingView()
+        selectedView.addSubview(selectionShowingView)
+        selectionShowingView.topAnchor == selectedView.topAnchor
+        selectionShowingView.leadingAnchor == selectedView.leadingAnchor
+        selectionShowingView.sizeAnchors == selectedView.sizeAnchors
+        
+        // return transform onto view in order to keep previous transformations on the view
+        selectedView.transform = transformToReapply
     }
     
     public weak var selectedViewObservingDelegate: SelectedViewObserving?
@@ -408,8 +414,53 @@ extension CanvasController {
         guard let selectedView = selectedView else {
             return
         }
-        
-        selectedView.transform = CGAffineTransform(scaleX: sender.scale, y: sender.scale).concatenating(selectedView.transform)
+
+        var heightDifference: CGFloat?
+        var widthDifference: CGFloat?
+
+        // increase width and height according to scale
+        selectedView.constraints.forEach { constraint in
+            guard
+                let view = constraint.firstItem as? UIView,
+                view == selectedView
+                else {
+                    return
+            }
+            switch constraint.firstAttribute {
+            case .width:
+                let previousWidth = constraint.constant
+                constraint.constant = constraint.constant * sender.scale
+                widthDifference = constraint.constant - previousWidth
+            case .height:
+                let previousHeight = constraint.constant
+                constraint.constant = constraint.constant * sender.scale
+                heightDifference = constraint.constant - previousHeight
+            default:
+                return
+            }
+        }
+
+        // adjust leading and top anchors to keep view centered
+        selectedView.superview?.constraints.forEach { constraint in
+            guard
+                let view = constraint.firstItem as? UIView,
+                view == selectedView,
+                let heightDifference = heightDifference,
+                let widthDifference = widthDifference
+                else {
+                    return
+            }
+            switch constraint.firstAttribute {
+            case .leading:
+                constraint.constant = constraint.constant - widthDifference / 2
+            case .top:
+                constraint.constant = constraint.constant - heightDifference / 2
+            default:
+                return
+            }
+        }
+
+        // reset scale after applying in order to keep scaling linear rather than exponential
         sender.scale = 1.0
     }
 }
