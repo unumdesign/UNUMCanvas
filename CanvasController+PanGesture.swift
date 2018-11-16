@@ -41,23 +41,37 @@ extension CanvasController {
         
         
         if sender.state == .began {
+            
+            // setup verticalScaling
             if relativeLocation.isNearBottomOfFrame {
-                panType = .bottom
+                panScalingType.vertical = .bottom
+            }
+            else if relativeLocation.isNearTopOfFrame {
+                panScalingType.vertical = .top
             }
             else {
-                panType = .moving
+                panScalingType.vertical = .notActivated
             }
         }
         
-        guard let panType = panType else {
-            return
+        if panScalingType.horizontal == .notActivated && panScalingType.vertical == .notActivated {
+            moveView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
         }
         
-        switch panType {
+//        switch panScalingType.horizontal {
+//        case .leading:
+//        case .trailing:
+//        case .notActivated:
+//            return
+//        }
+        
+        switch panScalingType.vertical {
+        case .top:
+            print("top")
         case .bottom:
-            print("\tbottom location")
-        default:
-            moveView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
+            print("bottom")
+        case .notActivated:
+            return
         }
     }
 }
@@ -69,6 +83,10 @@ struct PaningRelativeLocation {
     
     var isNearBottomOfFrame: Bool {
         return abs(location.y - frame.height) <= 25
+    }
+    
+    var isNearTopOfFrame: Bool {
+        return abs(location.y) <= 25
     }
 }
 

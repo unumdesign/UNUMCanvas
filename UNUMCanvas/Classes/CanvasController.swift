@@ -1,9 +1,24 @@
 import UIKit
 import Anchorage
 
-enum PanType {
-    case bottom
-    case moving
+class PanScalingType {
+    enum Vertical {
+        case bottom
+        case top
+        case notActivated
+    }
+    enum Horizontal {
+        case leading
+        case trailing
+        case notActivated
+    }
+    var vertical: Vertical
+    var horizontal: Horizontal
+    
+    init(vertical: Vertical, horizontal: Horizontal) {
+        self.vertical = vertical
+        self.horizontal = horizontal
+    }
 }
 
 @objc public protocol SelectedViewObserving: AnyObject {
@@ -45,7 +60,7 @@ public class CanvasController: NSObject {
         }
     }
     
-    var panType: PanType?
+    var panScalingType = PanScalingType(vertical: .notActivated, horizontal: .notActivated)
 
     private func addSelectionShowingView() {
         guard let selectedView = selectedView else {
