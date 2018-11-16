@@ -43,14 +43,25 @@ extension CanvasController {
         if sender.state == .began {
             
             // setup verticalScaling
-            if relativeLocation.isNearBottomOfFrame {
+            if relativeLocation.isNearBottomEdgeOfFrame {
                 panScalingType.vertical = .bottom
             }
-            else if relativeLocation.isNearTopOfFrame {
+            else if relativeLocation.isNearTopEdgeOfFrame {
                 panScalingType.vertical = .top
             }
             else {
                 panScalingType.vertical = .notActivated
+            }
+            
+            // setup horizontalScaling
+            if relativeLocation.isNearLeadingEdgeOfFrame {
+                panScalingType.horizontal = .leading
+            }
+            else if relativeLocation.isNearTrailingEdgeOfFrame {
+                panScalingType.horizontal = .trailing
+            }
+            else {
+                panScalingType.horizontal = .notActivated
             }
         }
         
@@ -58,12 +69,14 @@ extension CanvasController {
             moveView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
         }
         
-//        switch panScalingType.horizontal {
-//        case .leading:
-//        case .trailing:
-//        case .notActivated:
-//            return
-//        }
+        switch panScalingType.horizontal {
+        case .leading:
+            print("leading")
+        case .trailing:
+            print("trailing")
+        case .notActivated:
+            print("horizontal not activated")
+        }
         
         switch panScalingType.vertical {
         case .top:
@@ -71,7 +84,7 @@ extension CanvasController {
         case .bottom:
             print("bottom")
         case .notActivated:
-            return
+            print("vertical not activated")
         }
     }
 }
@@ -81,12 +94,25 @@ struct PaningRelativeLocation {
     let location: CGPoint
     let frame: CGRect
     
-    var isNearBottomOfFrame: Bool {
-        return abs(location.y - frame.height) <= 25
+    var isNearBottomEdgeOfFrame: Bool {
+        return isCloseEnoughForActivation && abs(location.y - frame.height) <= 25
     }
     
-    var isNearTopOfFrame: Bool {
-        return abs(location.y) <= 25
+    var isNearTopEdgeOfFrame: Bool {
+        return isCloseEnoughForActivation && abs(location.y) <= 25
+    }
+    
+    var isNearLeadingEdgeOfFrame: Bool {
+        return isCloseEnoughForActivation && abs(location.x) <= 25
+    }
+    
+    var isNearTrailingEdgeOfFrame: Bool {
+        return isCloseEnoughForActivation && abs(location.x - frame.width) <= 25
+    }
+    
+    var isCloseEnoughForActivation: Bool {
+        // TODO: plf implement this
+        return true
     }
 }
 
