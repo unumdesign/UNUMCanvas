@@ -35,22 +35,12 @@ extension CanvasController {
                 return
         }
         
-        
-        
-        
-        
         let location = sender.location(in: selectedView)
-        
         let frame = selectedView.convert(selectedView.frame, to: gestureRecognizingView)
+        let relativeLocation = PaningRelativeLocation(location: location, frame: frame)
         
         
-        let topLocation = frame.origin.y
-        let bottomLocation = frame.origin.y + frame.height
-        let leadingLocation = frame.origin.x
-        let trailingLocation = frame.origin.y + frame.width
-        
-        
-        if abs(location.y - frame.height) <= 40 {
+        if relativeLocation.isNearBottomOfFrame {
             print("\tbottom location")
         }
         else {
@@ -59,7 +49,17 @@ extension CanvasController {
     }
 }
 
-// Move View
+// Scaling Logic
+struct PaningRelativeLocation {
+    let location: CGPoint
+    let frame: CGRect
+    
+    var isNearBottomOfFrame: Bool {
+        return abs(location.y - frame.height) <= 40
+    }
+}
+
+// Move View Logic
 extension CanvasController {
     private func moveView(_ sender: UIPanGestureRecognizer, selectedView: UIView, selectedRegion: CanvasRegionView) {
         for canvasView in selectedRegion.canvasViews {
