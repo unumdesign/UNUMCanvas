@@ -91,7 +91,7 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2, interactableTextLabel])
         canvasRegion.regionView = view
         
-        canvasController.selectedView = interactableTextLabel
+        canvasController.selectedView = interactableView1
         canvasController.gestureRecognizingView = collectionView
         canvasController.canvasRegionViews = [canvasRegion]
     }
