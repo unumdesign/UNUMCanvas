@@ -27,6 +27,7 @@ extension CanvasController {
     }
     
     func moveSelectedViewAndShowIndicatorViewsIfNecessary(_ sender: UIPanGestureRecognizer) {
+        assert(allCanvasViews.count > 0)
         guard
             let selectedView = selectedView,
             let selectedRegion = canvasRegionViews.filter({ $0.interactableViews.contains(selectedView) }).first
@@ -34,7 +35,6 @@ extension CanvasController {
                 return
         }
         
-        assert(allCanvasViews.count > 0)
         
         for canvasView in selectedRegion.canvasViews {
             // store the view's transform so that it can be reapplied after moving the view.
