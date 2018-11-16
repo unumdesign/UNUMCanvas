@@ -36,6 +36,32 @@ extension CanvasController {
         }
         
         
+        
+        
+        
+        let location = sender.location(in: selectedView)
+        
+        let frame = selectedView.convert(selectedView.frame, to: gestureRecognizingView)
+        
+        
+        let topLocation = frame.origin.y
+        let bottomLocation = frame.origin.y + frame.height
+        let leadingLocation = frame.origin.x
+        let trailingLocation = frame.origin.y + frame.width
+        
+        
+        if abs(location.y - frame.height) <= 40 {
+            print("\tbottom location")
+        }
+        else {
+            moveView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
+        }
+    }
+}
+
+// Move View
+extension CanvasController {
+    private func moveView(_ sender: UIPanGestureRecognizer, selectedView: UIView, selectedRegion: CanvasRegionView) {
         for canvasView in selectedRegion.canvasViews {
             // store the view's transform so that it can be reapplied after moving the view.
             let transformToReapply = selectedView.transform
