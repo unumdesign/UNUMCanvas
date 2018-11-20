@@ -94,6 +94,10 @@ extension CanvasController {
             print("vertical not activated")
         }
     }
+    
+//    private func update(constraint: constraint, by value: CGFloat) {
+//        d
+//    }
 }
 
 // Scaling Logic
