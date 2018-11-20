@@ -128,4 +128,31 @@ extension CanvasController {
             topConstraint.constant = topConstraint.constant + amount
         }
     }
+    
+    func adjustBottomConstraint(of view: UIView, by amount: CGFloat) {
+        if
+            let leadingConstraint = view.leadingConstraint,
+            let heightConstraint = view.heightConstraint,
+            let widthConstraint = view.widthConstraint
+        {
+            
+            if view.heightIsBoundToWidth {
+                let ratio = view.frame.width / view.frame.height
+                let ratioAmount = amount * ratio
+                
+                leadingConstraint.constant = leadingConstraint.constant + ratioAmount * -1/2
+                widthConstraint.constant = widthConstraint.constant + ratioAmount
+                
+                return
+            }
+            else if view.widthIsBoundToHeight {
+                // Need to do an extra update to leading constraint
+                let ratio = view.frame.width / view.frame.height
+                let ratioAmount = amount * ratio
+                leadingConstraint.constant = leadingConstraint.constant + ratioAmount * -1/2
+            }
+            
+            heightConstraint.constant = heightConstraint.constant + amount
+        }
+    }
 }

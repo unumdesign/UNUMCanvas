@@ -108,7 +108,7 @@ extension CanvasController {
         case .top:
             adjustTopConstraint(of: selectedView, by: translation.y)
         case .bottom:
-            print("bottom")
+            adjustBottomConstraint(of: selectedView, by: translation.y)
         case .notActivated:
             print("vertical not activated")
         }
