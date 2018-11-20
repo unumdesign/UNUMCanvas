@@ -113,7 +113,9 @@ extension CanvasController {
         
         switch panScalingType.vertical {
         case .top:
-            print("top")
+            if let topConstraint = selectedView.topConstraint {
+                topConstraint.constant = topConstraint.constant + translation.y
+            }
         case .bottom:
             print("bottom")
         case .notActivated:
