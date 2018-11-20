@@ -102,24 +102,27 @@ struct PaningRelativeLocation {
     let frame: CGRect
     
     var isNearBottomEdgeOfFrame: Bool {
-        return isCloseEnoughForActivation && abs(location.y - frame.height) <= 25
+        return isHorizontallyCloseEnoughForActivation && abs(location.y - frame.height) <= 25
     }
     
     var isNearTopEdgeOfFrame: Bool {
-        return isCloseEnoughForActivation && abs(location.y) <= 25
+        return isHorizontallyCloseEnoughForActivation && abs(location.y) <= 25
     }
     
     var isNearLeadingEdgeOfFrame: Bool {
-        return isCloseEnoughForActivation && abs(location.x) <= 25
+        return isVerticallyCloseEnoughForActivation && abs(location.x) <= 25
     }
     
     var isNearTrailingEdgeOfFrame: Bool {
-        return isCloseEnoughForActivation && abs(location.x - frame.width) <= 25
+        return isVerticallyCloseEnoughForActivation && abs(location.x - frame.width) <= 25
     }
     
-    var isCloseEnoughForActivation: Bool {
-        // TODO: plf implement this
-        return true
+    var isHorizontallyCloseEnoughForActivation: Bool {
+        return location.x >= -25 && location.x <= frame.width + 25
+    }
+    
+    var isVerticallyCloseEnoughForActivation: Bool {
+        return location.y >= -25 && location.y <= frame.height + 25
     }
 }
 
