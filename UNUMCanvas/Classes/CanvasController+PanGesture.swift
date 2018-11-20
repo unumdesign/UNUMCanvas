@@ -135,17 +135,47 @@ extension CanvasController {
     
     private func adjustLeadingConstraint(of view: UIView, by amount: CGFloat) {
         if
+            let topConstraint = view.topConstraint,
             let leadingConstraint = view.leadingConstraint,
-            let widthConstraint = view.widthConstraint,
-            let topConstraint = view.topConstraint
+            let heightConstraint = view.heightConstraint,
+            let widthConstraint = view.widthConstraint
         {
-            leadingConstraint.constant = leadingConstraint.constant + amount
-            widthConstraint.constant = widthConstraint.constant + amount * -1
             
             if view.heightIsBoundToWidth {
                 let ratio = view.frame.height / view.frame.width
                 let ratioAmount = amount * ratio
                 topConstraint.constant = topConstraint.constant + ratioAmount * 1/2
+                
+                leadingConstraint.constant = leadingConstraint.constant + amount
+                widthConstraint.constant = widthConstraint.constant + amount * -1
+            }
+            else if view.widthIsBoundToHeight {
+                let ratio = view.frame.width / view.frame.height
+                let ratioAmount = amount * ratio
+                
+                
+                topConstraint.constant = topConstraint.constant + ratioAmount * 1/2
+                
+                let previousHeight = heightConstraint.constant
+                heightConstraint.constant = heightConstraint.constant + ratioAmount * -1
+                let heightDifference = heightConstraint.constant - previousHeight
+                
+                // Since width will be adjusted by the height, the leadingConstraint needs to be
+                // adjusted not by the 'amount', but rather by the newly adjusted width amount.
+                // This cannot be determined directly, and so we must find what the difference
+                // in the height is and multiply it by the ratio in order to get the amount
+                // the width has been adjusted.
+                let widthDifference = heightDifference * ratio
+                
+                // The leading anchor is inversely related to the width (as the width increases,
+                // the leading anchor must move left (negative) and as the width decreases, the leading
+                // anchor must move right (positive). So our final formula must invert the
+                // amount by multiplying by -1.
+                leadingConstraint.constant = leadingConstraint.constant + widthDifference * -1
+            }
+            else {
+                leadingConstraint.constant = leadingConstraint.constant + amount
+                widthConstraint.constant = widthConstraint.constant + amount * -1
             }
         }
     }
@@ -153,8 +183,8 @@ extension CanvasController {
     private func adjustTopConstraint(of view: UIView, by amount: CGFloat) {
         if
             let topConstraint = view.topConstraint,
-            let heightConstraint = view.heightConstraint,
             let leadingConstraint = view.leadingConstraint,
+            let heightConstraint = view.heightConstraint,
             let widthConstraint = view.widthConstraint
         {
             
