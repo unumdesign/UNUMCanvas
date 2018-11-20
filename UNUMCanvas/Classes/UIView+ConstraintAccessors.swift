@@ -40,7 +40,7 @@ internal extension UIView {
         return getInternalConstraint(type: .height)
     }
     
-    var heightConstraintIsBoundToWidth: Bool {
+    var heightIsBoundToWidth: Bool {
         for constraint in constraints {
             if
                 let view = constraint.firstItem as? UIView,
@@ -54,8 +54,19 @@ internal extension UIView {
         return false
     }
     
-    var widthConstraintIsBoundToHeight: Bool {
-        return true
+    var widthIsBoundToHeight: Bool {
+        
+        for constraint in constraints {
+            if
+                let view = constraint.firstItem as? UIView,
+                view == self,
+                constraint.firstAttribute == .width,
+                constraint.secondAttribute == .height
+            {
+                return true
+            }
+        }
+        return false
     }
 }
 

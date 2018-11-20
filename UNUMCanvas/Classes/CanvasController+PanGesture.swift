@@ -106,7 +106,7 @@ extension CanvasController {
         
         switch panScalingType.vertical {
         case .top:
-            print("top")
+            adjustTopConstraint(of: selectedView, by: translation.y)
 //            if
 //                let topConstraint = selectedView.topConstraint,
 //                let heightConstraint = selectedView.heightConstraint
@@ -142,8 +142,49 @@ extension CanvasController {
             leadingConstraint.constant = leadingConstraint.constant + amount
             widthConstraint.constant = widthConstraint.constant + amount * -1
             
-            if view.heightConstraintIsBoundToWidth {
-                topConstraint.constant = topConstraint.constant + amount * 1/2
+            if view.heightIsBoundToWidth {
+                let ratio = view.frame.height / view.frame.width
+                let ratioAmount = amount * ratio
+                topConstraint.constant = topConstraint.constant + ratioAmount * 1/2
+            }
+        }
+    }
+    
+    private func adjustTopConstraint(of view: UIView, by amount: CGFloat) {
+        if
+            let topConstraint = view.topConstraint,
+            let heightConstraint = view.heightConstraint,
+            let leadingConstraint = view.leadingConstraint,
+            let widthConstraint = view.widthConstraint
+        {
+            
+            if view.heightIsBoundToWidth {
+                let ratio = view.frame.height / view.frame.width
+                let ratioAmount = amount * ratio
+                
+                
+                leadingConstraint.constant = leadingConstraint.constant + ratioAmount * 1/2
+                
+                let previousWidth = widthConstraint.constant
+                widthConstraint.constant = widthConstraint.constant + ratioAmount * -1
+                let widthDifference = widthConstraint.constant - previousWidth
+                
+                // Since height will be adjusted by the width, the topConstraint needs to be
+                // adjusted not by the 'amount', but rather by the newly adjusted height amount.
+                // This cannot be determined directly, and so we must find what the difference
+                // in the width is and multiply it by the ratio in order to get the amount
+                // the height has been adjusted.
+                let heightDifference = widthDifference * ratio
+                
+                // The top anchor is inversely related to the height (as the height increases,
+                // the top anchor must move up (negative) and as the height decreases, the top
+                // anchor must move down (positive). So our final formula must invert the
+                // amount by multiplying by -1.
+                topConstraint.constant = topConstraint.constant + heightDifference * -1
+            }
+            else {
+                heightConstraint.constant = heightConstraint.constant + amount * -1
+                topConstraint.constant = topConstraint.constant + amount
             }
         }
     }
