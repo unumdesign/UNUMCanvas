@@ -98,49 +98,6 @@ extension CanvasController {
         if let topConstraint = selectedView.topConstraint {
             topConstraint.constant = topConstraint.constant - heightDifference / 2
         }
-//
-//
-//        // increase width and height according to scale
-//        selectedView.constraints.forEach { constraint in
-//            guard
-//                let view = constraint.firstItem as? UIView,
-//                view == selectedView
-//                else {
-//                    return
-//            }
-//            switch constraint.firstAttribute {
-//            case .width:
-//                let previousWidth = constraint.constant
-//                constraint.constant = constraint.constant * sender.scale
-//                widthDifference = constraint.constant - previousWidth
-//            case .height:
-//                let previousHeight = constraint.constant
-//                constraint.constant = constraint.constant * sender.scale
-//                heightDifference = constraint.constant - previousHeight
-//            default:
-//                return
-//            }
-//        }
-//
-//        // adjust leading and top anchors to keep view centered
-//        selectedView.superview?.constraints.forEach { constraint in
-//            guard
-//                let view = constraint.firstItem as? UIView,
-//                view == selectedView,
-//                let heightDifference = heightDifference,
-//                let widthDifference = widthDifference
-//                else {
-//                    return
-//            }
-//            switch constraint.firstAttribute {
-//            case .leading:
-//                constraint.constant = constraint.constant - widthDifference / 2
-//            case .top:
-//                constraint.constant = constraint.constant - heightDifference / 2
-//            default:
-//                return
-//            }
-//        }
         
         // reset scale after applying in order to keep scaling linear rather than exponential
         sender.scale = 1.0
