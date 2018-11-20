@@ -99,7 +99,7 @@ extension CanvasController {
         case .leading:
             adjustLeadingConstraint(of: selectedView, by: translation.x)
         case .trailing:
-            print("trailing")
+            adjustTrailingConstraint(of: selectedView, by: translation.x)
         case .notActivated:
             print("horizontal not activated")
         }

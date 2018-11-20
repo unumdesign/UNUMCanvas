@@ -55,6 +55,34 @@ extension CanvasController {
         }
     }
     
+    func adjustTrailingConstraint(of view: UIView, by amount: CGFloat) {
+        if
+            let topConstraint = view.topConstraint,
+            let heightConstraint = view.heightConstraint,
+            let widthConstraint = view.widthConstraint
+        {
+            
+            if view.heightIsBoundToWidth {
+                // Need to do an extra update to topConstraint
+                let ratio = view.frame.height / view.frame.width
+                let ratioAmount = amount * ratio
+                
+                topConstraint.constant = topConstraint.constant + ratioAmount * -1/2
+            }
+            else if view.widthIsBoundToHeight {
+                let ratio = view.frame.width / view.frame.height
+                let ratioAmount = amount * ratio
+                
+                topConstraint.constant = topConstraint.constant + ratioAmount * -1/2
+                heightConstraint.constant = heightConstraint.constant + ratioAmount
+                
+                return
+            }
+            
+            widthConstraint.constant = widthConstraint.constant + amount
+        }
+    }
+    
     func adjustTopConstraint(of view: UIView, by amount: CGFloat) {
         if
             let topConstraint = view.topConstraint,
