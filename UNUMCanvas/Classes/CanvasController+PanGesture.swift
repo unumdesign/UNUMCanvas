@@ -142,12 +142,11 @@ extension CanvasController {
         {
             
             if view.heightIsBoundToWidth {
+                // Need to do an extra update to topConstraint
                 let ratio = view.frame.height / view.frame.width
                 let ratioAmount = amount * ratio
-                topConstraint.constant = topConstraint.constant + ratioAmount * 1/2
                 
-                leadingConstraint.constant = leadingConstraint.constant + amount
-                widthConstraint.constant = widthConstraint.constant + amount * -1
+                topConstraint.constant = topConstraint.constant + ratioAmount * 1/2
             }
             else if view.widthIsBoundToHeight {
                 let ratio = view.frame.width / view.frame.height
@@ -172,11 +171,12 @@ extension CanvasController {
                 // anchor must move right (positive). So our final formula must invert the
                 // amount by multiplying by -1.
                 leadingConstraint.constant = leadingConstraint.constant + widthDifference * -1
+                
+                return
             }
-            else {
-                leadingConstraint.constant = leadingConstraint.constant + amount
-                widthConstraint.constant = widthConstraint.constant + amount * -1
-            }
+            
+            leadingConstraint.constant = leadingConstraint.constant + amount
+            widthConstraint.constant = widthConstraint.constant + amount * -1
         }
     }
     
@@ -211,11 +211,18 @@ extension CanvasController {
                 // anchor must move down (positive). So our final formula must invert the
                 // amount by multiplying by -1.
                 topConstraint.constant = topConstraint.constant + heightDifference * -1
+                
+                return
             }
-            else {
-                heightConstraint.constant = heightConstraint.constant + amount * -1
-                topConstraint.constant = topConstraint.constant + amount
+            else if view.widthIsBoundToHeight {
+                // Need to do an extra update to leading constraint
+                let ratio = view.frame.width / view.frame.height
+                let ratioAmount = amount * ratio
+                leadingConstraint.constant = leadingConstraint.constant + ratioAmount * 1/2
             }
+            
+            heightConstraint.constant = heightConstraint.constant + amount * -1
+            topConstraint.constant = topConstraint.constant + amount
         }
     }
 }
