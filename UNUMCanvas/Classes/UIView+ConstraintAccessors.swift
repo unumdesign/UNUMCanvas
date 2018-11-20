@@ -41,7 +41,17 @@ internal extension UIView {
     }
     
     var heightConstraintIsBoundToWidth: Bool {
-        return true
+        for constraint in constraints {
+            if
+                let view = constraint.firstItem as? UIView,
+                view == self,
+                constraint.firstAttribute == .height,
+                constraint.secondAttribute == .width
+            {
+                return true
+            }
+        }
+        return false
     }
     
     var widthConstraintIsBoundToHeight: Bool {
