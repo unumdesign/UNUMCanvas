@@ -39,36 +39,43 @@ extension CanvasController {
         let frame = selectedView.convert(selectedView.frame, to: gestureRecognizingView)
         let relativeLocation = PaningRelativeLocation(location: location, frame: frame)
         
-        
         if sender.state == .began {
-            
-            // setup verticalScaling
-            if relativeLocation.isNearBottomEdgeOfFrame {
-                panScalingType.vertical = .bottom
-            }
-            else if relativeLocation.isNearTopEdgeOfFrame {
-                panScalingType.vertical = .top
-            }
-            else {
-                panScalingType.vertical = .notActivated
-            }
-            
-            // setup horizontalScaling
-            if relativeLocation.isNearLeadingEdgeOfFrame {
-                panScalingType.horizontal = .leading
-            }
-            else if relativeLocation.isNearTrailingEdgeOfFrame {
-                panScalingType.horizontal = .trailing
-            }
-            else {
-                panScalingType.horizontal = .notActivated
-            }
+            setScalingType(relativeLocation: relativeLocation)
         }
         
         if panScalingType.horizontal == .notActivated && panScalingType.vertical == .notActivated {
             moveView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
+            return
         }
         
+        scaleView()
+    }
+    
+    private func setScalingType(relativeLocation: PaningRelativeLocation) {
+        // setup verticalScaling
+        if relativeLocation.isNearBottomEdgeOfFrame {
+            panScalingType.vertical = .bottom
+        }
+        else if relativeLocation.isNearTopEdgeOfFrame {
+            panScalingType.vertical = .top
+        }
+        else {
+            panScalingType.vertical = .notActivated
+        }
+        
+        // setup horizontalScaling
+        if relativeLocation.isNearLeadingEdgeOfFrame {
+            panScalingType.horizontal = .leading
+        }
+        else if relativeLocation.isNearTrailingEdgeOfFrame {
+            panScalingType.horizontal = .trailing
+        }
+        else {
+            panScalingType.horizontal = .notActivated
+        }
+    }
+    
+    private func scaleView() {
         switch panScalingType.horizontal {
         case .leading:
             print("leading")
