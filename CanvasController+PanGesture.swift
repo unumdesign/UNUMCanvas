@@ -48,7 +48,7 @@ extension CanvasController {
             return
         }
         
-        scaleView()
+        scaleView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
     }
     
     private func setScalingType(relativeLocation: PaningRelativeLocation) {
@@ -75,10 +75,36 @@ extension CanvasController {
         }
     }
     
-    private func scaleView() {
+    private func scaleView(_ sender: UIPanGestureRecognizer, selectedView: UIView, selectedRegion: CanvasRegionView) {
+        
+        for canvasView in selectedRegion.canvasViews {
+            // store the view's transform so that it can be reapplied after moving the view.
+            let transformToReapply = selectedView.transform
+            
+            // reset transform to allow proper directional navigation of object
+            selectedView.transform = CGAffineTransform.identity
+            
+            let translation = sender.translation(in: canvasView)
+            scale(selectedView: selectedView, translation: translation)
+            
+            sender.setTranslation(.zero, in: canvasView)
+            
+            // return transform onto view in order to keep previous transformations on the view
+            selectedView.transform = transformToReapply
+        }
+    }
+    
+    private func scale(selectedView: UIView, translation: CGPoint) {
         switch panScalingType.horizontal {
         case .leading:
-            print("leading")
+            print(translation)
+            if
+                let leadingConstraint = selectedView.leadingConstraint,
+                let widthConstraint = selectedView.widthConstraint
+            {
+                leadingConstraint.constant = leadingConstraint.constant + translation.x
+                widthConstraint.constant = widthConstraint.constant + translation.x * -1
+            }
         case .trailing:
             print("trailing")
         case .notActivated:
@@ -94,10 +120,6 @@ extension CanvasController {
             print("vertical not activated")
         }
     }
-    
-//    private func update(constraint: constraint, by value: CGFloat) {
-//        d
-//    }
 }
 
 // Scaling Logic
