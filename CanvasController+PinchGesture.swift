@@ -10,6 +10,10 @@ import Foundation
 extension UIView {
     
     private func getConstraint(from constraintView: UIView?, type: NSLayoutConstraint.Attribute) -> NSLayoutConstraint? {
+
+        var returnConstraint: NSLayoutConstraint? = nil
+        
+        // Keep in mind that this will return the last of the constraints fulfilling the type.
         for constraint in constraintView?.constraints ?? [] {
             guard
                 let view = constraint.firstItem as? UIView,
@@ -18,10 +22,10 @@ extension UIView {
                     continue
             }
             if constraint.firstAttribute == type {
-                return constraint
+                returnConstraint = constraint
             }
         }
-        return nil
+        return returnConstraint
     }
     
     private func getInternalConstraint(type: NSLayoutConstraint.Attribute) -> NSLayoutConstraint? {
@@ -69,10 +73,21 @@ extension CanvasController {
             widthDifference = widthConstraint.constant - previousWidth
         }
         
+        
         if let heightConstraint = selectedView.heightConstraint {
             let previousHeight = heightConstraint.constant
             heightConstraint.constant = heightConstraint.constant * sender.scale
-            heightDifference = heightConstraint.constant - previousHeight
+            
+            if
+                let selectedImageView = selectedView as? UIImageView,
+                let image = selectedImageView.image
+            {
+                let ratio = image.size.height / image.size.width
+                heightDifference = widthDifference * ratio
+            }
+            else {
+                heightDifference = heightConstraint.constant - previousHeight
+            }
         }
         
         // adjust leading and top anchors to keep view centered
