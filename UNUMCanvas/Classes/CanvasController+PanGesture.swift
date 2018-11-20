@@ -97,14 +97,7 @@ extension CanvasController {
     private func scale(selectedView: UIView, translation: CGPoint) {
         switch panScalingType.horizontal {
         case .leading:
-            print(translation)
-            if
-                let leadingConstraint = selectedView.leadingConstraint,
-                let widthConstraint = selectedView.widthConstraint
-            {
-                leadingConstraint.constant = leadingConstraint.constant + translation.x
-                widthConstraint.constant = widthConstraint.constant + translation.x * -1
-            }
+            adjustLeadingConstraint(of: selectedView, by: translation.x)
         case .trailing:
             print("trailing")
         case .notActivated:
@@ -113,13 +106,45 @@ extension CanvasController {
         
         switch panScalingType.vertical {
         case .top:
-            if let topConstraint = selectedView.topConstraint {
-                topConstraint.constant = topConstraint.constant + translation.y
-            }
+            print("top")
+//            if
+//                let topConstraint = selectedView.topConstraint,
+//                let heightConstraint = selectedView.heightConstraint
+//            {
+//                topConstraint.constant = topConstraint.constant + translation.y
+//
+//                if
+//                    selectedView.heightConstraintIsBoundToWidth,
+//                    let
+//                {
+//                    let ratio = selectedView.frame.height / selectedView.frame.width
+//
+//
+//
+//                }
+//                else {
+//                    heightConstraint.constant = heightConstraint.constant + translation.y * -1
+//                }
+//            }
         case .bottom:
             print("bottom")
         case .notActivated:
             print("vertical not activated")
+        }
+    }
+    
+    private func adjustLeadingConstraint(of view: UIView, by amount: CGFloat) {
+        if
+            let leadingConstraint = view.leadingConstraint,
+            let widthConstraint = view.widthConstraint,
+            let topConstraint = view.topConstraint
+        {
+            leadingConstraint.constant = leadingConstraint.constant + amount
+            widthConstraint.constant = widthConstraint.constant + amount * -1
+            
+            if view.heightConstraintIsBoundToWidth {
+                topConstraint.constant = topConstraint.constant + amount * 1/2
+            }
         }
     }
 }

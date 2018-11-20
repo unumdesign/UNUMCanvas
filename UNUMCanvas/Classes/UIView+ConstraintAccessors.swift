@@ -39,6 +39,14 @@ internal extension UIView {
     var heightConstraint: NSLayoutConstraint? {
         return getInternalConstraint(type: .height)
     }
+    
+    var heightConstraintIsBoundToWidth: Bool {
+        return true
+    }
+    
+    var widthConstraintIsBoundToHeight: Bool {
+        return true
+    }
 }
 
 internal extension UIView {
