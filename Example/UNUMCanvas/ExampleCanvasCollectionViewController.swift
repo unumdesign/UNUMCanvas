@@ -11,6 +11,7 @@ final class ExampleCanvasCollectionViewController: UIViewController {
     
     private var interactableView1 = UIView()
     private var interactableView2 = UIView()
+    private var interactableView3 = UIView()
     private var interactableTextLabel = UITextField() // maybe make work for anything implementing UITextInput
     
     var skipTapEventOnce = false
@@ -52,6 +53,7 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         // Add imageView that should be interactable.
         if let image = UIImage(named: "test_image", in: bundle, compatibleWith: nil) {
             
+            // height is bound to width
             let imageHeightRatio = image.size.height / image.size.width
 
             interactableView1 = UIImageView(image: image)
@@ -64,6 +66,22 @@ final class ExampleCanvasCollectionViewController: UIViewController {
             
             // It is important that the ratio of the size of the interactableView match the aspect ratio of the image of the imageView. Otherwise the border will be off. You can make the width or the height match the aspect ratio.
             interactableView1.heightAnchor == interactableView1.widthAnchor * imageHeightRatio
+            
+            
+            // width is bound to height
+            let imageWidthRatio = image.size.width / image.size.height
+            
+            interactableView3 = UIImageView(image: image)
+            interactableView3.contentMode = .scaleAspectFit
+            collectionView.addSubview(interactableView3)
+            
+            interactableView3.topAnchor == collectionView.topAnchor + 500
+            interactableView3.leadingAnchor == collectionView.leadingAnchor + 200
+            interactableView3.heightAnchor ==  100
+            
+            // It is important that the ratio of the size of the interactableView match the aspect ratio of the image of the imageView. Otherwise the border will be off. You can make the width or the height match the aspect ratio.
+            interactableView3.widthAnchor == interactableView3.heightAnchor * imageWidthRatio
+            
         }
 
         
@@ -89,10 +107,10 @@ final class ExampleCanvasCollectionViewController: UIViewController {
 
         
         // Setup canvasController with appropriate views. In this example, the canvasViews will be the tableViewCells, which will need to be added to the canvasController when they are setup.
-        canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2, interactableTextLabel])
+        canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2, interactableView3, interactableTextLabel])
         canvasRegion.regionView = view
         
-        canvasController.selectedView = interactableView1
+        canvasController.selectedView = interactableView3
         canvasController.gestureRecognizingView = collectionView
         canvasController.canvasRegionViews = [canvasRegion]
     }
