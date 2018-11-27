@@ -1,6 +1,26 @@
 import UIKit
 import Anchorage
 
+class PanScalingType {
+    enum Vertical {
+        case bottom
+        case top
+        case notActivated
+    }
+    enum Horizontal {
+        case leading
+        case trailing
+        case notActivated
+    }
+    var vertical: Vertical
+    var horizontal: Horizontal
+    
+    init(vertical: Vertical, horizontal: Horizontal) {
+        self.vertical = vertical
+        self.horizontal = horizontal
+    }
+}
+
 @objc public protocol SelectedViewObserving: AnyObject {
     func selectedValueChanged(to view: UIView?)
     
@@ -40,6 +60,7 @@ public class CanvasController: NSObject {
         }
     }
     
+    var panScalingType = PanScalingType(vertical: .notActivated, horizontal: .notActivated)
 
     private func addSelectionShowingView() {
         guard let selectedView = selectedView else {
@@ -77,14 +98,14 @@ public class CanvasController: NSObject {
         return views
     }
     
-    private var allCanvasViews: [UIView] {
+    var allCanvasViews: [UIView] {
         var views: [UIView] = []
         canvasRegionViews.forEach({ $0.canvasViews.forEach({ views.append($0) })})
         return views
     }
     
-    private let absoluteVelocityEnablingLocking: CGFloat = 100
-    private let absoluteDistanceEnablingLocking: CGFloat = 20
+    let absoluteVelocityEnablingLocking: CGFloat = 100
+    let absoluteDistanceEnablingLocking: CGFloat = 20
     
     private var tapGesture = UITapGestureRecognizer()
     private var panGesture = UIPanGestureRecognizer()
@@ -110,403 +131,6 @@ public class CanvasController: NSObject {
             gestureRecognizingView.addGestureRecognizer(gesture)
             gesture.delegate = self
         }
-    }
-}
-
-// MARK: Tap Gesture
-extension CanvasController {
-    
-    @objc private func deleteButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
-        guard view == selectedView else {
-            return false
-        }
-        
-        var actionPerformed = false
-        view.subviews.forEach { subview in
-            if
-                let subview = subview as? SelectionShowingView,
-                subview.closeImageView.bounds.contains(sender.location(in: subview.closeImageView))
-            {
-                view.removeFromSuperview()
-                
-                canvasRegionViews.forEach({ canvasRegionView in
-                    if let index = canvasRegionView.interactableViews.firstIndex(of: view) {
-                        canvasRegionView.interactableViews.remove(at: index)
-                    }
-                })
-                
-                selectedView = nil
-                actionPerformed = true
-            }
-        }
-        return actionPerformed
-    }
-    
-    @objc private func tapOnViewController(_ sender: UITapGestureRecognizer) {
-        
-        // only act on completed clicks
-        guard sender.state == .ended else {
-            return
-        }
-        
-        for canvasRegion in canvasRegionViews {
-            
-            // ensure the click was within the given region.
-            let regionClicked = canvasRegion.regionView.point(inside: sender.location(in: canvasRegion.regionView), with: nil)
-            guard regionClicked else {
-                continue
-            }
-            
-            // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
-            for view in canvasRegion.interactableViews.reversed() {
-                
-                // ensure the click was within the given interactableView
-                let viewClicked = view.point(inside: sender.location(in: view), with: nil)
-                guard viewClicked else {
-                    continue
-                }
-                
-                // since tap was within an interactableView, indicate that the tap was within a selectableView.
-                selectedViewObservingDelegate?.tapWasInSelectableView?()
-                
-                // delete the view if the click was within the delete icon
-                let deletedView = deleteButtonPressed(on: view, sender: sender)
-                
-                // don't continue after a successful delete
-                guard deletedView == false else {
-                    return
-                }
-                
-                // If click was within selected view, then deselect and return.
-                if let unwrappedView = selectedView, unwrappedView == view {
-                    selectedView = nil
-                    return
-                }
-                    // Otherwise set the clicked view as the selected view and return.
-                else {
-                    selectedView = view
-                    return
-                }
-            }
-        }
-        
-        //        // If click is within movableViews, set to first one.
-        //        // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
-        //        for view in allInteractableViews.reversed() {
-        //
-        //            let deletedView = deleteButtonPressed(on: view, sender: sender)
-        //
-        //            guard
-        //                sender.state == .ended,
-        //                deletedView == false
-        //                else {
-        //                    return
-        //            }
-        //
-        //            let viewClicked = view.point(inside: sender.location(in: view), with: nil)
-        //            guard viewClicked else {
-        //                continue
-        //            }
-        //            // If click was within selected view, then deselect and return.
-        //            if let unwrappedView = selectedView, unwrappedView == view {
-        //                selectedView = nil
-        //                return
-        //            }
-        //            // Otherwise set the clicked view as the selected view and return.
-        //            else {
-        //                selectedView = view
-        //                return
-        //            }
-        //        }
-        
-        // If click was not within any movableView, then set to nil (making all views deselected).
-        selectedView = nil
-    }
-}
-
-// MARK: Pan Gesture
-extension CanvasController {
-    
-    @objc private func panOnViewController(_ sender: UIPanGestureRecognizer) {
-        if sender.state == .ended {
-            hideAllAxisIndicators()
-            return
-        }
-        
-        moveSelectedViewAndShowIndicatorViewsIfNecessary(sender)
-    }
-    
-    private func hideAllAxisIndicators() {
-        allCanvasViews.forEach({
-            $0.hideCenterXIndication()
-            $0.hideCenterYIndication()
-        })
-    }
-    
-    private func moveSelectedViewAndShowIndicatorViewsIfNecessary(_ sender: UIPanGestureRecognizer) {
-        guard
-            let selectedView = selectedView,
-            let selectedRegion = canvasRegionViews.filter({ $0.interactableViews.contains(selectedView) }).first
-            else {
-                return
-        }
-        
-        assert(allCanvasViews.count > 0)
-        
-        for canvasView in selectedRegion.canvasViews {
-            // store the view's transform so that it can be reapplied after moving the view.
-            let transformToReapply = selectedView.transform
-            
-            // reset transform to allow proper directional navigation of object
-            selectedView.transform = CGAffineTransform.identity
-            
-            let translation = sender.translation(in: canvasView)
-            
-            //            var updatedOrigin = CGPoint(
-            //                x: selectedView.frame.origin.x + translation.x,
-            //                y: selectedView.frame.origin.y + translation.y
-            //            )
-            //
-            //            let centerX = canvasView.frame.origin.x + canvasView.frame.width / 2
-            //            if shouldLock(selectedView, toCenterX: centerX, usingSender: sender) {
-            //                updatedOrigin = CGPoint(x: centerX - selectedView.frame.width / 2, y: updatedOrigin.y)
-            //                canvasView.showCenterXIndication()
-            //            }
-            //            else {
-            //                canvasView.hideCenterXIndication()
-            //            }
-            
-            //            let centerY = canvasView.frame.origin.y + canvasView.frame.height / 2
-            //            if shouldLock(selectedView, toCenterY: centerY, usingSender: sender) {
-            //                updatedOrigin = CGPoint(x: updatedOrigin.x, y: centerY - selectedView.frame.height / 2)
-            //                canvasView.showCenterYIndication()
-            //            }
-            //            else {
-            //                canvasView.hideCenterYIndication()
-            //            }
-            
-            //            updatedOrigin = transformToBeOnScreen(updatedOrigin, for: selectedView, canvasRegionView: selectedRegion.regionView)
-            
-            // update sele
-            //            selectedView.constraints.forEach { constraint in
-            //                switch constraint.firstAttribute {
-            //                case .leading:
-            //                    constraint.constant += translation.x
-            //                case .top:
-            //                    constraint.constant += translation.y
-            //                default:
-            //                    return
-            //                }
-            //            }
-            
-            selectedView.superview?.constraints.forEach { constraint in
-                guard
-                    let view = constraint.firstItem as? UIView,
-                    view == selectedView
-                    else {
-                        return
-                }
-                switch constraint.firstAttribute {
-                case .leading:
-                    constraint.constant += translation.x
-                case .top:
-                    constraint.constant += translation.y
-                default:
-                    return
-                }
-            }
-            
-            
-            //            selectedView.frame.origin = updatedOrigin
-            
-            sender.setTranslation(.zero, in: canvasView)
-            
-            // return transform onto view in order to keep previous transformations on the view
-            selectedView.transform = transformToReapply
-        }
-    }
-    
-    private func isWithinVelocityRangeToEnableLocking(velocity: CGFloat) -> Bool {
-        return abs(velocity) > 50 && abs(velocity) < 150 //< absoluteVelocityEnablingLocking
-    }
-    
-    private func isWithinDistanceRangeToEnableLocking(distance: CGFloat) -> Bool {
-        return abs(distance) < absoluteDistanceEnablingLocking
-    }
-    
-    // X Axis
-    private func velocityIsWithinRangeToEnableLockingOnXAxis(sender: UIPanGestureRecognizer) -> Bool {
-        let velocityX = sender.velocity(in: gestureRecognizingView).x
-        return isWithinVelocityRangeToEnableLocking(velocity: velocityX)
-    }
-    
-    private func saidView(_ view: UIView, isWithinXAxisLockingEnablingDistanceRangeOf centerX: CGFloat) -> Bool {
-        let distance = view.center.x - centerX
-        return isWithinDistanceRangeToEnableLocking(distance: distance)
-    }
-    
-    private func shouldLock(_ selectedView: UIView, toCenterX centerX: CGFloat, usingSender sender: UIPanGestureRecognizer) -> Bool {
-        return
-            velocityIsWithinRangeToEnableLockingOnXAxis(sender: sender)
-                && saidView(selectedView, isWithinXAxisLockingEnablingDistanceRangeOf: centerX)
-    }
-    
-    // Y Axis
-    private func velocityIsWithinRangeToEnableLockingOnYAxis(sender: UIPanGestureRecognizer) -> Bool {
-        let velocityY = sender.velocity(in: gestureRecognizingView).y
-        return isWithinVelocityRangeToEnableLocking(velocity: velocityY)
-    }
-    
-    private func saidView(_ view: UIView, isWithinYAxisLockingEnablingDistanceRangeOf centerY: CGFloat) -> Bool {
-        let distance = view.center.y - centerY
-        return isWithinDistanceRangeToEnableLocking(distance: distance)
-    }
-    
-    private func shouldLock(_ selectedView: UIView, toCenterY centerY: CGFloat, usingSender sender: UIPanGestureRecognizer) -> Bool {
-        return
-            velocityIsWithinRangeToEnableLockingOnYAxis(sender: sender)
-                && saidView(selectedView, isWithinYAxisLockingEnablingDistanceRangeOf: centerY)
-    }
-    
-    // TODO: plf - will need to change from mainView to canvasRegionView
-    /// Make sure the given view is always on screen. The borderControlAmount determines how 'on-screen' the view should be kept. This function ensures that selected views are not moved extremely far off-screen when user is panning.
-    private func transformToBeOnScreen(_ origin: CGPoint, for view: UIView, canvasRegionView: UIView) -> CGPoint {
-        
-        let borderControlAmount: CGFloat = 2
-        
-        let minX = borderControlAmount - view.frame.width // canvasRegionView?
-        let minY = borderControlAmount - view.frame.height
-        let maxX = canvasRegionView.frame.maxX - borderControlAmount
-        let maxY = canvasRegionView.frame.maxY - borderControlAmount
-        
-        // Keep view's x coordinate between the beginning and end of mainView
-        var legitimateX: CGFloat
-        if origin.x < minX {
-            legitimateX = minX
-        }
-        else if origin.x > maxX {
-            legitimateX = maxX
-        }
-        else {
-            legitimateX = origin.x
-        }
-        
-        // Keep view's y coordinate between the beginning and end of mainView
-        var legitimateY: CGFloat
-        if origin.y < minY {
-            legitimateY = minY
-        }
-        else if origin.y > maxY {
-            legitimateY = maxY
-        }
-        else {
-            legitimateY = origin.y
-        }
-        
-        return CGPoint(x: legitimateX, y: legitimateY)
-    }
-}
-
-// MARK: Pinch Gesture
-extension CanvasController {
-    
-    @objc private func scaleSelectedView(_ sender: UIPinchGestureRecognizer) {
-        guard let selectedView = selectedView else {
-            return
-        }
-
-        var heightDifference: CGFloat?
-        var widthDifference: CGFloat?
-
-        // increase width and height according to scale
-        selectedView.constraints.forEach { constraint in
-            guard
-                let view = constraint.firstItem as? UIView,
-                view == selectedView
-                else {
-                    return
-            }
-            switch constraint.firstAttribute {
-            case .width:
-                let previousWidth = constraint.constant
-                constraint.constant = constraint.constant * sender.scale
-                widthDifference = constraint.constant - previousWidth
-            case .height:
-                let previousHeight = constraint.constant
-                constraint.constant = constraint.constant * sender.scale
-                heightDifference = constraint.constant - previousHeight
-            default:
-                return
-            }
-        }
-
-        // adjust leading and top anchors to keep view centered
-        selectedView.superview?.constraints.forEach { constraint in
-            guard
-                let view = constraint.firstItem as? UIView,
-                view == selectedView,
-                let heightDifference = heightDifference,
-                let widthDifference = widthDifference
-                else {
-                    return
-            }
-            switch constraint.firstAttribute {
-            case .leading:
-                constraint.constant = constraint.constant - widthDifference / 2
-            case .top:
-                constraint.constant = constraint.constant - heightDifference / 2
-            default:
-                return
-            }
-        }
-
-        // reset scale after applying in order to keep scaling linear rather than exponential
-        sender.scale = 1.0
-    }
-}
-
-// MARK: Rotate Gesture
-extension CanvasController {
-    
-    @objc private func rotateSelectedViewController(_ sender: UIRotationGestureRecognizer) {
-        guard let selectedView = selectedView else {
-            return
-        }
-        let t = CGAffineTransform(rotationAngle: sender.rotation).concatenating(selectedView.transform)
-        
-        let rotation = CGFloat(atan2(Double(t.b), Double(t.a)))
-        
-        let degree90: CGFloat = .pi / 2
-        let degree180: CGFloat = .pi
-        let degree270: CGFloat = (.pi * -1) / 2
-        
-        let near0 = abs(rotation) > -0.1 && abs(rotation) < 0.1
-        let near90 = rotation > degree90 - 0.1 && rotation < degree90 + 0.1
-        let near180 = abs(rotation) > degree180 - 0.1
-        let near270 = rotation > degree270 - 0.1 && rotation < degree270 + 0.1
-        
-        if abs(sender.velocity) < 0.2 {
-            if near0 {
-                selectedView.transform = CGAffineTransform(rotationAngle: -1 * rotation).concatenating(selectedView.transform)
-            }
-            else if near90 {
-                selectedView.transform = CGAffineTransform(rotationAngle: degree90 - rotation).concatenating(selectedView.transform)
-            }
-            else if near180 {
-                selectedView.transform = CGAffineTransform(rotationAngle: degree180 - rotation).concatenating(selectedView.transform)
-            }
-            else if near270 {
-                selectedView.transform = CGAffineTransform(rotationAngle: degree270 - rotation).concatenating(selectedView.transform)
-            }
-            else {
-                selectedView.transform = t
-            }
-        }
-        else {
-            selectedView.transform = t
-        }
-        
-        sender.rotation = 0
     }
 }
 
