@@ -45,9 +45,11 @@ final class ExampleCanvasCollectionViewController: UIViewController {
 
         canvasController.selectedViewObservingDelegate = self
         
-        var bundle = Bundle(identifier: "org.cocoapods.UNUMCanvas")
-        if let resourcePath = bundle?.path(forResource: "Media", ofType: "bundle") {
-            bundle = Bundle(path: resourcePath)!
+        var bundle = Bundle(for: CanvasController.self)
+        if let resourcePath = bundle.path(forResource: "UNUMCanvas", ofType: "bundle") {
+            if let resourcesBundle = Bundle(path: resourcePath) {
+                bundle = resourcesBundle
+            }
         }
         
         // Add imageView that should be interactable.
