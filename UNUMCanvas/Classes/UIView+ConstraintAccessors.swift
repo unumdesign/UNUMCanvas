@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal extension UIView {
+public extension UIView {
     
     private func getConstraint(from constraintView: UIView?, type: NSLayoutConstraint.Attribute) -> NSLayoutConstraint? {
         
