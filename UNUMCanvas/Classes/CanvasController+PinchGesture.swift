@@ -72,42 +72,30 @@ extension CanvasController {
                 topConstraint.constant = topConstraint.constant - heightDifference / 2
             }
         }
-        else {
-            print("neither")
+        else { // width and height not bound to each other; so each side should simply be scaled.
+            if let widthConstraint = selectedView.widthConstraint {
+                let previousWidth = widthConstraint.constant
+                widthConstraint.constant = widthConstraint.constant * sender.scale
+
+                let widthDifference = widthConstraint.constant - previousWidth
+
+                if let leadingConstraint = selectedView.leadingConstraint {
+                    leadingConstraint.constant = leadingConstraint.constant - widthDifference / 2
+                }
+            }
+
+
+            if let heightConstraint = selectedView.heightConstraint {
+                let previousHeight = heightConstraint.constant
+                heightConstraint.constant = heightConstraint.constant * sender.scale
+
+                let heightDifference = heightConstraint.constant - previousHeight
+
+                if let topConstraint = selectedView.topConstraint {
+                    topConstraint.constant = topConstraint.constant - heightDifference / 2
+                }
+            }
         }
-        
-//        // increase width and height according to scale
-//        if let widthConstraint = selectedView.widthConstraint {
-//            let previousWidth = widthConstraint.constant
-//            widthConstraint.constant = widthConstraint.constant * sender.scale
-//            widthDifference = widthConstraint.constant - previousWidth
-//        }
-//
-//
-//        if let heightConstraint = selectedView.heightConstraint {
-//            let previousHeight = heightConstraint.constant
-//            heightConstraint.constant = heightConstraint.constant * sender.scale
-//
-//            if
-//                let selectedImageView = selectedView as? UIImageView,
-//                let image = selectedImageView.image
-//            {
-//                let ratio = image.size.height / image.size.width
-//                heightDifference = widthDifference * ratio
-//            }
-//            else {
-//                heightDifference = heightConstraint.constant - previousHeight
-//            }
-//        }
-//
-//        // adjust leading and top anchors to keep view centered
-//        if let leadingConstraint = selectedView.leadingConstraint {
-//            leadingConstraint.constant = leadingConstraint.constant - widthDifference / 2
-//        }
-//
-//        if let topConstraint = selectedView.topConstraint {
-//            topConstraint.constant = topConstraint.constant - heightDifference / 2
-//        }
 
         // reset scale after applying in order to keep scaling linear rather than exponential
         sender.scale = 1.0
