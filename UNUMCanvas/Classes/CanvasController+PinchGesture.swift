@@ -48,7 +48,29 @@ extension CanvasController {
             selectedView.heightIsBoundToWidth,
             let widthConstraint = selectedView.widthConstraint
         {
-            print("heightIsboutntoWidth")
+            let previousWidth = widthConstraint.constant
+            let newWidth = widthConstraint.constant * sender.scale
+
+            widthConstraint.constant = newWidth
+
+            var ratio: CGFloat = 1.0
+            if
+                let selectedImageView = selectedView as? UIImageView,
+                let image = selectedImageView.image
+            {
+                ratio = image.size.height / image.size.width
+            }
+
+            let widthDifference = newWidth - previousWidth
+            let heightDifference = widthDifference * ratio
+
+            // adjust leading and top anchors to keep view centered
+            if let leadingConstraint = selectedView.leadingConstraint {
+                leadingConstraint.constant = leadingConstraint.constant - widthDifference / 2
+            }
+            if let topConstraint = selectedView.topConstraint {
+                topConstraint.constant = topConstraint.constant - heightDifference / 2
+            }
         }
         else {
             print("neither")
