@@ -70,7 +70,7 @@ public extension UIView {
     }
 }
 
-internal extension UIView {
+public extension UIView {
     private func getSuperviewConstraint(type: NSLayoutConstraint.Attribute) -> NSLayoutConstraint? {
         return getConstraint(from: self.superview, type: type)
     }
