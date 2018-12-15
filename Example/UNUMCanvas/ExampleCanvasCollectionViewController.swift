@@ -4,7 +4,7 @@ import Anchorage
 
 final class ExampleCanvasCollectionViewController: UIViewController {
     
-    private let canvasController = CanvasController()
+    private let canvasController = CanvasController(viewSelectionStyle: .image)
     private let canvasRegion = CanvasRegionView()
 
     private let collectionView: UICollectionView
@@ -112,9 +112,11 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2, interactableView3, interactableTextLabel])
         canvasRegion.regionView = view
         
-        canvasController.selectedView = interactableView3
         canvasController.gestureRecognizingView = collectionView
         canvasController.canvasRegionViews = [canvasRegion]
+
+
+        canvasController.selectedView = interactableView3
     }
 }
 
