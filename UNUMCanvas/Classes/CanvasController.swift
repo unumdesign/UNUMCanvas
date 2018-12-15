@@ -52,7 +52,7 @@ public class CanvasController: NSObject {
     /// The area interactable views are limited to and differentiates click-regions. If clicking in that region, then only interactableViews of that region should be considered interactable.
     public var canvasRegionViews: [CanvasRegionView] = []
     
-    private let viewSelectionStyle: ViewSelectionStyle
+    let viewSelectionStyle: ViewSelectionStyle
     
     public var selectedView: UIView? {
         didSet {
