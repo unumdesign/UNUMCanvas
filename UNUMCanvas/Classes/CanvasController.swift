@@ -34,6 +34,9 @@ class PanScalingType {
     
     /// An optional function indicating when a tap was in a selectableView. This is needed only when there are other entities that are handling tap events in the same clickable-area, such as if an interactableView is added on top of a tableView or a collectionView. This enables you to make sure to disable their tap events when the tap is within an interactableView.
     @objc optional func tapWasInSelectableView()
+    
+    /// An optional function that is called when the selectedView is removed from its superview. This function should be implemented if the removal is an event that needs to be handled. For example, if you need to add an "add" button to the canvasRegion when its interactableView is deleted, then you would do that using this function.
+    @objc optional func selectedViewWasRemoved(from superview: UIView)
 }
 
 public class CanvasRegionView {

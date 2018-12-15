@@ -21,7 +21,9 @@ extension CanvasController {
                     assertionFailure("There shouldn't be a delete button if there is no view selected")
                     return
                 }
-                
+                if let superview = selectView.superview {
+                    selectedViewObservingDelegate?.selectedViewWasRemoved?(from: superview)
+                }
                 selectView.removeFromSuperview()
                 
                 canvasRegionViews.forEach({ canvasRegionView in
