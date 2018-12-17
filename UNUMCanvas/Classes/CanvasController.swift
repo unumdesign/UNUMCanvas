@@ -30,6 +30,7 @@ class PanScalingType {
 }
 
 @objc public protocol SelectedViewObserving: AnyObject {
+    /// Indicates when there has been a change in which view is selected.
     func selectedValueChanged(to view: UIView?)
     
     /// An optional function indicating when a tap was in a selectableView. This is needed only when there are other entities that are handling tap events in the same clickable-area, such as if an interactableView is added on top of a tableView or a collectionView. This enables you to make sure to disable their tap events when the tap is within an interactableView.
