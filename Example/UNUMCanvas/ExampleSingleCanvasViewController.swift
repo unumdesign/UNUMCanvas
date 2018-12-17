@@ -4,7 +4,7 @@ import Anchorage
 
 final class ExampleSingleCanvasViewController: UIViewController {
     
-    private let canvasController = CanvasController()
+    private let canvasController = CanvasController(viewSelectionStyle: .image)
     private let canvasRegion = CanvasRegionView()
     
     private var interactableView1 = UIView()
@@ -44,8 +44,10 @@ final class ExampleSingleCanvasViewController: UIViewController {
         canvasRegion.canvasViews = [view]
         canvasRegion.regionView = view
         
-        canvasController.selectedView = interactableView1
         canvasController.gestureRecognizingView = view
         canvasController.canvasRegionViews = [canvasRegion]
+
+
+        canvasController.selectedView = interactableView1
     }
 }

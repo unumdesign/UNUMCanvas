@@ -1,6 +1,14 @@
 import UIKit
 import Anchorage
 
+public enum ViewSelectionStyle {
+    /// The selection-border and close button will be on the image itself
+    case image
+    
+    /// The selectionborder and close button will not be on the image, but the region containing the image.
+    case region
+}
+
 class PanScalingType {
     enum Vertical {
         case bottom
@@ -26,6 +34,9 @@ class PanScalingType {
     
     /// An optional function indicating when a tap was in a selectableView. This is needed only when there are other entities that are handling tap events in the same clickable-area, such as if an interactableView is added on top of a tableView or a collectionView. This enables you to make sure to disable their tap events when the tap is within an interactableView.
     @objc optional func tapWasInSelectableView()
+    
+    /// An optional function that is called when the selectedView is removed from its superview. This function should be implemented if the removal is an event that needs to be handled. For example, if you need to add an "add" button to the canvasRegion when its interactableView is deleted, then you would do that using this function.
+    @objc optional func selectedViewWasRemoved(from superview: UIView)
 }
 
 public class CanvasRegionView {
@@ -44,14 +55,26 @@ public class CanvasController: NSObject {
     /// The area interactable views are limited to and differentiates click-regions. If clicking in that region, then only interactableViews of that region should be considered interactable.
     public var canvasRegionViews: [CanvasRegionView] = []
     
+    let viewSelectionStyle: ViewSelectionStyle
+    
     public var selectedView: UIView? {
         didSet {
+            // remove selection showing view from all interactable views
             allInteractableViews.forEach({ interactableView in
                 interactableView.subviews.forEach { subview in
                     if let selectedView = subview as? SelectionShowingView {
                         selectedView.removeFromSuperview()
                     }
                 }
+            })
+            
+            // remove selection showing view from all regionViews
+            canvasRegionViews.forEach({ canvasRegionView in
+                canvasRegionView.regionView.subviews.forEach({ (subview) in
+                    if let selectedView = subview as? SelectionShowingView {
+                        selectedView.removeFromSuperview()
+                    }
+                })
             })
             
             addSelectionShowingView()
@@ -66,21 +89,38 @@ public class CanvasController: NSObject {
         guard let selectedView = selectedView else {
             return
         }
-            
+        
+        switch viewSelectionStyle {
+        case .image:
+            addSelectionShowingView(to: selectedView)
+            return
+        case .region:
+            for canvasRegionView in canvasRegionViews {
+                if canvasRegionView.interactableViews.contains(selectedView) {
+                    addSelectionShowingView(to: canvasRegionView.regionView)
+                    return
+                }
+            }
+        }
+        assertionFailure("Somehow there was no selectionView added.")
+    }
+    
+    private func addSelectionShowingView(to view: UIView) {
+        
         // store the view's transform so that it can be reapplied after moving the view.
-        let transformToReapply = selectedView.transform
+        let transformToReapply = view.transform
         
         // reset transform to allow proper directional navigation of object
-        selectedView.transform = CGAffineTransform.identity
+        view.transform = CGAffineTransform.identity
         
         let selectionShowingView = SelectionShowingView()
-        selectedView.addSubview(selectionShowingView)
-        selectionShowingView.topAnchor == selectedView.topAnchor
-        selectionShowingView.leadingAnchor == selectedView.leadingAnchor
-        selectionShowingView.sizeAnchors == selectedView.sizeAnchors
+        view.addSubview(selectionShowingView)
+        selectionShowingView.topAnchor == view.topAnchor
+        selectionShowingView.leadingAnchor == view.leadingAnchor
+        selectionShowingView.sizeAnchors == view.sizeAnchors
         
         // return transform onto view in order to keep previous transformations on the view
-        selectedView.transform = transformToReapply
+        view.transform = transformToReapply
     }
     
     public weak var selectedViewObservingDelegate: SelectedViewObserving?
@@ -113,7 +153,8 @@ public class CanvasController: NSObject {
     private var rotationGesture = UIRotationGestureRecognizer()
     
     
-    public override init() {
+    public init(viewSelectionStyle: ViewSelectionStyle) {
+        self.viewSelectionStyle = viewSelectionStyle
         super.init()
     }
     

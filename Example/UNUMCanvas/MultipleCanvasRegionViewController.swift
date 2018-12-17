@@ -4,7 +4,7 @@ import Anchorage
 
 final class MultipleCanvasRegionViewController: UIViewController {
     
-    private let canvasController = CanvasController()
+    private let canvasController = CanvasController(viewSelectionStyle: .region)
     private let canvasRegion1 = CanvasRegionView()
     private let canvasRegion2 = CanvasRegionView()
     
@@ -35,9 +35,15 @@ final class MultipleCanvasRegionViewController: UIViewController {
         // first region
         region1View = UIView()
         view.addSubview(region1View)
-        region1View.topAnchor == view.topAnchor
+        if #available(iOS 11.0, *) {
+            region1View.topAnchor == view.safeAreaLayoutGuide.topAnchor
+            region1View.bottomAnchor == view.safeAreaLayoutGuide.bottomAnchor
+        } else {
+            region1View.topAnchor == view.topAnchor
+            region1View.bottomAnchor == view.bottomAnchor
+        }
         region1View.leadingAnchor == view.leadingAnchor
-        region1View.sizeAnchors == CGSize(width: halfWidth, height: view.frame.height)
+        region1View.widthAnchor == halfWidth
         
         region1View.backgroundColor = .lightGray
         region1View.clipsToBounds = true
@@ -47,9 +53,15 @@ final class MultipleCanvasRegionViewController: UIViewController {
         region2View = UIView()
         view.addSubview(region2View)
         
-        region2View.topAnchor == view.topAnchor
+        if #available(iOS 11.0, *) {
+            region2View.topAnchor == view.safeAreaLayoutGuide.topAnchor
+            region2View.bottomAnchor == view.safeAreaLayoutGuide.bottomAnchor
+        } else {
+            region2View.topAnchor == view.topAnchor
+            region2View.bottomAnchor == view.bottomAnchor
+        }
         region2View.leadingAnchor == view.leadingAnchor + halfwayLocation
-        region2View.sizeAnchors == CGSize(width: halfWidth, height: view.frame.height)
+        region2View.widthAnchor == halfWidth
         
         region2View.clipsToBounds = true
         region2View.backgroundColor = .darkGray
@@ -87,8 +99,10 @@ final class MultipleCanvasRegionViewController: UIViewController {
         
         
         // finish setup of canvasController
-        canvasController.selectedView = interactableView1
         canvasController.gestureRecognizingView = view
         canvasController.canvasRegionViews = [canvasRegion1, canvasRegion2]
+        
+        
+        canvasController.selectedView = interactableView1
     }
 }
