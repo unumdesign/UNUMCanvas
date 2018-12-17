@@ -11,12 +11,17 @@ import Foundation
 extension CanvasController {
     
     @objc func panOnViewController(_ sender: UIPanGestureRecognizer) {
-        if sender.state == .ended {
-            hideAllAxisIndicators()
+        guard let selectedView = selectedView else {
             return
         }
         
-        moveSelectedViewAndShowIndicatorViewsIfNecessary(sender)
+        if sender.state == .ended {
+            hideAllAxisIndicators()
+            indicateViewWasModified()
+            return
+        }
+        
+        moveSelectedViewAndShowIndicatorViewsIfNecessary(sender, selectedView: selectedView)
     }
     
     private func hideAllAxisIndicators() {
@@ -26,13 +31,10 @@ extension CanvasController {
         })
     }
     
-    func moveSelectedViewAndShowIndicatorViewsIfNecessary(_ sender: UIPanGestureRecognizer) {
+    private func moveSelectedViewAndShowIndicatorViewsIfNecessary(_ sender: UIPanGestureRecognizer, selectedView: UIView) {
         assert(allCanvasViews.count > 0)
-        guard
-            let selectedView = selectedView,
-            let selectedRegion = canvasRegionViews.filter({ $0.interactableViews.contains(selectedView) }).first
-            else {
-                return
+        guard let selectedRegion = canvasRegionViews.filter({ $0.interactableViews.contains(selectedView) }).first else {
+            return
         }
         
         let location = sender.location(in: selectedView)

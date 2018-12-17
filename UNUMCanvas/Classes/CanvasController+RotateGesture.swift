@@ -14,6 +14,7 @@ extension CanvasController {
         guard let selectedView = selectedView else {
             return
         }
+        
         let t = CGAffineTransform(rotationAngle: sender.rotation).concatenating(selectedView.transform)
         
         let rotation = CGFloat(atan2(Double(t.b), Double(t.a)))
@@ -49,5 +50,9 @@ extension CanvasController {
         }
         
         sender.rotation = 0
+        
+        if sender.state == .ended {
+            indicateViewWasModified()
+        }
     }
 }
