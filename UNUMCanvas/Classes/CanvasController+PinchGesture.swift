@@ -54,5 +54,9 @@ extension CanvasController {
         
         // reset scale after applying in order to keep scaling linear rather than exponential
         sender.scale = 1.0
+        
+        if sender.state == .ended {
+            indicateViewWasModified()
+        }
     }
 }

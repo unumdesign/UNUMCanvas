@@ -37,6 +37,10 @@ class PanScalingType {
     
     /// An optional function that is called when the selectedView is removed from its superview. This function should be implemented if the removal is an event that needs to be handled. For example, if you need to add an "add" button to the canvasRegion when its interactableView is deleted, then you would do that using this function.
     @objc optional func selectedViewWasRemoved(from superview: UIView)
+
+    /// An optional function indicating when a view has been modified in any way -- rotated, scaled, or moved.
+    @objc optional func viewWasModified(view: UIView)
+
 }
 
 public class CanvasRegionView {
@@ -172,6 +176,21 @@ public class CanvasController: NSObject {
             gestureRecognizingView.addGestureRecognizer(gesture)
             gesture.delegate = self
         }
+    }
+    
+    var debounceTimer: Timer?
+    func indicateViewWasModified() {
+        debounceTimer?.invalidate()
+        debounceTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(sendNotificationThatSelectedViewWasModified), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func sendNotificationThatSelectedViewWasModified() {
+        // This may cause bugs but I don't think that it is likely. Because of the delay of the debounce timer, it is possible that the selectedView could be set to nil before this function is called. However, the selectedView only gets set to nil on taps, and so this seems unlikely. An assertionFailure has been added here just in case since, if this ever occurs, then it needs to be handled better.
+        guard let selectedView = selectedView else {
+            assertionFailure()
+            return
+        }
+        selectedViewObservingDelegate?.viewWasModified?(view: selectedView)
     }
 }
 

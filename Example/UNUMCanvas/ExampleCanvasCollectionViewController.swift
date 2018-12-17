@@ -171,4 +171,8 @@ extension ExampleCanvasCollectionViewController: SelectedViewObserving {
     func tapWasInSelectableView() {
         skipTapEventOnce = true
     }
+    
+    func viewWasModified(view: UIView) {
+        print("view was modified")
+    }
 }
