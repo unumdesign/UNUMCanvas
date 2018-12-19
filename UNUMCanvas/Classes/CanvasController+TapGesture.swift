@@ -87,8 +87,23 @@ extension CanvasController {
     /// Return true if the tap resulted in a view selection-event
     /// Return false if the tap did not result in any view selection-event
     func handleTapEventInImage(in canvasRegion: CanvasRegionView, sender: UITapGestureRecognizer) -> Bool {
-        // 'Reversed' makes sure the view at the highest layer is selected rather than views farther down.
-        for view in canvasRegion.interactableViews.reversed() {
+
+        let interactableViewsOrderedByViewZLayering = canvasRegion.interactableViews.sorted { (first, second) -> Bool in
+            guard
+                let firstSuperview = first.superview,
+                let secondSuperview = second.superview,
+                firstSuperview == secondSuperview, // should both be in same view hierarchy. If not, maintain original order.
+                let firstsIndexPosition = firstSuperview.subviews.firstIndex(of: first),
+                let secondsIndexPosition = secondSuperview.subviews.firstIndex(of: second)
+                else {
+                    assertionFailure("This doesn't seem like it should be possible except by improperly setting up the Canvas. assertion here to investigate if it ever does occur.")
+                    return true
+            }
+            return firstsIndexPosition > secondsIndexPosition // The greater the index position, the higher in the view hierarchy
+        }
+
+
+        for view in interactableViewsOrderedByViewZLayering {
             
             // ensure the click was within the given interactableView
             let viewClicked = view.point(inside: sender.location(in: view), with: nil)
