@@ -46,7 +46,21 @@ extension CanvasController {
             return
         }
         
-        for canvasRegion in canvasRegionViews {
+        let regionViewsOrderedByViewZLayering = canvasRegionViews.sorted { (first, second) -> Bool in
+            guard
+                let firstSuperview = first.regionView.superview,
+                let secondSuperview = second.regionView.superview,
+                firstSuperview == secondSuperview, // should both be in same view hierarchy. If not, maintain original order.
+                let firstsIndexPosition = firstSuperview.subviews.firstIndex(of: first.regionView),
+                let secondsIndexPosition = secondSuperview.subviews.firstIndex(of: second.regionView)
+                else {
+                    assertionFailure("This doesn't seem like it should be possible except by improperly setting up the Canvas. assertion here to investigate if it ever does occur.")
+                    return true
+            }
+            return firstsIndexPosition > secondsIndexPosition // The greater the index position, the higher in the view hierarchy
+        }
+
+        for canvasRegion in regionViewsOrderedByViewZLayering {
             
             // ensure the click was within the given region.
             let regionClicked = canvasRegion.regionView.point(inside: sender.location(in: canvasRegion.regionView), with: nil)
