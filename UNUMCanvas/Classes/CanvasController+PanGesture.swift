@@ -45,12 +45,13 @@ extension CanvasController {
             setScalingType(relativeLocation: relativeLocation)
         }
         
-        if panScalingType.horizontal == .notActivated && panScalingType.vertical == .notActivated {
-            moveView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
-            return
-        }
-        
-        scaleView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
+        // will be reactivated with https://unumdesign.atlassian.net/browse/IOS-105
+//        if panScalingType.horizontal == .notActivated && panScalingType.vertical == .notActivated {
+        moveView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
+//            return
+//        }
+//
+//        scaleView(sender, selectedView: selectedView, selectedRegion: selectedRegion)
     }
     
     private func setScalingType(relativeLocation: PaningRelativeLocation) {
