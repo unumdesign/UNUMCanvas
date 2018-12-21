@@ -46,6 +46,7 @@ extension CanvasController {
             return
         }
         
+        // CanvasRegions for different pages will not have the same superview. Therefore they won't be sorted against each other. This shouldn't cause any issues, though, because a tap will only occur in one particular page, and those canvasRegions will be ordered appropriately against themselves.
         let regionViewsOrderedByViewZLayering = canvasRegionViews.sorted { (first, second) -> Bool in
             guard
                 let firstSuperview = first.regionView.superview,
@@ -54,7 +55,6 @@ extension CanvasController {
                 let firstsIndexPosition = firstSuperview.subviews.firstIndex(of: first.regionView),
                 let secondsIndexPosition = secondSuperview.subviews.firstIndex(of: second.regionView)
                 else {
-                    assertionFailure("This doesn't seem like it should be possible except by improperly setting up the Canvas. assertion here to investigate if it ever does occur.")
                     return true
             }
             return firstsIndexPosition > secondsIndexPosition // The greater the index position, the higher in the view hierarchy
@@ -88,6 +88,7 @@ extension CanvasController {
     /// Return false if the tap did not result in any view selection-event
     func handleTapEventInImage(in canvasRegion: CanvasRegionView, sender: UITapGestureRecognizer) -> Bool {
 
+        // CanvasRegions for different pages will not have the same superview. Therefore they won't be sorted against each other. This shouldn't cause any issues, though, because a tap will only occur in one particular page, and those canvasRegions will be ordered appropriately against themselves.
         let interactableViewsOrderedByViewZLayering = canvasRegion.interactableViews.sorted { (first, second) -> Bool in
             guard
                 let firstSuperview = first.superview,
@@ -96,7 +97,6 @@ extension CanvasController {
                 let firstsIndexPosition = firstSuperview.subviews.firstIndex(of: first),
                 let secondsIndexPosition = secondSuperview.subviews.firstIndex(of: second)
                 else {
-                    assertionFailure("This doesn't seem like it should be possible except by improperly setting up the Canvas. assertion here to investigate if it ever does occur.")
                     return true
             }
             return firstsIndexPosition > secondsIndexPosition // The greater the index position, the higher in the view hierarchy
