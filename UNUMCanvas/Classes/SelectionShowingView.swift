@@ -8,7 +8,7 @@
 import Foundation
 import Anchorage
 
-final class SelectionShowingView: UIView {
+public final class SelectionShowingView: UIView {
 
     let closeImageView: UIImageView
     
