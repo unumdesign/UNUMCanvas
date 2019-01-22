@@ -1,6 +1,6 @@
 PODS:
   - Anchorage (4.3)
-  - UNUMCanvas (2.0.3):
+  - UNUMCanvas (2.1.2):
     - Anchorage
 
 DEPENDENCIES:
@@ -17,7 +17,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Anchorage: 21a98675245188427f0bcea21404d42a824a766f
-  UNUMCanvas: 4dc54a1da997d9a1bf7c0bbbec997e758bcb19b3
+  UNUMCanvas: 9efa97ff321b65b577fb31b616cbd662c000e06d
 
 PODFILE CHECKSUM: 1f8ab7093a7b85f96cfab8966b0d833dfb39b221
 
