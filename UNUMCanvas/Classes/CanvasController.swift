@@ -61,26 +61,13 @@ public class CanvasController: NSObject {
     public var canvasRegionViews: [CanvasRegionView] = []
     
     let viewSelectionStyle: ViewSelectionStyle
+    var selectionShowingView: SelectionShowingView?
     
     public var selectedView: UIView? {
         didSet {
             // remove selection showing view from all interactable views
-            allInteractableViews.forEach({ interactableView in
-                interactableView.subviews.forEach { subview in
-                    if let selectedView = subview as? SelectionShowingView {
-                        selectedView.removeFromSuperview()
-                    }
-                }
-            })
-            
-            // remove selection showing view from all regionViews
-            canvasRegionViews.forEach({ canvasRegionView in
-                canvasRegionView.regionView.subviews.forEach({ (subview) in
-                    if let selectedView = subview as? SelectionShowingView {
-                        selectedView.removeFromSuperview()
-                    }
-                })
-            })
+            selectionShowingView?.removeFromSuperview()
+            selectionShowingView = nil
             
             addSelectionShowingView()
             
@@ -109,6 +96,23 @@ public class CanvasController: NSObject {
         }
         assertionFailure("Somehow there was no selectionView added.")
     }
+
+    private func addSelectionIndicatingView(toRegion regionView: UIView) {
+        let selectionShowingView = SelectionShowingView()
+        self.selectionShowingView = selectionShowingView
+
+        // region view is where the interactiveView is. RegionView itself is in a canvasView. We save the image of the canvasView; so we have to add the indication view to the superview of the canvasView.
+        guard let parent = regionView.superview?.superview else {
+            assertionFailure()
+            return
+        }
+
+        parent.addSubview(selectionShowingView)
+        selectionShowingView.topAnchor == regionView.topAnchor
+        selectionShowingView.leadingAnchor == regionView.leadingAnchor
+        selectionShowingView.sizeAnchors == regionView.sizeAnchors
+
+    }
     
     private func addSelectionShowingView(to view: UIView) {
         
@@ -119,6 +123,8 @@ public class CanvasController: NSObject {
         view.transform = CGAffineTransform.identity
         
         let selectionShowingView = SelectionShowingView()
+        self.selectionShowingView = selectionShowingView
+
         view.addSubview(selectionShowingView)
         selectionShowingView.topAnchor == view.topAnchor
         selectionShowingView.leadingAnchor == view.leadingAnchor
