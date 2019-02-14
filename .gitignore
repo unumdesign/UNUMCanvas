@@ -35,4 +35,6 @@ Carthage/Build
 # `pod install` in .travis.yml
 #
 Pods/
+!Pods/Pods.xcodeproj/project.pbxproj
+
 Podfile.lock
