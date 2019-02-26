@@ -14,6 +14,8 @@ extension CanvasController {
         guard let selectedView = selectedView else {
             return
         }
+
+        updateTapGestureEnabledStateBasedOnOpposite(of: sender)
         
         if sender.state == .ended {
             hideAllAxisIndicators()
@@ -22,6 +24,15 @@ extension CanvasController {
         }
         
         moveSelectedViewAndShowIndicatorViewsIfNecessary(sender, selectedView: selectedView)
+    }
+
+    private func updateTapGestureEnabledStateBasedOnOpposite(of sender: UIPanGestureRecognizer) {
+        if sender.state == .began {
+            tapGesture.isEnabled = false
+        }
+        else if sender.state == .ended {
+            tapGesture.isEnabled = true
+        }
     }
     
     private func hideAllAxisIndicators() {

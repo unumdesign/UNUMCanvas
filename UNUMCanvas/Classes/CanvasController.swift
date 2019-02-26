@@ -158,7 +158,7 @@ public class CanvasController: NSObject {
     let absoluteVelocityEnablingLocking: CGFloat = 100
     let absoluteDistanceEnablingLocking: CGFloat = 20
 
-    private var tapGesture = UITapGestureRecognizer()
+    var tapGesture = UITapGestureRecognizer()
     private var panGesture = UIPanGestureRecognizer()
     private var pinchGesture = UIPinchGestureRecognizer()
     private var rotationGesture = UIRotationGestureRecognizer()
