@@ -38,3 +38,5 @@ Pods/
 !Pods/Pods.xcodeproj/project.pbxproj
 
 Podfile.lock
+
+Example/fastlane/report.xml
