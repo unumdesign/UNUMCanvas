@@ -27,12 +27,12 @@ extension CanvasController {
     }
 
     private func updateTapGestureEnabledStateBasedOnOpposite(of sender: UIPanGestureRecognizer) {
-        if sender.state == .began {
-            tapGesture.isEnabled = false
-        }
-        else if sender.state == .ended {
-            tapGesture.isEnabled = true
-        }
+//        if sender.state == .began {
+//            tapGesture.isEnabled = false
+//        }
+//        else if sender.state == .ended {
+//            tapGesture.isEnabled = true
+//        }
     }
     
     private func hideAllAxisIndicators() {

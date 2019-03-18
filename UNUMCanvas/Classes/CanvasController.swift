@@ -203,6 +203,10 @@ public class CanvasController: NSObject {
 
 extension CanvasController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+
+        if gestureRecognizer is UITapGestureRecognizer {
+            return false
+        }
         return true
     }
 }
