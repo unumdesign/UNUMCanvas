@@ -1,5 +1,6 @@
 import UIKit
 import Anchorage
+import AVKit
 
 public enum ViewSelectionStyle {
     /// The selection-border and close button will be on the image itself
@@ -71,8 +72,26 @@ public class CanvasController: NSObject {
 
             addSelectionShowingView()
 
+            pauseVideoIfThereIsOne(on: oldValue)
+            playVideoIfThereIsOne(on: selectedView)
+
             selectedViewObservingDelegate?.selectedValueChanged(to: selectedView)
         }
+    }
+
+    private func pauseVideoIfThereIsOne(on view: UIView?) {
+        guard let playerLayer = view?.layer as? AVPlayerLayer else {
+            return
+        }
+        playerLayer.player?.pause()
+    }
+
+    private func playVideoIfThereIsOne(on view: UIView?) {
+        guard let playerLayer = view?.layer as? AVPlayerLayer else {
+            return
+        }
+        playerLayer.player?.seek(to: CMTime.zero)
+        playerLayer.player?.play()
     }
 
     var panScalingType = PanScalingType(vertical: .notActivated, horizontal: .notActivated)
