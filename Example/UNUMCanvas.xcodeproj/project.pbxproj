@@ -288,7 +288,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-UNUMCanvas_Example/Pods-UNUMCanvas_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-UNUMCanvas_Example/Pods-UNUMCanvas_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Anchorage/Anchorage.framework",
 				"${BUILT_PRODUCTS_DIR}/UNUMCanvas/UNUMCanvas.framework",
 			);
@@ -299,7 +299,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UNUMCanvas_Example/Pods-UNUMCanvas_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UNUMCanvas_Example/Pods-UNUMCanvas_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A62F0FBCF1DDD098FAA48DFA /* [CP] Check Pods Manifest.lock */ = {
