@@ -9,8 +9,8 @@ import Foundation
 import Anchorage
 
 public final class SelectionShowingView: UIView {
-
     let closeImageView: UIImageView
+    let selectionViewMediaType: MediaType
     
     private func addCloseButton() {
         addSubview(closeImageView)
@@ -19,7 +19,7 @@ public final class SelectionShowingView: UIView {
         closeImageView.trailingAnchor == trailingAnchor - 5
     }
     
-    init() {
+    init(mediaType: MediaType) {
         var bundle = Bundle(for: SelectionShowingView.self)
         if let resourcePath = bundle.path(forResource: "UNUMCanvas", ofType: "bundle") {
             if let resourcesBundle = Bundle(path: resourcePath) {
@@ -28,6 +28,8 @@ public final class SelectionShowingView: UIView {
         }
         let closeImage = UIImage(named: "deleteImageIcon", in: bundle, compatibleWith: nil)
         closeImageView = UIImageView(image: closeImage)
+
+        self.selectionViewMediaType = mediaType
         
         super.init(frame: .zero)
 
@@ -36,7 +38,13 @@ public final class SelectionShowingView: UIView {
     
     private func layoutView() {
         layer.borderWidth = 4
+
         layer.borderColor = UIColor.blue.cgColor
+
+        if selectionViewMediaType == .video {
+            layer.borderColor = UIColor.red.cgColor
+        }
+
         addCloseButton()
     }
 

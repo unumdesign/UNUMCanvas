@@ -4,7 +4,7 @@ import AVKit
 
 public enum ViewSelectionStyle {
     /// The selection-border and close button will be on the image itself
-    case image
+    case media
 
     /// The selectionborder and close button will not be on the image, but the region containing the image.
     case region
@@ -102,7 +102,7 @@ public class CanvasController: NSObject {
         }
 
         switch viewSelectionStyle {
-        case .image:
+        case .media:
             addSelectionShowingView(to: selectedView)
             return
         case .region:
@@ -117,7 +117,7 @@ public class CanvasController: NSObject {
     }
 
     private func addSelectionIndicatingView(toRegion regionView: UIView) {
-        let selectionShowingView = SelectionShowingView()
+        let selectionShowingView = SelectionShowingView(mediaType: regionView.mediaType)
         self.selectionShowingView = selectionShowingView
 
         // region view is where the interactiveView is. RegionView itself is in a canvasView. We save the image of the canvasView; so we have to add the indication view to the superview of the canvasView.
@@ -141,7 +141,7 @@ public class CanvasController: NSObject {
         // reset transform to allow proper directional navigation of object
         view.transform = CGAffineTransform.identity
 
-        let selectionShowingView = SelectionShowingView()
+        let selectionShowingView = SelectionShowingView(mediaType: view.mediaType)
         self.selectionShowingView = selectionShowingView
 
         view.addSubview(selectionShowingView)

@@ -68,7 +68,7 @@ extension CanvasController {
             }
 
             switch viewSelectionStyle {
-            case .image:
+            case .media:
                 if handleTapEventInImage(in: canvasRegion, sender: sender) {
                     return
                 }
