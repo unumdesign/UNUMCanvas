@@ -8,6 +8,16 @@
 import Foundation
 import Anchorage
 
+internal var bundle: Bundle {
+    var bundle = Bundle(for: SelectionShowingView.self)
+    if let resourcePath = bundle.path(forResource: "UNUMCanvas", ofType: "bundle") {
+        if let resourcesBundle = Bundle(path: resourcePath) {
+            bundle = resourcesBundle
+        }
+    }
+    return bundle
+}
+
 public final class SelectionShowingView: UIView {
     let closeImageView: UIImageView
     let volumeButton: UIImageView
@@ -29,19 +39,20 @@ public final class SelectionShowingView: UIView {
     }
     
     init(mediaType: MediaType) {
-        var bundle = Bundle(for: SelectionShowingView.self)
-        if let resourcePath = bundle.path(forResource: "UNUMCanvas", ofType: "bundle") {
-            if let resourcesBundle = Bundle(path: resourcePath) {
-                bundle = resourcesBundle
-            }
-        }
+
         let closeImage = UIImage(named: "deleteImageIcon", in: bundle, compatibleWith: nil)
         closeImageView = UIImageView(image: closeImage)
 
         self.selectionViewMediaType = mediaType
 
-        volumeButton = UIImageView(image: closeImage)
-        
+        let volumeImage = UIImage(named: "Volume", in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        volumeButton = UIImageView(image: volumeImage)
+        volumeButton.tintColor = .black
+        volumeButton.backgroundColor = .white
+        volumeButton.layer.borderColor = UIColor.black.cgColor
+        volumeButton.layer.cornerRadius = 20
+        volumeButton.layer.borderWidth = 2
+
         super.init(frame: .zero)
 
         layoutView()
@@ -52,7 +63,7 @@ public final class SelectionShowingView: UIView {
 
         layer.borderColor = UIColor.blue.cgColor
 
-        if selectionViewMediaType == .image {
+        if selectionViewMediaType == .video {
             addVolumeButton()
         }
 
