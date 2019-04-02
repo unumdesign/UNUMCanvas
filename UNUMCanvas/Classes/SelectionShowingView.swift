@@ -46,11 +46,9 @@ public final class SelectionShowingView: UIView {
 
         let volumeImage = UIImage(named: "Volume", in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
         volumeButton = UIImageView(image: volumeImage)
-        volumeButton.tintColor = .black
-        volumeButton.backgroundColor = .white
-        volumeButton.layer.borderColor = UIColor.black.cgColor
+        volumeButton.tintColor = .white
+        volumeButton.backgroundColor = .init(white: 0.0, alpha: 0.7)
         volumeButton.layer.cornerRadius = 20
-        volumeButton.layer.borderWidth = 2
 
         super.init(frame: .zero)
 
