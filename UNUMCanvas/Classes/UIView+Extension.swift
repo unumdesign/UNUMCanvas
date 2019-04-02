@@ -7,3 +7,23 @@
 //
 import Foundation
 
+internal extension UIView {
+
+    enum MediaType {
+        case video
+        case image
+        case view
+    }
+
+    var mediaType: MediaType {
+        if self is AVPlayerView {
+            return .video
+        }
+        else if self is UIImageView {
+            return .image
+        }
+        else {
+            return .view
+        }
+    }
+}
