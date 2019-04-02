@@ -10,6 +10,7 @@ import Anchorage
 
 public final class SelectionShowingView: UIView {
     let closeImageView: UIImageView
+    let volumeButton: UIImageView
     let selectionViewMediaType: MediaType
     
     private func addCloseButton() {
@@ -17,6 +18,14 @@ public final class SelectionShowingView: UIView {
         closeImageView.sizeAnchors == CGSize(width: 40, height: 40)
         closeImageView.topAnchor == topAnchor + 5
         closeImageView.trailingAnchor == trailingAnchor - 5
+    }
+
+    private func addVolumeButton() {
+        addSubview(volumeButton)
+        volumeButton.sizeAnchors == CGSize(width: 40, height: 40)
+        volumeButton.bottomAnchor == bottomAnchor - 5
+        volumeButton.trailingAnchor == trailingAnchor - 5
+
     }
     
     init(mediaType: MediaType) {
@@ -30,6 +39,8 @@ public final class SelectionShowingView: UIView {
         closeImageView = UIImageView(image: closeImage)
 
         self.selectionViewMediaType = mediaType
+
+        volumeButton = UIImageView(image: closeImage)
         
         super.init(frame: .zero)
 
@@ -41,8 +52,8 @@ public final class SelectionShowingView: UIView {
 
         layer.borderColor = UIColor.blue.cgColor
 
-        if selectionViewMediaType == .video {
-            layer.borderColor = UIColor.red.cgColor
+        if selectionViewMediaType == .image {
+            addVolumeButton()
         }
 
         addCloseButton()

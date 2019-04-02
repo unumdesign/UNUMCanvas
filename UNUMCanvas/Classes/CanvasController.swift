@@ -108,7 +108,7 @@ public class CanvasController: NSObject {
         case .region:
             for canvasRegionView in canvasRegionViews {
                 if canvasRegionView.interactableViews.contains(selectedView) {
-                    addSelectionIndicatingView(toRegion: canvasRegionView.regionView)
+                    addSelectionIndicatingView(toRegion: canvasRegionView.regionView, for: selectedView.mediaType)
                     return
                 }
             }
@@ -116,8 +116,8 @@ public class CanvasController: NSObject {
         assertionFailure("Somehow there was no selectionView added.")
     }
 
-    private func addSelectionIndicatingView(toRegion regionView: UIView) {
-        let selectionShowingView = SelectionShowingView(mediaType: regionView.mediaType)
+    private func addSelectionIndicatingView(toRegion regionView: UIView, for mediaType: UIView.MediaType) {
+        let selectionShowingView = SelectionShowingView(mediaType: mediaType)
         self.selectionShowingView = selectionShowingView
 
         // region view is where the interactiveView is. RegionView itself is in a canvasView. We save the image of the canvasView; so we have to add the indication view to the superview of the canvasView.
