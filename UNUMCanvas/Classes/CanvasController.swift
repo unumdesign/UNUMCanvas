@@ -43,6 +43,7 @@ class PanScalingType {
     /// An optional function indicating when a view has been modified in any way -- rotated, scaled, or moved.
     @objc optional func viewWasModified(view: UIView)
 
+    @objc optional func tapWasInVolumeButton()
 }
 
 public class CanvasRegionView {

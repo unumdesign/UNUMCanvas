@@ -38,6 +38,22 @@ extension CanvasController {
         return selectedViewWasDeleted
     }
 
+    @objc func volumeButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
+        guard
+            let selectionShowingView = selectionShowingView,
+            let selectedView = selectedView,
+            let superview = selectedView.superview
+            else {
+                return false
+        }
+
+        if selectionShowingView.volumeButton.bounds.contains(sender.location(in: selectionShowingView.volumeButton)) {
+            return true
+        }
+
+        return false
+    }
+
     @objc func tapOnViewController(_ sender: UITapGestureRecognizer) {
 
         // only act on completed clicks
@@ -121,6 +137,13 @@ extension CanvasController {
                 return true
             }
 
+            // if the click was within volume button, then handle volume
+            if volumeButtonPressed(on: view, sender: sender) {
+                print("handle volume toggle")
+                selectedViewObservingDelegate?.tapWasInVolumeButton?()
+                return true
+            }
+
             // If click was within selected view, then deselect and return.
             if let unwrappedView = selectedView, unwrappedView == view {
                 selectedView = nil
@@ -163,6 +186,13 @@ extension CanvasController {
 
         // don't continue after a successful delete
         if viewWasDeleted {
+            return true
+        }
+
+        // if the click was within volume button, then handle volume
+        if volumeButtonPressed(on: canvasRegion.regionView, sender: sender) {
+            print("handle volume toggle")
+            selectedViewObservingDelegate?.tapWasInVolumeButton?()
             return true
         }
 

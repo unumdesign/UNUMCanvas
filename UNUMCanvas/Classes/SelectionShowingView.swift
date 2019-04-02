@@ -35,7 +35,6 @@ public final class SelectionShowingView: UIView {
         volumeButton.sizeAnchors == CGSize(width: 40, height: 40)
         volumeButton.bottomAnchor == bottomAnchor - 5
         volumeButton.trailingAnchor == trailingAnchor - 5
-
     }
     
     init(mediaType: MediaType) {
