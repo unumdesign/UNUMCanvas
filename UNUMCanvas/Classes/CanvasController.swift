@@ -107,7 +107,7 @@ public class CanvasController: NSObject {
         case .region:
             for canvasRegionView in canvasRegionViews {
                 if canvasRegionView.interactableViews.contains(selectedView) {
-                    addSelectionIndicatingView(toRegion: canvasRegionView.regionView, for: selectedView.mediaType)
+                    addSelectionIndicatingView(toRegion: canvasRegionView.regionView, for: selectedView)
                     return
                 }
             }
@@ -115,21 +115,15 @@ public class CanvasController: NSObject {
         assertionFailure("Somehow there was no selectionView added.")
     }
 
-    private func addSelectionIndicatingView(toRegion regionView: UIView, for mediaType: UIView.MediaType) {
-        let selectionShowingView = SelectionShowingView(mediaType: mediaType)
-        self.selectionShowingView = selectionShowingView
+    private func addSelectionIndicatingView(toRegion regionView: UIView, for mediaContainingView: UIView) {
 
         // region view is where the interactiveView is. RegionView itself is in a canvasView. We save the image of the canvasView; so we have to add the indication view to the superview of the canvasView.
-        guard let parent = regionView.superview?.superview else {
+        guard let parentView = regionView.superview?.superview else {
             assertionFailure()
             return
         }
 
-        parent.addSubview(selectionShowingView)
-        selectionShowingView.topAnchor == regionView.topAnchor
-        selectionShowingView.leadingAnchor == regionView.leadingAnchor
-        selectionShowingView.sizeAnchors == regionView.sizeAnchors
-
+        addSelectionShowingView(to: parentView, forMediaContainingView: mediaContainingView)
     }
 
     private func addSelectionShowingView(to view: UIView) {
@@ -140,16 +134,23 @@ public class CanvasController: NSObject {
         // reset transform to allow proper directional navigation of object
         view.transform = CGAffineTransform.identity
 
-        let selectionShowingView = SelectionShowingView(mediaType: view.mediaType)
-        self.selectionShowingView = selectionShowingView
-
-        view.addSubview(selectionShowingView)
-        selectionShowingView.topAnchor == view.topAnchor
-        selectionShowingView.leadingAnchor == view.leadingAnchor
-        selectionShowingView.sizeAnchors == view.sizeAnchors
+        // in this case, the media and parent views are the same.
+        addSelectionShowingView(to: view, forMediaContainingView: view)
 
         // return transform onto view in order to keep previous transformations on the view
         view.transform = transformToReapply
+    }
+
+    private func addSelectionShowingView(to parentView: UIView, forMediaContainingView mediaContainingView: UIView) {
+        let selectionShowingView = SelectionShowingView(mediaType: mediaContainingView.mediaType)
+        self.selectionShowingView = selectionShowingView
+
+        if let player = mediaContainingView as? AVPlayerView {
+            selectionShowingView.setVolumeState(to: player.videoPlayer.isMuted)
+        }
+
+        parentView.addSubview(selectionShowingView)
+        selectionShowingView.edgeAnchors == parentView.edgeAnchors
     }
 
     public weak var selectedViewObservingDelegate: SelectedViewObserving?
