@@ -48,6 +48,14 @@ extension CanvasController {
         }
 
         if selectionShowingView.volumeButton.bounds.contains(sender.location(in: selectionShowingView.volumeButton)) {
+
+            guard let playerView = selectedView as? AVPlayerView else {
+                assertionFailure("There should be an AVPlayerView if there's a volume button")
+                return false
+            }
+            playerView.videoPlayer.isMuted.toggle()
+            selectionShowingView.setVolumeState(to: playerView.videoPlayer.isMuted)
+
             return true
         }
 
@@ -139,8 +147,6 @@ extension CanvasController {
 
             // if the click was within volume button, then handle volume
             if volumeButtonPressed(on: view, sender: sender) {
-                print("handle volume toggle")
-                selectedViewObservingDelegate?.tapWasInVolumeButton?()
                 return true
             }
 
@@ -191,8 +197,6 @@ extension CanvasController {
 
         // if the click was within volume button, then handle volume
         if volumeButtonPressed(on: canvasRegion.regionView, sender: sender) {
-            print("handle volume toggle")
-            selectedViewObservingDelegate?.tapWasInVolumeButton?()
             return true
         }
 

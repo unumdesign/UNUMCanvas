@@ -22,6 +22,25 @@ public final class SelectionShowingView: UIView {
     let closeImageView: UIImageView
     let volumeButton: UIImageView
     let selectionViewMediaType: MediaType
+
+    internal func setVolumeState(to isMuted: Bool) {
+        guard
+            let isMutedImage = UIImage(
+                named: "Volume-Off",
+                in: bundle,
+                compatibleWith: nil)?
+                .withRenderingMode(.alwaysTemplate),
+            let isNotMutedImage = UIImage(
+                named: "Volume",
+                in: bundle,
+                compatibleWith: nil)?
+                .withRenderingMode(.alwaysTemplate) else {
+                    assertionFailure("There should be images.")
+                    return
+        }
+
+        volumeButton.image = isMuted ? isMutedImage : isNotMutedImage
+    }
     
     private func addCloseButton() {
         addSubview(closeImageView)
@@ -44,7 +63,11 @@ public final class SelectionShowingView: UIView {
 
         self.selectionViewMediaType = mediaType
 
-        let volumeImage = UIImage(named: "Volume", in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        let volumeImage = UIImage(
+            named: "Volume",
+            in: bundle,
+            compatibleWith: nil)?
+            .withRenderingMode(.alwaysTemplate)
         volumeButton = UIImageView(image: volumeImage)
         volumeButton.tintColor = .white
         volumeButton.backgroundColor = .init(white: 0.0, alpha: 0.7)
