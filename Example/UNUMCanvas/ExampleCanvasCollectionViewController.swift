@@ -4,7 +4,7 @@ import Anchorage
 
 final class ExampleCanvasCollectionViewController: UIViewController {
     
-    private let canvasController = CanvasController(viewSelectionStyle: .image)
+    private let canvasController = CanvasController(viewSelectionStyle: .media)
     private let canvasRegion = CanvasRegionView()
 
     private let collectionView: UICollectionView

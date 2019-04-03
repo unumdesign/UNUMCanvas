@@ -38,6 +38,30 @@ extension CanvasController {
         return selectedViewWasDeleted
     }
 
+    @objc func volumeButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
+        guard
+            let selectionShowingView = selectionShowingView,
+            let selectedView = selectedView,
+            let superview = selectedView.superview
+            else {
+                return false
+        }
+
+        if selectionShowingView.volumeButton.bounds.contains(sender.location(in: selectionShowingView.volumeButton)) {
+
+            guard let playerView = selectedView as? AVPlayerView else {
+                assertionFailure("There should be an AVPlayerView if there's a volume button")
+                return false
+            }
+            playerView.videoPlayer.isMuted.toggle()
+            selectionShowingView.setVolumeState(to: playerView.videoPlayer.isMuted)
+
+            return true
+        }
+
+        return false
+    }
+
     @objc func tapOnViewController(_ sender: UITapGestureRecognizer) {
 
         // only act on completed clicks
@@ -68,7 +92,7 @@ extension CanvasController {
             }
 
             switch viewSelectionStyle {
-            case .image:
+            case .media:
                 if handleTapEventInImage(in: canvasRegion, sender: sender) {
                     return
                 }
@@ -121,6 +145,11 @@ extension CanvasController {
                 return true
             }
 
+            // if the click was within volume button, then handle volume
+            if volumeButtonPressed(on: view, sender: sender) {
+                return true
+            }
+
             // If click was within selected view, then deselect and return.
             if let unwrappedView = selectedView, unwrappedView == view {
                 selectedView = nil
@@ -163,6 +192,11 @@ extension CanvasController {
 
         // don't continue after a successful delete
         if viewWasDeleted {
+            return true
+        }
+
+        // if the click was within volume button, then handle volume
+        if volumeButtonPressed(on: canvasRegion.regionView, sender: sender) {
             return true
         }
 

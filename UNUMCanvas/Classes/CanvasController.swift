@@ -4,7 +4,7 @@ import AVKit
 
 public enum ViewSelectionStyle {
     /// The selection-border and close button will be on the image itself
-    case image
+    case media
 
     /// The selectionborder and close button will not be on the image, but the region containing the image.
     case region
@@ -42,7 +42,6 @@ class PanScalingType {
 
     /// An optional function indicating when a view has been modified in any way -- rotated, scaled, or moved.
     @objc optional func viewWasModified(view: UIView)
-
 }
 
 public class CanvasRegionView {
@@ -102,35 +101,33 @@ public class CanvasController: NSObject {
         }
 
         switch viewSelectionStyle {
-        case .image:
+        case .media:
             addSelectionShowingView(to: selectedView)
             return
         case .region:
             for canvasRegionView in canvasRegionViews {
                 if canvasRegionView.interactableViews.contains(selectedView) {
-                    addSelectionIndicatingView(toRegion: canvasRegionView.regionView)
+                    addSelectionIndicatingView(toRegion: canvasRegionView.regionView, for: selectedView)
                     return
                 }
             }
+            assertionFailure("Somehow there was no selectionView added.")
         }
-        assertionFailure("Somehow there was no selectionView added.")
     }
 
-    private func addSelectionIndicatingView(toRegion regionView: UIView) {
-        let selectionShowingView = SelectionShowingView()
-        self.selectionShowingView = selectionShowingView
+    private func addSelectionIndicatingView(toRegion regionView: UIView, for mediaContainingView: UIView) {
 
         // region view is where the interactiveView is. RegionView itself is in a canvasView. We save the image of the canvasView; so we have to add the indication view to the superview of the canvasView.
-        guard let parent = regionView.superview?.superview else {
+        guard let parentView = regionView.superview?.superview else {
             assertionFailure()
             return
         }
 
-        parent.addSubview(selectionShowingView)
-        selectionShowingView.topAnchor == regionView.topAnchor
-        selectionShowingView.leadingAnchor == regionView.leadingAnchor
-        selectionShowingView.sizeAnchors == regionView.sizeAnchors
-
+        addSelectionShowingView(
+            to: parentView,
+            forMediaContainingView: mediaContainingView,
+            withEdgeAnchorsOf: regionView
+        )
     }
 
     private func addSelectionShowingView(to view: UIView) {
@@ -141,16 +138,24 @@ public class CanvasController: NSObject {
         // reset transform to allow proper directional navigation of object
         view.transform = CGAffineTransform.identity
 
-        let selectionShowingView = SelectionShowingView()
-        self.selectionShowingView = selectionShowingView
-
-        view.addSubview(selectionShowingView)
-        selectionShowingView.topAnchor == view.topAnchor
-        selectionShowingView.leadingAnchor == view.leadingAnchor
-        selectionShowingView.sizeAnchors == view.sizeAnchors
+        // in this case, the media, parent view, and sizingView are all the same.
+        addSelectionShowingView(to: view, forMediaContainingView: view, withEdgeAnchorsOf: view)
 
         // return transform onto view in order to keep previous transformations on the view
         view.transform = transformToReapply
+    }
+
+    // This seems overly complicated, but it is to accomodate for the slightly different way regions work vs. views. For regions, the selectionShowingView has to be added to the parent view, but sized according to the regionView.
+    private func addSelectionShowingView(to parentView: UIView, forMediaContainingView mediaContainingView: UIView, withEdgeAnchorsOf sizingView: UIView) {
+        let selectionShowingView = SelectionShowingView(mediaType: mediaContainingView.mediaType)
+        self.selectionShowingView = selectionShowingView
+
+        if let player = mediaContainingView as? AVPlayerView {
+            selectionShowingView.setVolumeState(to: player.videoPlayer.isMuted)
+        }
+
+        parentView.addSubview(selectionShowingView)
+        selectionShowingView.edgeAnchors == sizingView.edgeAnchors
     }
 
     public weak var selectedViewObservingDelegate: SelectedViewObserving?
