@@ -61,7 +61,8 @@ final class ExampleCanvasCollectionViewController: UIViewController {
             playerView = AVPlayerView(player: player)
 
             collectionView.addSubview(playerView)
-            playerView.centerAnchors == collectionView.centerAnchors
+            playerView.topAnchor == collectionView.topAnchor + 200
+            playerView.leadingAnchor == collectionView.leadingAnchor
             playerView.sizeAnchors == CGSize(width: 100, height: 200)
         }
 
