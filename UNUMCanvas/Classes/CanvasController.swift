@@ -123,7 +123,11 @@ public class CanvasController: NSObject {
             return
         }
 
-        addSelectionShowingView(to: parentView, forMediaContainingView: mediaContainingView)
+        addSelectionShowingView(
+            to: parentView,
+            forMediaContainingView: mediaContainingView,
+            withEdgeAnchorsOf: regionView
+        )
     }
 
     private func addSelectionShowingView(to view: UIView) {
@@ -134,14 +138,15 @@ public class CanvasController: NSObject {
         // reset transform to allow proper directional navigation of object
         view.transform = CGAffineTransform.identity
 
-        // in this case, the media and parent views are the same.
-        addSelectionShowingView(to: view, forMediaContainingView: view)
+        // in this case, the media, parent view, and sizingView are all the same.
+        addSelectionShowingView(to: view, forMediaContainingView: view, withEdgeAnchorsOf: view)
 
         // return transform onto view in order to keep previous transformations on the view
         view.transform = transformToReapply
     }
 
-    private func addSelectionShowingView(to parentView: UIView, forMediaContainingView mediaContainingView: UIView) {
+    // This seems overly complicated, but it is to accomodate for the slightly different way regions work vs. views. For regions, the selectionShowingView has to be added to the parent view, but sized according to the regionView.
+    private func addSelectionShowingView(to parentView: UIView, forMediaContainingView mediaContainingView: UIView, withEdgeAnchorsOf sizingView: UIView) {
         let selectionShowingView = SelectionShowingView(mediaType: mediaContainingView.mediaType)
         self.selectionShowingView = selectionShowingView
 
@@ -150,7 +155,7 @@ public class CanvasController: NSObject {
         }
 
         parentView.addSubview(selectionShowingView)
-        selectionShowingView.edgeAnchors == parentView.edgeAnchors
+        selectionShowingView.edgeAnchors == sizingView.edgeAnchors
     }
 
     public weak var selectedViewObservingDelegate: SelectedViewObserving?
