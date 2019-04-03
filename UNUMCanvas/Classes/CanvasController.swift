@@ -111,8 +111,8 @@ public class CanvasController: NSObject {
                     return
                 }
             }
+            assertionFailure("Somehow there was no selectionView added.")
         }
-        assertionFailure("Somehow there was no selectionView added.")
     }
 
     private func addSelectionIndicatingView(toRegion regionView: UIView, for mediaContainingView: UIView) {
