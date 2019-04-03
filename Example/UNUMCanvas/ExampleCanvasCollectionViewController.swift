@@ -2,12 +2,16 @@ import UIKit
 import UNUMCanvas
 import Anchorage
 
+import AVKit
+
 final class ExampleCanvasCollectionViewController: UIViewController {
     
     private let canvasController = CanvasController(viewSelectionStyle: .media)
     private let canvasRegion = CanvasRegionView()
 
     private let collectionView: UICollectionView
+
+    private var playerView = AVPlayerView(player: AVPlayer(playerItem: nil))
     
     private var interactableView1 = UIView()
     private var interactableView2 = UIView()
@@ -33,7 +37,6 @@ final class ExampleCanvasCollectionViewController: UIViewController {
         view = collectionView
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -51,12 +54,24 @@ final class ExampleCanvasCollectionViewController: UIViewController {
                 bundle = resourcesBundle
             }
         }
-        
+
+        // Add video that should be interactable
+        if let videoUrl = URL(string: "https://wolverine.raywenderlich.com/content/ios/tutorials/video_streaming/foxVillage.mp4") {
+            let player = AVPlayer(url: videoUrl)
+            playerView = AVPlayerView(player: player)
+
+            collectionView.addSubview(playerView)
+            playerView.topAnchor == collectionView.topAnchor + 200
+            playerView.leadingAnchor == collectionView.leadingAnchor
+            playerView.sizeAnchors == CGSize(width: 100, height: 200)
+        }
+
         // Add imageView that should be interactable.
         if let image = UIImage(named: "test_image", in: bundle, compatibleWith: nil) {
             
             // height is bound to width
             let imageHeightRatio = image.size.height / image.size.width
+
 
             interactableView1 = UIImageView(image: image)
             interactableView1.contentMode = .scaleAspectFit
@@ -109,14 +124,19 @@ final class ExampleCanvasCollectionViewController: UIViewController {
 
         
         // Setup canvasController with appropriate views. In this example, the canvasViews will be the tableViewCells, which will need to be added to the canvasController when they are setup.
-        canvasRegion.interactableViews.append(contentsOf: [interactableView1, interactableView2, interactableView3, interactableTextLabel])
+        canvasRegion.interactableViews.append(contentsOf: [playerView, interactableView1, interactableView2, interactableView3, interactableTextLabel])
         canvasRegion.regionView = view
         
         canvasController.gestureRecognizingView = collectionView
         canvasController.canvasRegionViews = [canvasRegion]
 
 
-        canvasController.selectedView = interactableView3
+        canvasController.selectedView = playerView
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        playerView.videoPlayer.play()
     }
 }
 

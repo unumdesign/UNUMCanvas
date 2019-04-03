@@ -80,7 +80,6 @@ public final class SelectionShowingView: UIView {
     
     private func layoutView() {
         layer.borderWidth = 4
-
         layer.borderColor = UIColor.blue.cgColor
 
         if selectionViewMediaType == .video {

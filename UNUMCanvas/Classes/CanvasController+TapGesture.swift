@@ -39,26 +39,19 @@ extension CanvasController {
     }
 
     @objc func volumeButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
-        guard
+        if
             let selectionShowingView = selectionShowingView,
             let selectedView = selectedView,
-            let superview = selectedView.superview
-            else {
-                return false
-        }
-
-        if selectionShowingView.volumeButton.bounds.contains(sender.location(in: selectionShowingView.volumeButton)) {
-
-            guard let playerView = selectedView as? AVPlayerView else {
-                assertionFailure("There should be an AVPlayerView if there's a volume button")
-                return false
-            }
+            let playerView = selectedView as? AVPlayerView,
+            selectionShowingView.volumeButton.bounds.contains(
+                sender.location(in: selectionShowingView.volumeButton)
+            )
+        {
             playerView.videoPlayer.isMuted.toggle()
             selectionShowingView.setVolumeState(to: playerView.videoPlayer.isMuted)
 
             return true
         }
-
         return false
     }
 
