@@ -79,18 +79,18 @@ public class CanvasController: NSObject {
     }
 
     private func pauseVideoIfThereIsOne(on view: UIView?) {
-        guard let playerLayer = view?.layer as? AVPlayerLayer else {
+        guard let playerView = view as? AVPlayerView else {
             return
         }
-        playerLayer.player?.pause()
+        playerView.videoPlayer.pause()
     }
 
     private func playVideoIfThereIsOne(on view: UIView?) {
-        guard let playerLayer = view?.layer as? AVPlayerLayer else {
+        guard let playerView = view as? AVPlayerView else {
             return
         }
-        playerLayer.player?.seek(to: CMTime.zero)
-        playerLayer.player?.play()
+        playerView.videoPlayer.seek(to: CMTime.zero)
+        playerView.videoPlayer.play()
     }
 
     var panScalingType = PanScalingType(vertical: .notActivated, horizontal: .notActivated)
