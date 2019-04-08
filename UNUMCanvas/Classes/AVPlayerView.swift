@@ -8,6 +8,22 @@
 import Foundation
 import AVKit
 
+public enum PlayerViewFactory {
+    public static func makePlayerView(with avAsset: AVAsset) -> AVPlayerView {
+        let avPlayerItem = AVPlayerItem(asset: avAsset)
+        let avPlayer = AVPlayer(playerItem: avPlayerItem)
+
+        let mediaView = AVPlayerView(player: avPlayer)
+
+        if let videoLayer = mediaView.layer as? AVPlayerLayer {
+            videoLayer.backgroundColor = UIColor.clear.cgColor
+            videoLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        }
+
+        return mediaView
+    }
+}
+
 public class AVPlayerView: UIView {
 
     public var videoPlayer: AVPlayer {
@@ -38,3 +54,4 @@ public class AVPlayerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
