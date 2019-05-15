@@ -10,10 +10,10 @@ import Foundation
 extension CanvasController {
     func adjustLeadingConstraint(of view: UIView, by amount: CGFloat) {
         if
-            let topConstraint = view.topConstraint,
-            let leadingConstraint = view.leadingConstraint,
-            let heightConstraint = view.heightConstraint,
-            let widthConstraint = view.widthConstraint
+            let topConstraint = view.internalTopConstraint,
+            let leadingConstraint = view.internalLeadingConstraint,
+            let heightConstraint = view.internalHeightConstraint,
+            let widthConstraint = view.internalWidthConstraint
         {
             
             if view.heightIsBoundToWidth {
@@ -41,9 +41,9 @@ extension CanvasController {
     
     func adjustTrailingConstraint(of view: UIView, by amount: CGFloat) {
         if
-            let topConstraint = view.topConstraint,
-            let heightConstraint = view.heightConstraint,
-            let widthConstraint = view.widthConstraint
+            let topConstraint = view.internalTopConstraint,
+            let heightConstraint = view.internalHeightConstraint,
+            let widthConstraint = view.internalWidthConstraint
         {
             
             if view.heightIsBoundToWidth {
@@ -69,10 +69,10 @@ extension CanvasController {
     
     func adjustTopConstraint(of view: UIView, by amount: CGFloat) {
         if
-            let topConstraint = view.topConstraint,
-            let leadingConstraint = view.leadingConstraint,
-            let heightConstraint = view.heightConstraint,
-            let widthConstraint = view.widthConstraint
+            let topConstraint = view.internalTopConstraint,
+            let leadingConstraint = view.internalLeadingConstraint,
+            let heightConstraint = view.internalHeightConstraint,
+            let widthConstraint = view.internalWidthConstraint
         {
             
             if view.heightIsBoundToWidth {
@@ -99,9 +99,9 @@ extension CanvasController {
     
     func adjustBottomConstraint(of view: UIView, by amount: CGFloat) {
         if
-            let leadingConstraint = view.leadingConstraint,
-            let heightConstraint = view.heightConstraint,
-            let widthConstraint = view.widthConstraint
+            let leadingConstraint = view.internalLeadingConstraint,
+            let heightConstraint = view.internalHeightConstraint,
+            let widthConstraint = view.internalWidthConstraint
         {
             
             if view.heightIsBoundToWidth {
