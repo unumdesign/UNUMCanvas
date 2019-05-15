@@ -20,14 +20,14 @@ extension CanvasController {
         var widthDifference: CGFloat = 0
         
         // increase width and height according to scale
-        if let widthConstraint = selectedView.widthConstraint {
+        if let widthConstraint = selectedView.internalWidthConstraint {
             let previousWidth = widthConstraint.constant
             widthConstraint.constant = widthConstraint.constant * sender.scale
             widthDifference = widthConstraint.constant - previousWidth
         }
         
         
-        if let heightConstraint = selectedView.heightConstraint {
+        if let heightConstraint = selectedView.internalHeightConstraint {
             let previousHeight = heightConstraint.constant
             heightConstraint.constant = heightConstraint.constant * sender.scale
             
@@ -44,11 +44,11 @@ extension CanvasController {
         }
         
         // adjust leading and top anchors to keep view centered
-        if let leadingConstraint = selectedView.leadingConstraint {
+        if let leadingConstraint = selectedView.internalLeadingConstraint {
             leadingConstraint.constant = leadingConstraint.constant - widthDifference / 2
         }
         
-        if let topConstraint = selectedView.topConstraint {
+        if let topConstraint = selectedView.internalTopConstraint {
             topConstraint.constant = topConstraint.constant - heightDifference / 2
         }
         

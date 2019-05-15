@@ -32,11 +32,11 @@ public extension UIView {
         return getConstraint(from: self, type: type)
     }
     
-    var widthConstraint: NSLayoutConstraint? {
+    var internalWidthConstraint: NSLayoutConstraint? {
         return getInternalConstraint(type: .width)
     }
     
-    var heightConstraint: NSLayoutConstraint? {
+    var internalHeightConstraint: NSLayoutConstraint? {
         return getInternalConstraint(type: .height)
     }
     
@@ -75,11 +75,11 @@ public extension UIView {
         return getConstraint(from: self.superview, type: type)
     }
     
-    var leadingConstraint: NSLayoutConstraint? {
+    var internalLeadingConstraint: NSLayoutConstraint? {
         return getSuperviewConstraint(type: .leading)
     }
     
-    var topConstraint: NSLayoutConstraint? {
+    var internalTopConstraint: NSLayoutConstraint? {
         return getSuperviewConstraint(type: .top)
     }
 }
