@@ -42,6 +42,13 @@ extension CanvasController {
                 heightDifference = heightConstraint.constant - previousHeight
             }
         }
+
+        let ratio = selectedView.frame.height / selectedView.frame.width
+        if widthDifference == 0 {
+            widthDifference = heightDifference / ratio
+        } else if heightDifference == 0 {
+            heightDifference = widthDifference * ratio
+        }
         
         // adjust leading and top anchors to keep view centered
         if let leadingConstraint = selectedView.internalLeadingConstraint {
