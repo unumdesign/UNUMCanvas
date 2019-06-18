@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UNUMCanvas'
-  s.version          = '2.7.2'
+  s.version          = '2.7.3'
   s.summary          = 'Unum Canvas'
   s.swift_version = '4.2'
 
