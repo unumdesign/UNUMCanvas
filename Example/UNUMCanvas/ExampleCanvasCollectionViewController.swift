@@ -194,5 +194,9 @@ extension ExampleCanvasCollectionViewController: SelectedViewObserving {
     
     func viewWasModified(view: UIView) {
         print("view was modified")
+
+        if let avView = view as? AVPlayerView {
+            print(avView.videoPlayer.isMuted)
+        }
     }
 }

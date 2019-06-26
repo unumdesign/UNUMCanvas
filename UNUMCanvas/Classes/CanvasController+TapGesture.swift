@@ -50,6 +50,7 @@ extension CanvasController {
             playerView.videoPlayer.isMuted.toggle()
             selectionShowingView.setVolumeState(to: playerView.videoPlayer.isMuted)
 
+            selectedViewObservingDelegate?.viewWasModified?(view: selectedView)
             return true
         }
         return false

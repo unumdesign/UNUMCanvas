@@ -40,7 +40,7 @@ class PanScalingType {
     /// An optional function that is called when the selectedView is removed from its superview. This function should be implemented if the removal is an event that needs to be handled. For example, if you need to add an "add" button to the canvasRegion when its interactableView is deleted, then you would do that using this function.
     @objc optional func selectedViewWasRemoved(from superview: UIView)
 
-    /// An optional function indicating when a view has been modified in any way -- rotated, scaled, or moved.
+    /// An optional function indicating when a view has been modified in any way -- rotated, scaled, or moved. Additionally if the volume button was toggled.
     @objc optional func viewWasModified(view: UIView)
 }
 
