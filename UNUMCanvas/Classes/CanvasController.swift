@@ -210,18 +210,22 @@ public class CanvasController: NSObject {
     }
 
     var debounceTimer: Timer?
+    private var modifiedView: UIView?
+
     func indicateViewWasModified() {
+        modifiedView = selectedView
         debounceTimer?.invalidate()
         debounceTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(sendNotificationThatSelectedViewWasModified), userInfo: nil, repeats: false)
     }
 
     @objc private func sendNotificationThatSelectedViewWasModified() {
-        // This may cause bugs but I don't think that it is likely. Because of the delay of the debounce timer, it is possible that the selectedView could be set to nil before this function is called. However, the selectedView only gets set to nil on taps, and so this seems unlikely. An assertionFailure has been added here just in case since, if this ever occurs, then it needs to be handled better.
-        guard let selectedView = selectedView else {
+        guard let modifiedView = modifiedView else {
             assertionFailure()
             return
         }
-        selectedViewObservingDelegate?.viewWasModified?(view: selectedView)
+
+        self.modifiedView = nil
+        selectedViewObservingDelegate?.viewWasModified?(view: modifiedView)
     }
 }
 
