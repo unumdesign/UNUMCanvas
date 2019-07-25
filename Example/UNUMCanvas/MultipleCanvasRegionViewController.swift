@@ -101,8 +101,5 @@ final class MultipleCanvasRegionViewController: UIViewController {
         // finish setup of canvasController
         canvasController.gestureRecognizingView = view
         canvasController.canvasRegionViews = [canvasRegion1, canvasRegion2]
-        
-        
-        canvasController.selectedView = interactableView1
     }
 }
