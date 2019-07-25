@@ -32,6 +32,7 @@ extension CanvasController {
             heightConstraint.constant = heightConstraint.constant * sender.scale
             
             if
+                widthDifference != 0,
                 let selectedImageView = selectedView as? UIImageView,
                 let image = selectedImageView.image
             {
