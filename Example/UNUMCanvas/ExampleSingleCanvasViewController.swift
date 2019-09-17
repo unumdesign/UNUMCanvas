@@ -22,6 +22,8 @@ final class ExampleSingleCanvasViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+
+        canvasController.isDeleteEnabledOnSelectionView = false
         
         // Add some views that should be interactable.
         interactableView1 = UIView()

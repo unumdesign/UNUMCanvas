@@ -40,6 +40,8 @@ final class ExampleCanvasCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+
+        canvasController.isDeleteEnabledOnSelectionView = false
         
         // Setup collectionView
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(UICollectionViewCell.self))
