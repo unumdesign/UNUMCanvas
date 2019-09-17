@@ -18,6 +18,10 @@ internal var bundle: Bundle {
     return bundle
 }
 
+public enum SelectionShowingViewStyle {
+    case `default`, thin
+}
+
 public final class SelectionShowingView: UIView {
     let closeImageView: UIImageView
     let volumeButton: UIImageView
@@ -55,8 +59,11 @@ public final class SelectionShowingView: UIView {
         volumeButton.bottomAnchor == bottomAnchor - 5
         volumeButton.trailingAnchor == trailingAnchor - 5
     }
+
+    private let style: SelectionShowingViewStyle
     
-    init(mediaType: MediaType) {
+    init(mediaType: MediaType, style: SelectionShowingViewStyle) {
+        self.style = style
 
         let closeImage = UIImage(named: "deleteImageIcon", in: bundle, compatibleWith: nil)
         closeImageView = UIImageView(image: closeImage)
@@ -79,14 +86,50 @@ public final class SelectionShowingView: UIView {
     }
     
     private func layoutView() {
-        layer.borderWidth = 4
-        layer.borderColor = UIColor.blue.cgColor
 
         if selectionViewMediaType == .video {
             addVolumeButton()
         }
 
         addCloseButton()
+
+
+        switch style {
+        case .default:
+            layer.borderWidth = 4
+        case .thin:
+            layer.borderWidth = 1
+
+            let cornerArrowImage = UIImage(named: "corner_arrow", in: bundle, compatibleWith: nil)!
+
+            let topLeftArrow = UIImageView(image: cornerArrowImage)
+            let topRightArrow = UIImageView(image: cornerArrowImage)
+            topRightArrow.transform = CGAffineTransform(rotationAngle: .pi/2)
+            let bottomRightArrow = UIImageView(image: cornerArrowImage)
+            bottomRightArrow.transform = CGAffineTransform(rotationAngle: .pi)
+            let bottomLeftArrow = UIImageView(image: cornerArrowImage)
+            bottomLeftArrow.transform = CGAffineTransform(rotationAngle: -.pi/2)
+
+            addSubview(topLeftArrow)
+            addSubview(topRightArrow)
+            addSubview(bottomLeftArrow)
+            addSubview(bottomRightArrow)
+
+            let offset: CGFloat = 1
+
+            topLeftArrow.topAnchor == topAnchor - offset
+            topRightArrow.topAnchor == topAnchor - offset
+
+            topRightArrow.trailingAnchor == trailingAnchor + offset
+            bottomRightArrow.trailingAnchor == trailingAnchor + offset
+
+            bottomRightArrow.bottomAnchor == bottomAnchor + offset
+            bottomLeftArrow.bottomAnchor == bottomAnchor + offset
+
+            bottomLeftArrow.leadingAnchor == leadingAnchor - offset
+            topLeftArrow.leadingAnchor == leadingAnchor - offset
+        }
+        layer.borderColor = UIColor.blue.cgColor
     }
 
     required init?(coder aDecoder: NSCoder) {
