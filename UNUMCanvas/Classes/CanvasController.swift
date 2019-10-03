@@ -54,6 +54,8 @@ public class CanvasRegionView {
 
 public class CanvasController: NSObject {
 
+    public var isDeleteEnabledOnSelectionView: Bool = true
+    public var selectionShowingViewStyle: SelectionShowingViewStyle = .default
 
     // MARK: - public API
 
@@ -147,7 +149,8 @@ public class CanvasController: NSObject {
 
     // This seems overly complicated, but it is to accomodate for the slightly different way regions work vs. views. For regions, the selectionShowingView has to be added to the parent view, but sized according to the regionView.
     private func addSelectionShowingView(to parentView: UIView, forMediaContainingView mediaContainingView: UIView, withEdgeAnchorsOf sizingView: UIView) {
-        let selectionShowingView = SelectionShowingView(mediaType: mediaContainingView.mediaType)
+        let selectionShowingView = SelectionShowingView(mediaType: mediaContainingView.mediaType, style: selectionShowingViewStyle)
+        selectionShowingView.closeImageView.isHidden = !(isDeleteEnabledOnSelectionView)
         self.selectionShowingView = selectionShowingView
 
         if let player = mediaContainingView as? AVPlayerView {
