@@ -13,6 +13,10 @@ extension CanvasController {
     @objc func deleteButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
         var selectedViewWasDeleted = false
 
+        guard isDeleteEnabledOnSelectionView else {
+            return selectedViewWasDeleted
+        }
+
         guard
             let selectionShowingView = selectionShowingView,
             let selectedView = selectedView,
