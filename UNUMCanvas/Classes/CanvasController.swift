@@ -1,6 +1,7 @@
 import UIKit
 import Anchorage
 import AVKit
+import unum_ios_ui
 
 public enum ViewSelectionStyle {
     /// The selection-border and close button will be on the image itself
@@ -230,6 +231,26 @@ public class CanvasController: NSObject {
         self.modifiedView = nil
         selectedViewObservingDelegate?.viewWasModified?(view: modifiedView)
     }
+
+        func setColors(scheme: scheme)
+        {
+            switch scheme{
+            case .light:
+                gestureRecognizingView.backgroundColor = UIColor.white
+                gestureRecognizingView.tintColor = UIColor.black
+                selectionShowingView?.backgroundColor = UIColor.white
+                selectionShowingView?.tintColor = UIColor.black
+                modifiedView?.backgroundColor = UIColor.white
+                modifiedView?.tintColor = UIColor.black
+            case .dark:
+                gestureRecognizingView.backgroundColor = UIColor(hex: "#222222")
+                gestureRecognizingView.tintColor = UIColor.white
+                selectionShowingView?.backgroundColor = UIColor(hex: "#222222")
+                selectionShowingView?.tintColor = UIColor.white
+                modifiedView?.backgroundColor = UIColor(hex: "#222222")
+                modifiedView?.tintColor = UIColor.white
+            }
+        }
 }
 
 extension CanvasController: UIGestureRecognizerDelegate {
