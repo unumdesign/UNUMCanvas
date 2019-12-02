@@ -123,7 +123,6 @@ extension CanvasController {
             return firstsIndexPosition > secondsIndexPosition // The greater the index position, the higher in the view hierarchy
         }
 
-
         for view in interactableViewsOrderedByViewZLayering {
 
             // ensure the click was within the given interactableView
@@ -167,6 +166,7 @@ extension CanvasController {
     func handleTapEventInRegion(in canvasRegion: CanvasRegionView, sender: UITapGestureRecognizer) -> Bool {
         // this functionality does not support multiple interactable views in a canvasRegion for the time being.
         guard canvasRegion.interactableViews.count < 2 else {
+            // swiftlint:disable:next line_length
             assertionFailure("We have not done the necessary work to be able to have multiple interactable views per region. For now it can be assumed that each region will only ever have one interactable view.")
             return false
         }
@@ -201,8 +201,7 @@ extension CanvasController {
         if selectableView == selectedView {
             // If click was within selected canvasRegion, then deselect the selectedView and return.
             selectedView = nil
-        }
-        else {
+        } else {
             // Otherwise set the clicked view as the selected view and return.
             selectedView = selectableView
         }

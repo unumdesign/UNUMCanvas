@@ -45,7 +45,7 @@ public final class SelectionShowingView: UIView {
 
         volumeButton.image = isMuted ? isMutedImage : isNotMutedImage
     }
-    
+
     private func addCloseButton() {
         addSubview(closeImageView)
         closeImageView.sizeAnchors == CGSize(width: 40, height: 40)
@@ -61,7 +61,7 @@ public final class SelectionShowingView: UIView {
     }
 
     private let style: SelectionShowingViewStyle
-    
+
     init(mediaType: MediaType, style: SelectionShowingViewStyle) {
         self.style = style
 
@@ -84,7 +84,7 @@ public final class SelectionShowingView: UIView {
 
         layoutView()
     }
-    
+
     private func layoutView() {
 
         if selectionViewMediaType == .video {
@@ -92,7 +92,6 @@ public final class SelectionShowingView: UIView {
         }
 
         addCloseButton()
-
 
         switch style {
         case .default:

@@ -18,11 +18,9 @@ internal extension UIView {
     var mediaType: MediaType {
         if self is AVPlayerView {
             return .video
-        }
-        else if self is UIImageView {
+        } else if self is UIImageView {
             return .image
-        }
-        else {
+        } else {
             return .view
         }
     }
