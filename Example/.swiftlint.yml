@@ -8,7 +8,7 @@
 # implement them. If they are commented out for other reasons, leave a note next to the rule
 # explaining why it is commented out.
 
-#disabled_rules:
+disabled_rules:
   # - block_based_kvo
   # - class_delegate_protocol
   # - closing_brace
@@ -34,7 +34,7 @@
   # - function_body_length
   # - function_parameter_count
   # - generic_type_name
-  #- identifier_name # would like to enable. see if you can update parameter settings.
+  - identifier_name # would like to enable. see if you can update parameter settings.
   # - implicit_getter
   # - inert_defer
   # - is_disjoint
@@ -89,8 +89,8 @@
   # - weak_delegate
   # - xctfail_message
 
-#opt_in_rules:
-  ##- anyobject_protocol
+opt_in_rules:
+  - anyobject_protocol
   ##- array_init
   ##- attributes
   ##- closure_body_length

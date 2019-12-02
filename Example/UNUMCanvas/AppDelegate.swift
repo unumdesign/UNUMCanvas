@@ -13,16 +13,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+
         let frame = UIScreen.main.bounds
         self.window = UIWindow(frame: frame)
         let viewController = ExampleCanvasCollectionViewController()
         let nc = UINavigationController(rootViewController: viewController)
         self.window?.rootViewController = nc
         self.window?.makeKeyAndVisible()
-        
+
         return true
     }
 
@@ -48,6 +47,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
-
