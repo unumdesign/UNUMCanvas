@@ -10,7 +10,8 @@ import Foundation
 // MARK: Pan Gesture
 extension CanvasController {
 
-    @objc func panOnViewController(_ sender: UIPanGestureRecognizer) {
+    @objc
+    func panOnViewController(_ sender: UIPanGestureRecognizer) {
         guard let selectedView = selectedView else {
             return
         }

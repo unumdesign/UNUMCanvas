@@ -10,7 +10,8 @@ import Foundation
 // MARK: Pinch Gesture
 extension CanvasController {
 
-    @objc func scaleSelectedView(_ sender: UIPinchGestureRecognizer) {
+    @objc
+    func scaleSelectedView(_ sender: UIPinchGestureRecognizer) {
         guard let selectedView = selectedView else {
             return
         }

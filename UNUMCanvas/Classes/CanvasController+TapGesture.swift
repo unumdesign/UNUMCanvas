@@ -10,7 +10,8 @@ import Foundation
 // MARK: Tap Gesture
 extension CanvasController {
 
-    @objc func deleteButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
+    @objc
+    func deleteButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
         var selectedViewWasDeleted = false
 
         guard isDeleteEnabledOnSelectionView else {
@@ -42,7 +43,8 @@ extension CanvasController {
         return selectedViewWasDeleted
     }
 
-    @objc func volumeButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
+    @objc
+    func volumeButtonPressed(on view: UIView, sender: UITapGestureRecognizer) -> Bool {
         if
             let selectionShowingView = selectionShowingView,
             let selectedView = selectedView,
@@ -60,7 +62,8 @@ extension CanvasController {
         return false
     }
 
-    @objc func tapOnViewController(_ sender: UITapGestureRecognizer) {
+    @objc
+    func tapOnViewController(_ sender: UITapGestureRecognizer) {
 
         // only act on completed clicks
         guard sender.state == .ended else {
