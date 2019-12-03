@@ -8,11 +8,11 @@
 import Foundation
 
 public extension UIView {
-    
+
     private func getConstraint(from constraintView: UIView?, type: NSLayoutConstraint.Attribute) -> NSLayoutConstraint? {
-        
-        var returnConstraint: NSLayoutConstraint? = nil
-        
+
+        var returnConstraint: NSLayoutConstraint?
+
         // Keep in mind that this will return the last of the constraints fulfilling the type.
         for constraint in constraintView?.constraints ?? [] {
             guard
@@ -27,19 +27,19 @@ public extension UIView {
         }
         return returnConstraint
     }
-    
+
     private func getInternalConstraint(type: NSLayoutConstraint.Attribute) -> NSLayoutConstraint? {
         return getConstraint(from: self, type: type)
     }
-    
+
     var internalWidthConstraint: NSLayoutConstraint? {
         return getInternalConstraint(type: .width)
     }
-    
+
     var internalHeightConstraint: NSLayoutConstraint? {
         return getInternalConstraint(type: .height)
     }
-    
+
     var heightIsBoundToWidth: Bool {
         for constraint in constraints {
             if
@@ -53,9 +53,9 @@ public extension UIView {
         }
         return false
     }
-    
+
     var widthIsBoundToHeight: Bool {
-        
+
         for constraint in constraints {
             if
                 let view = constraint.firstItem as? UIView,
@@ -74,11 +74,11 @@ public extension UIView {
     private func getSuperviewConstraint(type: NSLayoutConstraint.Attribute) -> NSLayoutConstraint? {
         return getConstraint(from: self.superview, type: type)
     }
-    
+
     var internalLeadingConstraint: NSLayoutConstraint? {
         return getSuperviewConstraint(type: .leading)
     }
-    
+
     var internalTopConstraint: NSLayoutConstraint? {
         return getSuperviewConstraint(type: .top)
     }

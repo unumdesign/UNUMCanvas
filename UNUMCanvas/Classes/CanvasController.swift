@@ -191,7 +191,6 @@ public class CanvasController: NSObject {
     private var pinchGesture = UIPinchGestureRecognizer()
     private var rotationGesture = UIRotationGestureRecognizer()
 
-
     public init(viewSelectionStyle: ViewSelectionStyle) {
         self.viewSelectionStyle = viewSelectionStyle
         super.init()
