@@ -8,9 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UNUMCanvas'
-  s.version          = '3.1.1'
+  s.version          = '4.0.0'
   s.summary          = 'Unum Canvas'
-  s.swift_version = '4.2'
+  s.swift_version    = '5'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -26,7 +26,8 @@ TODO: Add long description of the pod here.
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'li.zhao@laverne.edu' => 'li.zhao@laverne.edu' }
-  s.source           = { :git => 'https://github.com/unumdesign/UNUMCanvas.git', :tag => s.version.to_s }
+  s.source           = { :git => 'git@github.com:unumdesign/unum-ios-ui-specs.git'}
+  s.source           = { :git => 'git@github.com:unumdesign/UNUMCanvas.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '9.0'
@@ -41,5 +42,5 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'Anchorage', '4.3.0'
-  s.dependency 'unum-ios-ui', '1.0.0'
+  s.dependency 'unum-ios-ui', '1.4.0'
 end

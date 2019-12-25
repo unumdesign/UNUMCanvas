@@ -1,5 +1,8 @@
 use_frameworks!
 
+source 'https://github.com/CocoaPods/Specs.git'
+source 'git@github.com:unumdesign/unum-ios-ui-specs.git'
+
 target 'UNUMCanvas_Example' do
   pod 'UNUMCanvas', :path => '../'
   pod 'Anchorage'

@@ -38,7 +38,7 @@ platform :ios do
   def release(type)
     Dir.chdir("..") do
       podspec_name = "UNUMCanvas.podspec"
-      sources = ["https://github.com/CocoaPods/Specs.git"]
+      sources = ["https://github.com/Cocoapods/specs.git", "git@github.com:unumdesign/unum-ios-ui-specs.git"]
 
       pod_lib_lint(sources: sources, allow_warnings: true)
       version = version_bump_podspec(path: podspec_name,
@@ -48,7 +48,7 @@ platform :ios do
                  message: "#{version} release")
       add_git_tag(tag: "#{version}")
       push_to_git_remote
-      pod_push(allow_warnings: true)
+      pod_push(repo: "UNUMCanvasSpecs", allow_warnings: true)
     end
   end
 end

@@ -78,7 +78,8 @@ extension CanvasController {
                 else {
                     return true
             }
-            return firstsIndexPosition > secondsIndexPosition // The greater the index position, the higher in the view hierarchy
+            // The greater the index position, the higher in the view hierarchy
+            return firstsIndexPosition > secondsIndexPosition
         }
 
         for canvasRegion in regionViewsOrderedByViewZLayering {
@@ -120,7 +121,8 @@ extension CanvasController {
                 else {
                     return true
             }
-            return firstsIndexPosition > secondsIndexPosition // The greater the index position, the higher in the view hierarchy
+            // The greater the index position, the higher in the view hierarchy
+            return firstsIndexPosition > secondsIndexPosition
         }
 
         for view in interactableViewsOrderedByViewZLayering {

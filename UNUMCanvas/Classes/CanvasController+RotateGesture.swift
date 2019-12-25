@@ -30,13 +30,21 @@ extension CanvasController {
 
         if abs(sender.velocity) < 0.2 {
             if near0 {
-                selectedView.transform = CGAffineTransform(rotationAngle: -1 * rotation).concatenating(selectedView.transform)
+                selectedView.transform = CGAffineTransform(
+                    rotationAngle: -1 * rotation
+                ).concatenating(selectedView.transform)
             } else if near90 {
-                selectedView.transform = CGAffineTransform(rotationAngle: degree90 - rotation).concatenating(selectedView.transform)
+                selectedView.transform = CGAffineTransform(
+                    rotationAngle: degree90 - rotation
+                ).concatenating(selectedView.transform)
             } else if near180 {
-                selectedView.transform = CGAffineTransform(rotationAngle: degree180 - rotation).concatenating(selectedView.transform)
+                selectedView.transform = CGAffineTransform(
+                    rotationAngle: degree180 - rotation
+                ).concatenating(selectedView.transform)
             } else if near270 {
-                selectedView.transform = CGAffineTransform(rotationAngle: degree270 - rotation).concatenating(selectedView.transform)
+                selectedView.transform = CGAffineTransform(
+                    rotationAngle: degree270 - rotation
+                ).concatenating(selectedView.transform)
             } else {
                 selectedView.transform = t
             }

@@ -3,7 +3,7 @@ import Anchorage
 
 // TODO: plf - see about making this functionality part of how the canvas works rather than needing it here.
 public extension UIView {
-    public func removeCanvasSupportingViews() {
+    func removeCanvasSupportingViews() {
         self.subviews.forEach { view in
             view.removeCanvasSupportingViews()
         }

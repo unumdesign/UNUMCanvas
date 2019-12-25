@@ -150,7 +150,10 @@ public class CanvasController: NSObject {
 
     // This seems overly complicated, but it is to accomodate for the slightly different way regions work vs. views. For regions, the selectionShowingView has to be added to the parent view, but sized according to the regionView.
     private func addSelectionShowingView(to parentView: UIView, forMediaContainingView mediaContainingView: UIView, withEdgeAnchorsOf sizingView: UIView) {
-        let selectionShowingView = SelectionShowingView(mediaType: mediaContainingView.mediaType, style: selectionShowingViewStyle)
+        let selectionShowingView = SelectionShowingView(
+            mediaType: mediaContainingView.mediaType,
+            style: selectionShowingViewStyle
+        )
         selectionShowingView.closeImageView.isHidden = !(isDeleteEnabledOnSelectionView)
         self.selectionShowingView = selectionShowingView
 
@@ -218,7 +221,13 @@ public class CanvasController: NSObject {
     func indicateViewWasModified() {
         modifiedView = selectedView
         debounceTimer?.invalidate()
-        debounceTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(sendNotificationThatSelectedViewWasModified), userInfo: nil, repeats: false)
+        debounceTimer = Timer.scheduledTimer(
+            timeInterval: 0.1,
+            target: self,
+            selector: #selector(sendNotificationThatSelectedViewWasModified),
+            userInfo: nil,
+            repeats: false
+        )
     }
 
     @objc private func sendNotificationThatSelectedViewWasModified() {
@@ -231,9 +240,8 @@ public class CanvasController: NSObject {
         selectedViewObservingDelegate?.viewWasModified?(view: modifiedView)
     }
 
-        func setColors(scheme: scheme)
-        {
-            switch scheme{
+        func setColors(scheme: UNUMScheme) {
+            switch scheme {
             case .light:
                 gestureRecognizingView.backgroundColor = UIColor.white
                 gestureRecognizingView.tintColor = UIColor.black
