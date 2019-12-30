@@ -41,5 +41,5 @@ TODO: Add long description of the pod here.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'unum-ios-ui', '1.4.1'
+  s.dependency 'unum-ios-ui', '1.4.2'
 end
