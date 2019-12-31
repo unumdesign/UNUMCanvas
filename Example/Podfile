@@ -7,6 +7,8 @@ target 'UNUMCanvas_Example' do
   pod 'UNUMCanvas', :path => '../'
   pod 'Anchorage'
   pod 'SwiftLint'
+  #Uncomment when in development
+    pod 'unum-ios-ui', :git => 'git@github.com:unumdesign/unum-ios-ui.git', :branch => 'develop'
 
   target 'UNUMCanvas_Tests' do
     inherit! :search_paths
