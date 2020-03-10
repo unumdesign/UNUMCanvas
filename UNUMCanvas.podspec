@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UNUMCanvas'
-  s.version          = '4.0.5'
+  s.version          = '4.1.0'
   s.summary          = 'Unum Canvas'
   s.swift_version    = '5'
 
@@ -30,7 +30,7 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'git@github.com:unumdesign/UNUMCanvas.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '12.0'
 
   s.source_files = 'UNUMCanvas/Classes/**/*'
   
@@ -42,5 +42,5 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'Anchorage'
-  s.dependency 'unum-ios-ui', '1.4.3'
+  s.dependency 'unum-ios-ui', '1.5.0'
 end
