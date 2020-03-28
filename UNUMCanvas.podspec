@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'UNUMCanvas'
-  s.version          = '4.1.0'
+  s.version          = '4.0.5'
   s.summary          = 'Unum Canvas'
   s.swift_version    = '5.0'
 
@@ -38,5 +38,5 @@ TODO: Add long description of the pod here.
    }
 
   s.dependency 'Anchorage'
-  s.dependency 'unum-ios-ui', '1.5.0'
+  s.dependency 'unum-ios-ui', '2.0.0'
 end
