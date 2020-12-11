@@ -10,7 +10,8 @@ import Foundation
 // MARK: Rotate Gesture
 extension CanvasController {
 
-    @objc func rotateSelectedViewController(_ sender: UIRotationGestureRecognizer) {
+    @objc
+    func rotateSelectedViewController(_ sender: UIRotationGestureRecognizer) {
         guard let selectedView = selectedView else {
             return
         }

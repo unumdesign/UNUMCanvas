@@ -91,8 +91,8 @@ disabled_rules:
 
 opt_in_rules:
   - anyobject_protocol
-  ##- array_init
-  ##- attributes
+  - array_init
+  - attributes
   ##- closure_body_length
   ##- closure_end_indentation
   ##- closure_spacing
@@ -190,7 +190,7 @@ included:
    - ../UNUMCanvas
 
 line_length:
-  warning: 127
+  warning: 200
   ignores_function_declarations: true
   ignores_comments: true
   ignores_interpolated_strings: true
